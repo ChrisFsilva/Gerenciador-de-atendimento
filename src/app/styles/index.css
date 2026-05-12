@@ -1,0 +1,33 @@
+
+/* Custom scrollbar for table if needed on very small screens */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1; 
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8; 
+}
+
+/* Tab styling trick to make it look like a connected folder */
+.tab-active {
+    position: relative;
+    z-index: 10;
+    border-bottom-color: transparent !important;
+}
+.tab-active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background-color: #f8fafc; /* matches bg-slate-50 */
+}

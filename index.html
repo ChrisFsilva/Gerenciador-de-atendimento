@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fila de atendimento</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/index.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <main class="w-full max-w-4xl flex flex-col gap-6">
+        <!--Menu horizontal superior-->
+        <div class="flex flex-col">
+            <nav class="flex w-full overflow-x-auto sm:overflow-visible">
+                <button onclick="switchTab('fila')" id="tab-fila" class="tab-active flex-1 bg-slate-50 text-slate-800 font-semibold py-4 px-2 sm:px-4 rounded-t-xl transition-all flex items-center justify-center gap-2 shadow-sm whitespace-nowrap">
+                    <i class="fa-solid fa-users text-slate-500"></i>
+                    <!--Titulo do botão-->FILA
+                </button>
+                <button onclick="switchTab('orcamento')" id="tab-orcamento" class="flex-1 bg-gray-400 text-gray-700 hover:bg-gray-300 hover:text-slate-800 font-medium py-3 px-2 sm:px-4 mt-1 rounded-t-xl transition-all flex items-center justify-center gap-2 shadow-inner whitespace-nowrap">
+                    <i class="fa-solid fa-file-invoice-dollar opacity-70"></i>
+                    <!--Titulo do botão-->GESTÃO DE ORÇAMENTO
+                </button>
+                <button onclick="switchTab('desempenho')" id="tab-desempenho" class="flex-1 bg-gray-400 text-gray-700 hover:bg-gray-300 hover:text-slate-800 font-medium py-3 px-2 sm:px-4 mt-1 rounded-t-xl transition-all flex items-center justify-center gap-2 shadow-inner whitespace-nowrap">
+                    <i class="fa-solid fa-chart-line opacity-70"></i>
+                    <!--Titulo do botão-->DESEMPENHO
+                </button>
+            </nav>
+        </div>
+
+        <!-- FILA -->
+        <div id="content-fila" class="bg-slate-50 rounded-b-2xl shadow-2xl p-8 sm:p-12 relative z-0 flex flex-col items-center border border-slate-200/50">
+                
+            <!-- Titulo -->
+            <h2 class="mt-5 text-lg sm:text-xl text-slate-600 font-medium text-center">Sua posição na fila:</h2>
+
+            <!-- Criação do apontamento da fila -->
+            <div class="relative mt-4">
+                <!-- efeito de glowing -->
+                <div class="absolute inset-0 rounded-full bg-slate-200 animate-pulse-slow scale-110 opacity-50"></div>
+                <!-- Circulo central -->
+                <div class="relative w-40 h-40 sm:w-48 sm:h-48 rounded-full border-[6px] border-slate-800 flex items-center justify-center bg-white shadow-inner">
+                    <span class="text-7xl sm:text-8xl font-light text-slate-800 leading-none" style="font-family: 'Inter', sans-serif;">4</span>
+                </div>
+            </div>
+        </div>
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 mt-10 w-full justify-center">
+            <button onclick="showToast('Atendimento registrado com sucesso!', 'success')" class="flex items-center justify-center gap-3 bg-[#44b564] hover:bg-[#2e8245] text-white py-4 rounded-xl shadow-lg shadow-green-500/20 transition-colors duration-200 active:bg-[#256a38] w-full sm:w-72">
+                <i class="fa-solid fa-check text-lg"></i>
+                <span class="font-semibold tracking-wide">REGISTRAR ATENDIMENTO</span>
+            </button>
+            
+            <button onclick="showToast('Você saiu da fila.', 'error')" class="flex items-center justify-center gap-3 bg-[#d94848] hover:bg-[#a63030] text-white py-4 rounded-xl shadow-lg shadow-red-500/20 transition-colors duration-200 active:bg-[#852525] w-full sm:w-72">
+                <i class="fa-solid fa-arrow-right-from-bracket text-lg"></i>
+                <span class="font-semibold tracking-wide">SAIR DA FILA</span>
+            </button>
+        </div>
+    </main>
+
+    <script>
+        // Função para funcionamento dos botões no menu horizontal superior
+        function switchTab(tabName) {
+            // Lista de telas que podem ser aplicadas no parametro
+            const tabs = ['fila', 'orcamento', 'desempenho'];
+            
+            // Adicionar o parametro em uma varivel
+            tabs.forEach(SelectModulo => {
+                // Loop para chegar todos parametros
+                const btn = document.getElementById(`tab-${t}`);
+                const content = document.getElementById(`content-${t}`);
+                
+                // Loop para verificar qual conteudo esta no parametro
+                // for igual a variavel 
+                if (SelectModulo === tabName) {
+                    // Trocar a classe para botão ativado
+                    btn.className = "tab-active flex-1 bg-slate-50 text-slate-800 font-semibold py-4 px-2 sm:px-4 rounded-t-xl transition-all flex items-center justify-center gap-2 shadow-sm whitespace-nowrap";
+                    content.classList.remove('hidden');
+                    // Faz o conteudo aparecer
+                    content.classList.add('flex');
+                    if(t !== 'fila') content.classList.replace('flex', 'block'); // Adjust display for empty states
+                } 
+                // Se o parametro não foi igual o da variavel
+                else {
+                    // Trocar a classe para botão desativado
+                    btn.className = "flex-1 bg-gray-400 text-gray-700 hover:bg-gray-300 hover:text-slate-800 font-medium py-3 px-2 sm:px-4 mt-1 rounded-t-xl transition-all flex items-center justify-center gap-2 shadow-inner whitespace-nowrap";
+                    content.classList.add('hidden');
+                    // Oculta o conteudo
+                    content.classList.remove('flex', 'block');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

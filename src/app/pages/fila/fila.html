@@ -1,0 +1,69 @@
+<div id="toast-container"></div>
+
+<main class="w-full max-w-4xl flex flex-col gap-6">
+    <!--Menu horizontal superior-->
+    <div class="flex flex-col">
+        <nav class="flex w-full overflow-x-auto sm:overflow-visible">
+            <button (click)="switchTab('fila')" id="tab-fila" class="tab-active flex-1 bg-slate-50 text-slate-800 font-semibold py-4 px-2 sm:px-4 rounded-t-xl transition-all flex items-center justify-center gap-2 shadow-sm whitespace-nowrap">
+                <i class="fa-solid fa-users text-slate-500"></i>
+                <!--Titulo do botão-->FILA
+            </button>
+            <button (click)="switchTab('orcamento')" id="tab-orcamento" class="flex-1 bg-gray-400 text-gray-700 hover:bg-gray-300 hover:text-slate-800 font-medium py-3 px-2 sm:px-4 mt-1 rounded-t-xl transition-all flex items-center justify-center gap-2 shadow-inner whitespace-nowrap">
+                <i class="fa-solid fa-file-invoice-dollar opacity-70"></i>
+                <!--Titulo do botão-->GESTÃO DE ORÇAMENTO
+            </button>
+            <button (click)="switchTab('desempenho')" id="tab-desempenho" class="flex-1 bg-gray-400 text-gray-700 hover:bg-gray-300 hover:text-slate-800 font-medium py-3 px-2 sm:px-4 mt-1 rounded-t-xl transition-all flex items-center justify-center gap-2 shadow-inner whitespace-nowrap">
+                <i class="fa-solid fa-chart-line opacity-70"></i>
+                <!--Titulo do botão-->DESEMPENHO
+            </button>
+        </nav>
+    
+
+        <!-- FILA -->
+        <div id="content-fila" class="bg-slate-50 rounded-b-2xl shadow-2xl p-8 sm:p-12 relative z-0 flex flex-col items-center border border-slate-200/50">
+                
+            <!-- Titulo -->
+            <h2 class="mt-5 text-lg sm:text-xl text-slate-600 font-medium text-center">Sua posição na fila:</h2>
+
+            <!-- Criação do apontamento da fila -->
+            <div class="relative mt-4">
+                <!-- efeito de glowing -->
+                <div class="absolute inset-0 rounded-full bg-slate-200 animate-pulse-slow scale-110 opacity-50"></div>
+                <!-- Circulo central -->
+                <div class="relative w-40 h-40 sm:w-48 sm:h-48 rounded-full border-[6px] border-slate-800 flex items-center justify-center bg-white shadow-inner">
+                    <span class="text-7xl sm:text-8xl font-light text-slate-800 leading-none" style="font-family: 'Inter', sans-serif;">4</span>
+                </div>
+            </div>
+
+            <!-- ação dos botões -->
+            <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 mt-10 w-full justify-center">
+                <!-- Botão "Registrar atendimento"-->
+                <button (click)="showToast('Atendimento registrado com sucesso!', 'success')" class="flex items-center justify-center gap-3 bg-[#44b564] hover:bg-[#2e8245] text-white py-4 rounded-xl shadow-lg shadow-green-500/20 transition-colors duration-200 active:bg-[#256a38] w-full sm:w-72">
+                    <i class="fa-solid fa-check text-lg"></i>
+                    <span class="font-semibold tracking-wide">REGISTRAR ATENDIMENTO</span>
+                </button>
+                
+                <!-- Botão sair da fila-->
+                <button (click)="showToast('Você saiu da fila.', 'error')" class="flex items-center justify-center gap-3 bg-[#d94848] hover:bg-[#a63030] text-white py-4 rounded-xl shadow-lg shadow-red-500/20 transition-colors duration-200 active:bg-[#852525] w-full sm:w-72">
+                    <i class="fa-solid fa-arrow-right-from-bracket text-lg"></i>
+                    <span class="font-semibold tracking-wide">SAIR DA FILA</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- AÇÃO TEMPORARIA PARA AS PAGINAS LIMPAS -->
+            <!-- Módulo de gestão de orçamento -->
+        <div id="content-orcamento" class="hidden bg-slate-50 rounded-b-2xl shadow-2xl p-12 text-center relative z-0 border border-slate-200/50">
+            <i class="fa-solid fa-file-invoice-dollar text-6xl text-slate-300 mb-4"></i>
+            <h2 class="text-2xl text-slate-600 font-medium">Gestão de Orçamento</h2>
+            <p class="text-slate-400 mt-2">Módulo em desenvolvimento.</p>
+        </div>
+
+            <!-- Módulo de estatísticas-->
+        <div id="content-desempenho" class="hidden bg-slate-50 rounded-b-2xl shadow-2xl p-12 text-center relative z-0 border border-slate-200/50">
+            <i class="fa-solid fa-chart-line text-6xl text-slate-300 mb-4"></i>
+            <h2 class="text-2xl text-slate-600 font-medium">Desempenho</h2>
+            <p class="text-slate-400 mt-2">Módulo em desenvolvimento.</p>
+        </div>
+    </div>
+</main>

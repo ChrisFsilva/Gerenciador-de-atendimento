@@ -1,3 +1,35 @@
-/* You can add global styles to this file, and also import other style files */
+/* CSS GLOBAL */
 
 @import 'tailwindcss';
+
+.menu-button{
+    @apply
+        flex-1
+        font-semibold
+        py-3
+        px-2
+        rounded-t-xl
+        transition-all
+        flex
+        items-center
+        justify-center
+        gap-2
+        shadow-sm
+        whitespace-nowrap
+        bg-gray-400
+        text-gray-700;
+        
+}
+
+.menu-button-active{
+    @apply
+        bg-slate-50
+        text-slate-800;
+}
+
+.menu-button:hover {
+    @apply
+        bg-gray-300
+        text-slate-800;
+        
+}

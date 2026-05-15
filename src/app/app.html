@@ -1,4 +1,78 @@
+<div class="
+    bg-[#0a0a0a]
+    min-h-screen
+    font-sans
+    text-slate-800
+    flex
+    items-center
+    justify-center
+    p-4 sm:p-8
+    ">
+    <!-- CONTAINER PRINCIPAL -->
+    <main class="
+        w-full
+        max-w-4xl
+        flex flex-col
+        ">
+        <!-- MENU -->
+        <nav class="
+            flex
+            w-full
+            overflow-x-auto
+            sm:overflow-visible
+            ">
+            <!-- BOTÃO FILA -->
+            <button
+                (click)="switchTab('fila')"
+                class="
+                    menu-button
+                    cursor-pointer
+                    sm:px-4
+                    hover:bg-gray-300
+                    hover:text-slate-800"
+                [class.menu-button-active]="activeTab === 'fila'">
+                <i class="fa-solid fa-users"></i>
+                FILA
 
-<router-outlet>
-  
-</router-outlet> />
+            </button>
+            <!-- BOTÃO DE FOLLOWS -->
+            <button
+                (click)="switchTab('followup')"
+                class="
+                    menu-button
+                    cursor-pointer
+                    sm:px-4
+                    hover:bg-gray-300
+                    hover:text-slate-800"
+                [class.menu-button-active]="activeTab === 'followup'">
+
+                <i class="fa-solid fa-calendar-check"></i>
+
+
+                AGENDAMENTOS
+
+            </button>
+            <!-- BOTÃO AREA DOS GRAFICOS -->
+            <button
+                (click)="switchTab('dashboard')"
+                class="
+                    menu-button
+                    cursor-pointer
+                    sm:px-4
+                    hover:bg-gray-300
+                    hover:text-slate-800"
+                [class.menu-button-active]="activeTab === 'dashboard'">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                DESEMPENHO
+
+            </button>
+        </nav>
+        <!-- CARREGAR CONTEÚDO DAS PAGINAS DINAMICAMENTE -->
+        <app-fila *ngIf="activeTab === 'fila'"></app-fila>
+        <app-followup *ngIf="activeTab === 'followup'"></app-followup>
+        <app-dashboard *ngIf="activeTab === 'dashboard'"></app-dashboard>
+
+    </main>  
+</div>

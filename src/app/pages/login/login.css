@@ -12,12 +12,20 @@
     position: relative;
 
     font-family: 'Poppins', sans-serif;
+    background: #0a0a0a
 }
 
 .container {
-    width: 1200px;
-    height: 700px;
-    background: #f7f7f7;
+    width: 1000px;
+    height: 600px;
+    background: linear-gradient(
+    90deg,
+    #111827,
+    #374151,
+    #6b7280,
+    #9ca3af,
+    #1f2937
+    );
     display: flex;
     border-radius: 8px;
     overflow: hidden;
@@ -114,7 +122,7 @@
 }
 
 .btn-login:hover {
-    background: #d4ac0d;
+    background: #3a6283;
     transform: translateY(-2px);
 }
 
@@ -125,7 +133,7 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    background: #f7f7f7;
+    
 }
 
 .illustration {
@@ -182,7 +190,9 @@ font-weight: bold;
 }
 
 .logoName{
-    font-size: 80px;
+    font-size: 40px;
+    margin-bottom: 50px;
+    text-align: center;
     font-weight: bold;
     background: linear-gradient(
         90deg,
@@ -194,4 +204,52 @@ font-weight: bold;
         );
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+}
+
+#toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    z-index: 9999;
+}
+
+.toast {
+    min-width: 300px;
+
+    padding: 16px 20px;
+
+    border-radius: 12px;
+
+    color: white;
+    font-weight: 600;
+
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+
+    animation: slideIn 0.3s ease;
+}
+
+.toast-success {
+    background: #22c55e;
+}
+
+.toast-error {
+    background: #ef4444;
+}
+
+@keyframes slideIn {
+
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }

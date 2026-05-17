@@ -1,22 +1,31 @@
+<div id="toast-container"></div>
 <div class="container">
 
     <!-- LOGIN -->
     <div class="login-area">
       <div class="login-box">
 
-        <h1 class="logoName">SALES CONCIERGE</h1>
+        <h2 class="logoName">SALES CONCIERGE</h2>
 
         <div class="input-group">
           <label>Login</label>
-          <input type="text" placeholder="Digite seu usuário">
+          <input 
+            type="text" 
+            placeholder="Digite seu usuário"
+            [(ngModel)]="email">
         </div>
 
         <div class="input-group">
           <label>Senha</label>
-          <input type="password" placeholder="Digite sua senha">
+          <input
+            type="password" 
+            placeholder="Digite sua senha"
+            [(ngModel)]="senha">
         </div>
 
-        <button class="btn-login">
+        <button 
+            class="btn-login"
+            (click)="login()">
           LOGAR
         </button>
 
@@ -38,11 +47,10 @@
 
           <div class="window-content">
             <div class="lux-icon">
-                <img href="/assets/homePageIcon.png"></image>
+                <img src="/assets/homePageIcon.png" />
             </div>
             <h3>SEJA BEM VINDO</h3>
-            <p>organize seus atendimentos, acompanhe as prioridades e otimize a gestão diária de vendas.
-</p>
+            <p>organize seus atendimentos, acompanhe as prioridades e otimize a gestão diária de vendas.</p>
           </div>
 
         </div>

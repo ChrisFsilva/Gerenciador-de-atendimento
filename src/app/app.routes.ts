@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { Login } from './pages/login/login'
-import { Fila } from './pages/fila/fila';
+import { Home } from './pages/home/home';
 
 // Rota de acesso as paginas
 export const routes: Routes = [
@@ -8,17 +8,15 @@ export const routes: Routes = [
     {
         path:'',
         redirectTo:'login',
-        pathMatch: 'full'
+        pathMatch:'full'
     },
-    /* Criar rota da página de login*/
     {
         path:'login',
         component: Login
     },
-    /* Criar rota da página de login*/
     {
-        path:'fila',
-        component: Fila
-    },
+        path:'home',
+        component: Home
+    }
 
 ];

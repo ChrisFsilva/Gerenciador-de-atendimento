@@ -1,13 +1,21 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-fila',
   standalone: true,
   templateUrl: './fila.html',
+  imports: [
+    CommonModule
+  ],
   styleUrl: './fila.css',
 })
 
+
 export class Fila {
+  estaNaFila: boolean = false;
+
+  posicaoFila: number = 0;
 
   showToast(message: string, type: string = 'success') {
 
@@ -105,5 +113,21 @@ export class Fila {
       }, 300);
 
     }, 3000);
+  }
+  entrarFila() {
+    this.estaNaFila = true;
+    this.posicaoFila = Math.floor(Math.random() * 10) + 1;;
+    this.showToast(
+      'Você entrou na fila',
+      'success'
+    );
+  }
+  sairFila() {
+    this.estaNaFila = false;
+    this.posicaoFila = 0;
+    this.showToast(
+      'Você saiu da fila',
+      'error'
+    );
   }
 }

@@ -1,4 +1,18 @@
-<!-- Fundo -->
+<!-- SISTEMA DE NOTIFICAÇÃO -->
+<div id="toast-container"
+    class="
+    fixed
+    top-6
+    left-1/2
+    -translate-x-1/2
+    z-[9999]
+    flex
+    flex-col
+    gap-3
+    pointer-events-none">
+</div>
+
+<!-- FUNDO -->
 <div class="
     bg-slate-50
     rounded-b-2xl
@@ -8,22 +22,27 @@
     flex
     flex-col
     items-center
-    border border-slate-200/50">
+    border
+    border-slate-200/50
+">
 
-    <!-- SISTEMA DE NOTIFICAÇÃO -->
-    <div id="toast-container"></div>
-    <!-- TEXTO DE POSIÇÃO DA FILA-->
+    <!-- TEXTO -->
     <h2 class="
         mt-5
         text-lg
         sm:text-xl
         text-slate-600
         font-medium
-        text-center"> 
+        text-center
+    ">
         Sua posição na fila:
     </h2>
-    <!-- INDICADOR CIRCULAR DA FILA -->
-    <div class="relative mt-4">
+
+    <!-- PAINEL DA FILA -->
+    <div
+        *ngIf="estaNaFila"
+        class="relative mt-4">
+
         <!-- GLOW -->
         <div class="
             absolute
@@ -32,9 +51,11 @@
             bg-slate-200
             animate-pulse-slow
             scale-110
-            opacity-50">
+            opacity-50
+        ">
         </div>
-        <!-- CIRCULO PRINCIPAL -->
+
+        <!-- CÍRCULO -->
         <div class="
             relative
             w-40
@@ -48,18 +69,50 @@
             items-center
             justify-center
             bg-white
-            shadow-inner">
-            <!-- NÚMERO NA FILA -->
-            <span class="text-7xl
+            shadow-inner
+        ">
+
+            <!-- POSIÇÃO -->
+            <span class="
+                text-7xl
                 sm:text-8xl
                 font-light
                 text-slate-800
-                leading-none">
-            1
+                leading-none
+            ">
+                {{ posicaoFila }}
             </span>
+
         </div>
+
     </div>
-    <!-- BOTÕES INFERIORES -->
+
+    <!-- ESTADO VAZIO -->
+    <div
+        *ngIf="!estaNaFila"
+        class="
+            mt-10
+            text-center
+        ">
+
+        <i class="
+            fa-solid
+            fa-users
+            text-6xl
+            text-slate-300
+        "></i>
+
+        <p class="
+            mt-4
+            text-slate-500
+            text-lg
+        ">
+            Você ainda não entrou na fila
+        </p>
+
+    </div>
+
+    <!-- BOTÕES -->
     <div class="
         flex
         flex-col
@@ -68,11 +121,46 @@
         sm:gap-6
         mt-10
         w-full
-        justify-center">
+        justify-center
+    ">
 
-        <!-- BOTÃO REGISTRAR ATENDIMENTO -->
+        <!-- ENTRAR NA FILA -->
         <button
-            (click)="showToast('Atendimento registrado com sucesso!','sucess')"
+            *ngIf="!estaNaFila"
+            (click)="entrarFila()"
+            class="
+                flex
+                items-center
+                justify-center
+                gap-3
+                bg-[#eab308]
+                hover:bg-[#ca8a04]
+                text-white
+                py-4
+                rounded-xl
+                shadow-lg
+                transition-colors
+                duration-200
+                w-full
+                sm:w-72
+                cursor-pointer
+            ">
+
+            <i class="fa-solid fa-right-to-bracket text-lg"></i>
+
+            <span class="
+                font-semibold
+                tracking-wide
+            ">
+                ENTRAR NA FILA
+            </span>
+
+        </button>
+
+        <!-- REGISTRAR ATENDIMENTO -->
+        <button
+            *ngIf="estaNaFila"
+            (click)="showToast('Atendimento registrado com sucesso!', 'success')"
             class="
                 flex
                 items-center
@@ -90,20 +178,26 @@
                 active:bg-[#256a38]
                 w-full
                 sm:w-72
+                cursor-pointer
             ">
 
             <i class="fa-solid fa-check text-lg"></i>
 
-            <span class=" font-semibold tracking-wide">
+            <span class="
+                font-semibold
+                tracking-wide
+            ">
                 REGISTRAR ATENDIMENTO
             </span>
+
         </button>
 
-        <!-- BOTÃO SAIR DA FILA -->
+        <!-- SAIR DA FILA -->
         <button
-            (click)="showToast('Você saiu da fila','error')"
+            *ngIf="estaNaFila"
+            (click)="sairFila()"
             class="
-                            flex
+                flex
                 items-center
                 justify-center
                 gap-3
@@ -119,15 +213,20 @@
                 active:bg-[#852525]
                 w-full
                 sm:w-72
+                cursor-pointer
             ">
+
             <i class="fa-solid fa-arrow-right-from-bracket text-lg"></i>
 
             <span class="
-            font-semibold
-            tracking-wide">
+                font-semibold
+                tracking-wide
+            ">
                 SAIR DA FILA
             </span>
+
         </button>
-        
+
     </div>
+
 </div>

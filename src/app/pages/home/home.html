@@ -23,28 +23,28 @@
             ">
             <!-- BOTÃO FILA -->
             <button
-                (click)="switchTab('fila')"
+                routerLink="/home/fila"
+                routerLinkActive="menu-button-active"
                 class="
                     menu-button
                     cursor-pointer
                     sm:px-4
                     hover:bg-gray-300
-                    hover:text-slate-800"
-                [class.menu-button-active]="activeTab === 'fila'">
+                    hover:text-slate-800">
                 <i class="fa-solid fa-users"></i>
                 FILA
 
             </button>
             <!-- BOTÃO DE FOLLOWS -->
             <button
-                (click)="switchTab('followup')"
+                routerLink="/home/followup"
+                routerLinkActive="menu-button-active"
                 class="
                     menu-button
                     cursor-pointer
                     sm:px-4
                     hover:bg-gray-300
-                    hover:text-slate-800"
-                [class.menu-button-active]="activeTab === 'followup'">
+                    hover:text-slate-800">
 
                 <i class="fa-solid fa-calendar-check"></i>
 
@@ -54,14 +54,14 @@
             </button>
             <!-- BOTÃO AREA DOS GRAFICOS -->
             <button
-                (click)="switchTab('dashboard')"
+                routerLink="/home/dashboard"
+                routerLinkActive="menu-button-active"
                 class="
                     menu-button
                     cursor-pointer
                     sm:px-4
                     hover:bg-gray-300
-                    hover:text-slate-800"
-                [class.menu-button-active]="activeTab === 'dashboard'">
+                    hover:text-slate-800">
 
                 <i class="fa-solid fa-chart-line"></i>
 
@@ -69,10 +69,12 @@
 
             </button>
         </nav>
-        <!-- CARREGAR CONTEÚDO DAS PAGINAS DINAMICAMENTE -->
-        <app-fila *ngIf="activeTab === 'fila'"></app-fila>
-        <app-followup *ngIf="activeTab === 'followup'"></app-followup>
-        <app-dashboard *ngIf="activeTab === 'dashboard'"></app-dashboard>
 
+        <!-- DESATIVADO POIS MIGREI O CÓDIGO PARA A METODOLOGIA ROUTER-OUTLET  -->
+        <!-- CARREGAR CONTEÚDO DAS PAGINAS DINAMICAMENTE -->
+        <!-- <app-fila *ngIf="activeTab === 'fila'"></app-fila>
+        <app-followup *ngIf="activeTab === 'followup'"></app-followup>
+        <app-dashboard *ngIf="activeTab === 'dashboard'"></app-dashboard> -->
+        <router-outlet></router-outlet>
     </main>  
 </div>

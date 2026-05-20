@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { FilaModel } from '../../models/fila.model';
+
 
 @Component({
   selector: 'app-fila',
@@ -14,8 +17,12 @@ import { CommonModule } from '@angular/common';
 
 export class Fila {
   estaNaFila: boolean = false;
-
   posicaoFila: number = 0;
+  fila: FilaModel[]=[];
+
+  constructor(
+    private router: Router
+  ){}
 
   showToast(message: string, type: string = 'success') {
 
@@ -129,5 +136,14 @@ export class Fila {
       'Você saiu da fila',
       'error'
     );
+  }
+  registrarAtendimento(){
+
+    // Navega para a gamificação
+    this.router.navigate(['/home/gamificacao'])
+      .then(() => {
+        console.log('SAIU DA FILA')
+        this.sairFila();
+      });
   }
 }

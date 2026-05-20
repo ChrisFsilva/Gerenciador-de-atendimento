@@ -177,11 +177,13 @@ font-family: 'Manrope', sans-serif;
     align-items: center;
     gap: 20px;
     text-align: center;
-font-weight: bold;
+    font-weight: bold;
 }
 
-.lux-icon {
-    font-size: 72px;}
+.lux-icon{
+    width: 140px;
+    height: 140px;
+    object-fit: contain;}
 
 .window-content h2 {
     color: #0a0a0a;

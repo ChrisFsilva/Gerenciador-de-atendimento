@@ -145,6 +145,14 @@
     background-color: #fef3c7;
     color: #92400e;
 }
+.closeScreen{
+   font-size: 20px;
+}
+.closeScreen:hover{
+   cursor: pointer;
+   font-size: 25px;
+   color:#991b1b;
+}
 
 @media (max-width: 1024px) {
     .board {

@@ -6,18 +6,36 @@ export interface FollowsModel {
 
     cliente: string;
 
+    arquiteto: string;
+
     telefone: string;
 
     email: string;
 
-    vendedorId: number;
+    vendedor: string;
 
-    lojaId: number;
+    lojaId: string;
 
-    dataAgendamento: Date;
+    data: string;
+
+    hora: string;
 
     observacoes?: string;
 
-    status: 'agendado' | 'concluido' | 'cancelado';
-
+    estagio:
+        'Sem necessidade de ajuste' |
+        'Ajuste de proposta'|
+        'Contornando objeções'|
+        'Aguardando decisão'|
+        'Momento de entender a preferencia'|
+        'Em negociação'|
+        'Negociação final'|
+        'Fechamento';
+    
+    status:
+        'Em follow'|
+        'Não realizou o follow'|
+        'Encerrado Brentwood'|
+        'Encerrado concorrência'|
+        'Desistiu da compra';
 }

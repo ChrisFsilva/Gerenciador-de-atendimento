@@ -1,0 +1,325 @@
+<div
+  *ngIf="telaAtual === 'jogo'"
+  class="
+    w-full
+    max-w-2xl
+    mx-auto
+    bg-slate-800/80
+    backdrop-blur-md
+    border
+    border-slate-700
+    rounded-3xl
+    shadow-2xl
+    p-8
+  "
+>
+
+    <!-- DEBUG -->
+    <!-- <div class="mb-4 text-sm text-slate-400">
+        Tipo atual: {{ perguntaAtual.type }}
+    </div> -->
+
+    <!-- DEBUG OBJETO -->
+    <!-- <pre class="text-xs text-slate-500 mb-6 overflow-auto">
+{{ perguntaAtual | json }}
+    </pre> -->
+
+    <!-- CATEGORIA -->
+    <div class="mb-6">
+
+        <span
+            class="
+            bg-indigo-500/20
+            text-indigo-300
+            px-4
+            py-2
+            rounded-full
+            text-sm
+            font-bold">
+            {{ perguntaAtual.category }}
+        </span>
+
+    </div>
+
+    <!-- PERGUNTA -->
+    <div
+        class="
+        bg-slate-900/50
+        border
+        border-slate-700
+        rounded-2xl
+        p-10
+        mb-8
+        min-h-[220px]
+        flex
+        items-center
+        justify-center
+        text-center">
+
+        <h1
+            class="
+            text-3xl
+            font-semibold
+            text-white
+            leading-relaxed">
+            {{ perguntaAtual.text }}
+        </h1>
+
+    </div>
+
+    <!-- BOOLEAN -->
+    <div
+        *ngIf="perguntaAtual.type === 'boolean'"
+        class="grid grid-cols-2 gap-5">
+
+        <!-- NÃO -->
+        <button
+            (click)="responderBoolean('False')"
+            class="
+            bg-red-500/10
+            hover:bg-red-500/20
+            border
+            border-red-500/30
+            text-red-300
+            rounded-2xl
+            py-6
+            font-bold
+            transition-all
+            duration-200
+            cursor-pointer">
+            NÃO
+        </button>
+
+        <!-- SIM -->
+        <button
+            (click)="responderBoolean('True')"
+            class="
+            bg-emerald-500/10
+            hover:bg-emerald-500/20
+            border
+            border-emerald-500/30
+            text-emerald-300
+            rounded-2xl
+            py-6
+            font-bold
+            transition-all
+            duration-200
+            cursor-pointer">
+            SIM
+        </button>
+
+    </div>
+
+    <!-- INPUT -->
+    <div
+        *ngIf="perguntaAtual.type === 'input'"
+        class="flex flex-col gap-5">
+
+        <input
+            type="text"
+            [(ngModel)]="respostaInput"
+            [placeholder]="perguntaAtual.placeholder"
+            class="
+            w-full
+            bg-slate-900/50
+            border
+            border-slate-700
+            rounded-2xl
+            px-6
+            py-5
+            text-white
+            text-lg
+            outline-none
+            focus:border-indigo-500"/>
+
+        <button
+            (click)="responderInput()"
+            class="
+            bg-indigo-600
+            hover:bg-indigo-500
+            text-white
+            font-bold
+            py-5
+            rounded-2xl
+            text-xl
+            transition-all
+            duration-200
+            cursor-pointer">
+            Continuar
+        </button>
+
+    </div>
+
+    <!-- SELECT -->
+    <div
+        *ngIf="perguntaAtual.type === 'select'"
+        class="flex flex-col gap-4">
+        <button
+            *ngFor="let option of perguntaAtual.options"
+            (click)="responderSelect(option)"
+            class="
+            w-full
+            bg-slate-900/50
+            hover:bg-indigo-500/20
+            border
+            border-slate-700
+            hover:border-indigo-500
+            text-white
+            rounded-2xl
+            py-5
+            px-6
+            text-left
+            font-semibold
+            transition-all
+            duration-200
+            cursor-pointer">
+            {{ option.label }}
+        </button>
+    </div>
+
+    <!-- DATE -->
+    <div
+        *ngIf="perguntaAtual.type === 'datetime-local'"
+        class="flex flex-col gap-5">
+
+        <input
+            [type]="perguntaAtual.type"
+            [(ngModel)]="respostaInput"
+            class="
+            w-full
+            bg-slate-900/50
+            border
+            border-slate-700
+            rounded-2xl
+            px-6
+            py-5
+            text-white
+            text-lg
+            outline-none
+            focus:border-indigo-500"/>
+
+        <button
+            (click)="responderInput()"
+            class="
+            bg-indigo-600
+            hover:bg-indigo-500
+            text-white
+            font-bold
+            py-5
+            rounded-2xl
+            text-xl
+            transition-all
+            duration-200
+            cursor-pointer">
+            Continuar
+        </button>
+    </div>
+</div>
+
+<!-- RESULTADO -->
+<div
+    *ngIf="telaAtual === 'resultado'"
+    class="
+    w-full
+    max-w-2xl
+    mx-auto
+    bg-slate-800/80
+    backdrop-blur-md
+    border
+    border-slate-700
+    rounded-3xl
+    shadow-2xl
+    p-10
+    text-center">
+
+    <!-- ÍCONE -->
+    <div
+        class="
+        w-28
+        h-28
+        mx-auto
+        mb-8
+        rounded-full
+        bg-indigo-500/20
+        flex
+        items-center
+        justify-center
+        text-6xl">
+        🏆
+    </div>
+
+    <!-- TÍTULO -->
+    <h1
+        class="
+        text-4xl
+        font-bold
+        text-white
+        mb-3">
+        Atendimento Finalizado
+    </h1>
+
+    <p class="text-slate-400 mb-10">
+        Resultado da avaliação do atendimento
+    </p>
+
+    <!-- SCORE -->
+    <div
+        class="
+        bg-slate-900/50
+        border
+        border-slate-700
+        rounded-2xl
+        p-8
+        mb-8">
+
+        <p class="text-slate-400 text-sm uppercase mb-3">
+            Pontuação Total
+        </p>
+
+        <h2
+            class="
+            text-6xl
+            font-bold
+            text-indigo-400">
+            {{ score }}
+        </h2>
+    </div>
+
+    <!-- RANK -->
+    <div
+        class="
+        bg-slate-900/50
+        border
+        border-slate-700
+        rounded-2xl
+        p-8
+        mb-10">
+        <p class="text-slate-400 text-sm uppercase mb-3">
+            Ranking
+        </p>
+        <h2
+            class="
+            text-4xl
+            font-bold
+            text-amber-400">
+            {{ ranking }}
+        </h2>
+    </div>
+    <!-- BOTÃO -->
+    <button
+        (click)="finalizarAtendimentoFila()"
+        class="
+        w-full
+        bg-emerald-600
+        hover:bg-emerald-500
+        text-white
+        font-bold
+        py-5
+        rounded-2xl
+        text-xl
+        transition-all
+        duration-200
+        cursor-pointer">
+        Finalizar Atendimento
+    </button>
+</div>

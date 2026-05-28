@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "cliente": "Marcos Almeida",
+    "telefone": "(11) 99999-1111",
+    "email":"Marcos.almeidas@gmail.com",
+    "lojaid":"Bw1",
+    "vendedor": "Christopher",
+    "arquiteto": "Fernanda Lima",
+    "ambiente": "Sala de Estar",
+    "data": "2026-05-25",
+    "hora": "14:00",
+    "estagio": "Negociação final",
+    "prioridade": "alta",
+    "observacoes": "Cliente interessado em sofá premium e painel ripado.",
+    "status":"Em follow"
+  },
+
+  {
+    "id": 2,
+    "cliente": "Juliana Castro",
+    "telefone": "(11) 98888-2222",
+    "email":"JuCastro@gmail.com",
+    "lojaid":"Bw1",
+    "vendedor": "Christopher",
+    "arquiteto": "Ricardo Souza",
+    "ambiente": "Quarto",
+    "data": "2026-05-22",
+    "hora": "10:30",
+    "estagio": "Contornando objeções",
+    "prioridade": "media",
+    "observacoes": "Cliente deseja orçamento para guarda-roupa planejado.",
+    "status":"Não realizou o follow"
+  },
+
+  {
+    "id": 3,
+    "cliente": "Eduardo Mendes",
+    "telefone": "(11) 97777-3333",
+    "email":"eduardoMendes@gmail.com",
+    "lojaid":"Bw1",
+    "vendedor": "Christopher",
+    "arquiteto": "Camila Rocha",
+    "ambiente": "Área Gourmet",
+    "data": "2026-05-18",
+    "hora": "16:00",
+    "estagio": "Momento de entender a preferencia",
+    "prioridade": "alta",
+    "'observacoes'": "Cliente solicitou encaixe prioritário.",
+    "status":"Não realizou o follow"
+  }
+]

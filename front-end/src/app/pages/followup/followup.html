@@ -1,0 +1,630 @@
+<div class="container">        
+    <div class="board">
+
+        <!-- Coluna Atrasados -->
+        <div class="column">
+
+            <div class="column-header">
+                Atrasados
+            </div>
+        
+
+            <div
+                class="card"
+                *ngFor="let follow of followsAtrasados"
+                (click)="abrirModal(follow)">
+
+                <div class="card-title">
+                    {{ follow.cliente }}
+                </div>
+                
+                <div class="card-info">
+                    <div class="info-row">
+                        <span class="info-label">
+                            Orçamento: 
+                        </span>
+
+                        <span class="info-value">
+                            {{ follow.orcamento }}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card-info">
+
+                    <div class="info-row">
+                        <span class="info-label">
+                            Arquiteto:
+                        </span>
+
+                        <span class="info-value">
+                            {{ follow.arquiteto }}
+                        </span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">
+                            Data:
+                        </span>
+
+                        <span class="info-value">
+                            {{ follow.data_agendamento }}
+                        </span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">
+                            Hora:
+                        </span>
+                        <span class="info-value">
+                            {{ follow.hora_agendamento }}
+                        </span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">
+                            Decisão:
+                        </span>
+
+                        <span class="info-value">
+                            {{ follow.prazo_final }}
+                        </span>
+                    </div>
+
+
+                    <!-- Bloco de anotações -->
+                    <span class="badge badge-today badge-notes">
+                        <p>📍 Estágio atual: {{ follow.estagio }}</p>
+                        <p>💡 Estretégia: {{ follow.estrategia }}</p>
+                        <p>🔍 Observações do follow: {{ follow.obs_follow }}</p>
+                        <p>🗣️ Forma de contato: {{ follow.forma_contato }}</p>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Coluna Hoje -->
+        <div class="column">
+
+            <div class="column-header">
+                Hoje
+            </div>
+
+            <div
+                class="card"
+                *ngFor="let follow of followsHoje"
+                (click)="abrirModal(follow)">
+
+                <div class="card-title">
+                    {{ follow.cliente }}
+                </div>
+
+                <div class="card-info">
+
+                    <div class="info-row">
+                        <span class="info-label">
+                            Orçamento:
+                        </span>
+
+                        <span class="info-value">
+                            {{ follow.orcamento }}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card-info">
+
+                    <div class="info-row">
+                        <span class="info-label">
+                            Arquiteto:
+                        </span>
+
+                        <span class="info-value">
+                            {{ follow.arquiteto }}
+                        </span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">
+                            Data:
+                        </span>
+
+                        <span class="info-value">
+                            {{ follow.data_agendamento }}
+                        </span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">
+                            Hora:
+                        </span>
+
+                        <span class="info-value">
+                            {{ follow.hora_agendamento }}
+                        </span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">
+                            Decisão:
+                        </span>
+
+                        <span class="info-value">
+                            {{ follow.prazo_final }}
+                        </span>
+                    </div>
+
+
+                    <!-- Bloco de anotações -->
+                    <span class="badge badge-today badge-notes">
+                        <p>📍 Estágio atual: {{ follow.estagio }}</p>
+                        <p>💡 Estretégia: {{ follow.estrategia }}</p>
+                        <p>🔍 Observações do follow: {{ follow.obs_follow }}</p>
+                        <p>🗣️ Forma de contato: {{ follow.forma_contato }}</p>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL -->
+    <div
+        *ngIf="modalAberto"
+        class="
+            fixed
+            inset-0
+            bg-black/60
+            flex
+            items-center
+            justify-center
+            z-50
+        ">
+
+        <!-- CONTAINER -->
+        <div
+            class="
+                bg-white
+                rounded-2xl
+                p-8
+                w-full
+                max-w-4xl
+                shadow-2xl
+                max-h-[90vh]
+                overflow-y-auto
+            ">
+
+            <!-- HEADER -->
+            <div class="flex justify-between items-center mb-6">
+
+                <h2 class="text-2xl font-bold">
+                    Detalhes do Atendimento
+                </h2>
+
+                <button
+                    (click)="fecharModal()"
+                    class="closeScreen">
+                    ×
+                </button>
+
+            </div>
+
+            <!-- ABAS -->
+            <div class="flex gap-4 border-b mb-6">
+
+                <button
+                    (click)="abaSelecionada = 'detalhes'"
+                    class="
+                        px-4
+                        py-3
+                        font-semibold
+                        border-b-2
+                    "
+                    [ngClass]="
+                        abaSelecionada === 'detalhes'
+                        ? 'border-blue-600 text-blue-600'
+                        : 'border-transparent text-slate-500'
+                    ">
+                    Detalhes do follow
+                </button>
+
+                <button
+                    (click)="abaSelecionada = 'followsHistorico'"
+                    class="
+                        px-4
+                        py-3
+                        font-semibold
+                        border-b-2
+                    "
+                    [ngClass]="
+                        abaSelecionada === 'followsHistorico'
+                        ? 'border-blue-600 text-blue-600'
+                        : 'border-transparent text-slate-500'
+                    ">
+                    Follows anteriores
+                </button>
+
+
+                <!-- A VISUALIZAÇÃO DO HISTÓRICO DO ATENDIMENTO FOI MOMENTANEAMENTE DESATIVADA POIS OS CRITÉRIOS DE PONTUAÇÃO SERÃO REVISTOS -->
+                <!-- <button
+                    (click)="abaSelecionada = 'perguntas'"
+                    class="
+                        px-4
+                        py-3
+                        font-semibold
+                        border-b-2
+                    "
+                    [ngClass]="
+                        abaSelecionada === 'perguntas'
+                        ? 'border-blue-600 text-blue-600'
+                        : 'border-transparent text-slate-500'
+                    ">
+                    Histórico de atendimento
+                </button> -->
+
+            </div>
+
+            <!-- ABA DETALHES -->
+            <div *ngIf="abaSelecionada === 'detalhes'">
+
+                <!-- INFORMAÇÕES -->
+                <div class="space-y-4">
+
+                    <p>
+                        <strong>Cliente:</strong>
+                        {{ followSelecionado?.cliente }}
+
+                        <strong>| Arquiteto:</strong>
+                        {{ followSelecionado?.arquiteto }}
+
+                        <strong>| Orçamento:</strong>
+                        {{ followSelecionado?.orcamento }}
+                    </p>
+
+                    <p>
+                        <strong>Telefone:</strong>
+                        {{ followSelecionado?.telefone }}
+
+                        <strong>| Email:</strong>
+                        {{ followSelecionado?.email }}
+                    </p>
+
+                    <p>
+                        <strong>Data:</strong>
+                        {{ followSelecionado?.data_agendamento }}
+
+                        <strong>| Hora:</strong>
+                        {{ followSelecionado?.hora_agendamento }}
+                    </p>
+
+                    <p>
+                        <strong>Produtos:</strong>
+                        {{ followSelecionado?.produto }}
+                    </p>
+
+                    <p>
+                        <strong>Status:</strong>
+                        {{ followSelecionado?.status }}
+
+                        <strong> | Estágio:</strong>
+                        {{ followSelecionado?.estagio }}
+                    </p>
+
+                    <p>
+                        <strong>Observações do orçamento:</strong>
+                        {{ followSelecionado?.observacoes }}
+                    </p>
+
+                </div>
+
+                <!-- BOTÕES -->
+                <div class="flex gap-4 mt-8">
+
+                    <button
+                        (click)="abrirReagendamento()"
+                        class="
+                            bg-yellow-500
+                            text-white
+                            px-6
+                            py-3
+                            rounded-xl
+                        ">
+                        Reagendar
+                    </button>
+
+                    <button
+                        (click)="abrirEncerramento()"
+                        class="
+                            bg-green-600
+                            text-white
+                            px-6
+                            py-3
+                            rounded-xl
+                        ">
+                        Finalizar
+                    </button>
+
+                </div>
+
+                <!-- FORM REAGENDAMENTO -->
+                <div
+                    *ngIf="acaoSelecionada === 'reagendar'"
+                    class="mt-8 space-y-6">
+                    <div>
+                        <label
+                            class="font-semibold block mb-2">
+                            Esse atendimento foi
+                        </label>
+                        <select 
+                            [(ngModel)]="respostasReagendamento.nivel_atendimento"    
+                            class="w-full border rounded-xl p-3">
+                            <option>Superficial</option>
+                            <option>Adequado</option>
+                            <option>Consultivo</option>
+                            <option>Diferencial Brentwood</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="font-semibold block mb-2">
+                            O cliente saiu
+                        </label>
+                        <select
+                            [(ngModel)]="respostasReagendamento.possibilidade"  
+                            class="w-full border rounded-xl p-3">
+                            <option>Mais próximo da compra</option>
+                            <option>Neutro</option>
+                            <option>Mais distante</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="font-semibold block mb-2">
+                            Qual o estagio para o próximo follow?
+                        </label>
+                        <select
+                            [(ngModel)]="respostasReagendamento.estagio"
+                            class="w-full border rounded-xl p-4 min-h-[120px]">
+                            <option>Sem necessidade de ajuste</option> 
+                            <option>Ajuste de proposta</option>
+                            <option>Contornando objeções</option>
+                            <option>Aguardando decisão</option>
+                            <option>Momento de entender a preferencia</option>
+                            <option>Em negociação</option>
+                            <option>Negociação final</option>
+                            <option>Fechamento</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="font-semibold block mb-2">
+                            O que você faria diferente para elevar esse atendimento?
+                        </label>
+                        <textarea
+                            [(ngModel)]="respostasReagendamento.melhoria" 
+                            class="w-full border rounded-xl p-4 min-h-[120px]">
+                        </textarea>
+                    </div>
+                    <div>
+                        <label
+                            class="font-semibold block mb-2">
+                           Você gostaria de registrar alguma observação sobre esse follow?
+                        </label>
+                        <textarea
+                            [(ngModel)]="respostasReagendamento.obs_follow" 
+                            class="w-full border rounded-xl p-4 min-h-[120px]">
+                        </textarea>
+                    </div>
+                    <div>
+                        <label class="font-semibold block mb-2">
+                           Qual estratégia você irá abordar com esse cliente no próximo follow?
+                        </label>
+                        <textarea
+                            class="w-full border rounded-xl p-4 min-h-[120px]"
+                            [(ngModel)]="respostasReagendamento.estrategia">
+                        </textarea>
+                    </div>
+                    <!-- NOVA DATA -->
+                    <div>
+                        <label class="font-semibold block mb-2">
+                            Data do novo agendamento
+                        </label>
+
+                        <input
+                            type="date"
+                            [(ngModel)]="novaData"
+                            class="w-full border rounded-xl p-3 ">
+                    </div>
+
+                    <!-- NOVA HORA -->
+                    <div>
+
+                        <label class="font-semibold block mb-2">
+                            Hora do novo agendamento
+                        </label>
+
+                        <input
+                            type="time"
+                            [(ngModel)]="novaHora"
+                            class="w-full border rounded-xl p-3 ">
+                    </div>
+                    <div>
+                        <label class="font-semibold block mb-2">
+                           Como você fará o próximo contato?
+                        </label>
+                        <select
+                            class="w-full border rounded-xl p-4 min-h-[120px]"
+                            [(ngModel)]="respostasReagendamento.forma_contato">
+                            <option>E-mail</option>
+                            <option>Ligação</option>
+                            <option>Visita na loja</option>
+                            <option>Visita no local do cliente</option>
+                            <option>Whatsapp</option>
+                        </select>
+                    </div>
+
+                    <button
+                        (click)="confirmaReagendamento()"
+                        class="
+                            bg-blue-600
+                            text-white
+                            px-6
+                            py-3
+                            rounded-xl
+                            w-full
+                        ">
+                        Salvar novo follow
+                    </button>
+
+                </div>
+
+                <!-- FORM FINALIZAÇÃO -->
+                <div
+                    *ngIf="acaoSelecionada === 'finalizar'"
+                    class="mt-8 space-y-6">
+
+                    <div>
+
+                        <label class="font-semibold block mb-2">
+                            Como finalizou esse atendimento
+                        </label>
+
+                        <select
+                            [(ngModel)]="statusEncerramento"
+                            class="w-full border rounded-xl p-3">
+
+                            <option>
+                                Encerramento Brentwood
+                            </option>
+
+                            <option>
+                                Encerramento concorrencia
+                            </option>
+
+                            <option>
+                                Desistiu da compra
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <button
+                        (click)="confirmaEncerramento()"
+                        class="
+                            bg-green-600
+                            text-white
+                            px-6
+                            py-3
+                            rounded-xl
+                            w-full
+                        ">
+                        Encerrar atendimento
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- ABA DE ATENDIMENTOS -->
+            <div
+                *ngIf="abaSelecionada === 'perguntas'"
+                class="space-y-4">
+
+                <h1>Esse atendimento foi:</h1>
+
+                <p style="text-align: center; font-size: 30px;">
+                    <strong>{{ dadosAtendimento?.ranking }}</strong>
+                </p>
+
+                <div class="border rounded-xl p-4">
+                    <strong>Score:</strong>
+                    {{ dadosAtendimento?.score }}
+                </div>
+
+                <div class="border rounded-xl p-4">
+
+                    <strong>Orçamento:</strong>
+
+                    {{
+                        !dadosAtendimento?.orcamento
+                        ? 'Não foi apresentado orçamento'
+                        : dadosAtendimento?.orcamento
+                    }}
+
+                </div>
+
+                <div class="border rounded-xl p-4">
+
+                    <strong>Concorrentes:</strong>
+
+                    {{
+                        !dadosAtendimento?.concorrentes
+                        ? 'Não foram citados concorrentes'
+                        : dadosAtendimento?.concorrentes
+                    }}
+
+                </div>
+
+                <div class="border rounded-xl p-4">
+
+                    <strong>Gerou Follow:</strong>
+
+                    {{
+                        !dadosAtendimento?.gerou_follow
+                        ? 'Não realizou agendamento'
+                        : dadosAtendimento?.data_follow
+                    }}
+
+                </div>
+
+            </div>
+            <!-- ABA HISTÓRICO DE FOLLOWS -->
+            <div
+                *ngIf="abaSelecionada === 'followsHistorico'"
+                class="space-y-4">
+
+                <div
+                    *ngFor="let historico of historicoFollows"
+                    class="border rounded-xl p-4">
+
+                    <p>
+                        <strong>Data:</strong>
+                        {{ historico.data_agendamento }}
+                    </p>
+
+                    <p>
+                        <strong>Hora:</strong>
+                        {{ historico.hora_agendamento }}
+                    </p>
+
+                    <p>
+                        <strong>Status:</strong>
+                        {{ historico.status }}
+                    </p>
+
+                    <p>
+                        <strong>Estágio:</strong>
+                        {{ historico.estagio }}
+                    </p>
+
+                    <p>
+                        <strong>Contato anterior:</strong>
+                        {{ historico.forma_contato }}
+                    </p>
+
+                    <p>
+                        <strong>Estratégia:</strong>
+                        {{ historico.estrategia }}
+                    </p>
+
+                    <p>
+                        <strong>Observações:</strong>
+                        {{ historico.obs_follow }}
+                    </p>
+
+                    <p>
+                        <strong>Possibilidade:</strong>
+                        {{ historico.possibilidade }}
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

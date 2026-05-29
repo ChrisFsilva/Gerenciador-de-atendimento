@@ -24,7 +24,7 @@ Este projeto visa auxiliar o processo de vendas dentro da loja Brentwood, abrang
 
 ### Tecnologias Utilizadas:
 ```bash
- -Angular - Javascript ( Front end).
+ -Angular - Javascript (Front end).
  -Python (Back end).
  -MySql (Banco de dados).
  -PowerBi (Analise de dados).

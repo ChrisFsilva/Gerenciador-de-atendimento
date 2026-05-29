@@ -71,11 +71,12 @@ O layout da aplicação está disponível no pinteres:
 
 ```mermaid
 graph TD
-A[Entrada na fila de atendimento --> B[Registro do atendimento realizado]
+A[Entrada na fila de atendimento] --> B[Registro do atendimento realizado]
 B --> C[Gamificação no processo de coleta de insides]
 C --> D[Ranking e pontuação final]
 D --> E[Gerenciamento dos follows]
 E --> F[Analise gráfica de desempenho]
+
 ```
 
 

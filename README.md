@@ -23,10 +23,12 @@ Tabela de conteúdos
 Este projeto visa auxiliar o processo de vendas dentro da loja Brentwood, abrange a sistematização da fila de atendimento presencial, gerenciamento da carteira de clientes e analise de desempenho individual e como loja.
 
 ### Tecnologias Utilizadas:
+```bash
  -Angular - Javascript ( Front end).
  -Python (Back end).
  -MySql (Banco de dados).
  -PowerBi (Analise de dados).
+```
 ---
 
 ## 🎨 Layout

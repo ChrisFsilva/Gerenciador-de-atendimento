@@ -3,19 +3,18 @@
 
         <!-- Coluna Atrasados -->
         <div class="column">
-
             <div class="column-header">
-                Atrasados
+                Atrasados {{ followsAtrasados.length }} 
             </div>
         
-
+            
             <div
                 class="card"
-                *ngFor="let follow of followsAtrasados"
-                (click)="abrirModal(follow)">
+                *ngFor="let infoCard of followsAtrasados"
+                (click)="abrirModal(infoCard)">
 
                 <div class="card-title">
-                    {{ follow.cliente }}
+                    {{ infoCard.cliente }}
                 </div>
                 
                 <div class="card-info">
@@ -25,7 +24,7 @@
                         </span>
 
                         <span class="info-value">
-                            {{ follow.orcamento }}
+                            {{ infoCard.orcamento }}
                         </span>
                     </div>
                 </div>
@@ -38,7 +37,7 @@
                         </span>
 
                         <span class="info-value">
-                            {{ follow.arquiteto }}
+                            {{ infoCard.arquiteto }}
                         </span>
                     </div>
 
@@ -48,7 +47,7 @@
                         </span>
 
                         <span class="info-value">
-                            {{ follow.data_agendamento }}
+                            {{ infoCard.data_agendamento | date:'dd/MM/yyyy'}}
                         </span>
                     </div>
 
@@ -57,7 +56,7 @@
                             Hora:
                         </span>
                         <span class="info-value">
-                            {{ follow.hora_agendamento }}
+                            {{ infoCard.hora_agendamento }}
                         </span>
                     </div>
                     <div class="info-row">
@@ -66,17 +65,17 @@
                         </span>
 
                         <span class="info-value">
-                            {{ follow.prazo_final }}
+                            {{ infoCard.prazo_final | date:'dd/MM/yyyy'}}
                         </span>
                     </div>
 
 
                     <!-- Bloco de anotações -->
                     <span class="badge badge-today badge-notes">
-                        <p>📍 Estágio atual: {{ follow.estagio }}</p>
-                        <p>💡 Estretégia: {{ follow.estrategia }}</p>
-                        <p>🔍 Observações do follow: {{ follow.obs_follow }}</p>
-                        <p>🗣️ Forma de contato: {{ follow.forma_contato }}</p>
+                        <p>📍 Estágio atual: {{ infoCard.estagio }}</p>
+                        <p>💡 Estretégia: {{ infoCard.estrategia }}</p>
+                        <p>🔍 Observações do follow: {{ infoCard.obs_follow }}</p>
+                        <p>🗣️ Forma de contato: {{ infoCard.forma_contato }}</p>
                     </span>
                 </div>
             </div>
@@ -86,7 +85,7 @@
         <div class="column">
 
             <div class="column-header">
-                Hoje
+                Hoje {{ followsHoje.length }}
             </div>
 
             <div
@@ -129,7 +128,7 @@
                         </span>
 
                         <span class="info-value">
-                            {{ follow.data_agendamento }}
+                            {{ follow.data_agendamento | date:'dd/MM/yyyy' }}
                         </span>
                     </div>
 
@@ -149,7 +148,7 @@
                         </span>
 
                         <span class="info-value">
-                            {{ follow.prazo_final }}
+                            {{ follow.prazo_final | date:'dd/MM/yyyy'}}
                         </span>
                     </div>
 
@@ -289,7 +288,7 @@
 
                     <p>
                         <strong>Data:</strong>
-                        {{ followSelecionado?.data_agendamento }}
+                        {{ followSelecionado?.data_agendamento | date:'dd/MM/yyyy' }}
 
                         <strong>| Hora:</strong>
                         {{ followSelecionado?.hora_agendamento }}
@@ -568,7 +567,7 @@
                     {{
                         !dadosAtendimento?.gerou_follow
                         ? 'Não realizou agendamento'
-                        : dadosAtendimento?.data_follow
+                        : dadosAtendimento?.data_follow 
                     }}
 
                 </div>
@@ -585,7 +584,7 @@
 
                     <p>
                         <strong>Data:</strong>
-                        {{ historico.data_agendamento }}
+                        {{ historico.data_agendamento | date:'dd/MM/yyyy' }}
                     </p>
 
                     <p>

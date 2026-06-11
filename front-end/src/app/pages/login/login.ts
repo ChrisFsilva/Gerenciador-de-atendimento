@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import { AuthService } from '../../services/auth/auth.service';
+
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -21,32 +23,49 @@ export class Login {
   email: string = '';
   senha: string = '';
 
-  constructor(private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router) {}
 
   login() {
+    console.log(`Click Login: ${this.email} E-mail ${this.senha}`);
 
-    if (
-      this.email === 'treinamento'
-      &&
-      this.senha === '1234'
-    ) {
+    this.authService.login(
+      this.email,
+      this.senha
+    )
 
-      this.router.navigate(['/home']);
+    .subscribe({
+      next: (res: any) =>{
+        localStorage.setItem(
+          'token',
+          res.access_token
+        );
 
-    } else {
+        localStorage.setItem(
+          'usuario',
+          JSON.stringify(res.usuario)
+        );
 
-      this.showToast(
-        'Login ou senha inválidos',
-        'error'
-      );
 
-    }
+        this.router.navigate(['/home']);
+      },
+
+      error: (erro) => {
+        console.error(
+          'Erro de login', erro
+        );
+        this.showToast(
+          'Login ou senha inválidos',
+          'error');
+      }
+    });
   }
 
   showToast(
   mensagem: string,
   tipo: 'success' | 'error'
-) {
+  ) {
 
   const toast = document.createElement('div');
 

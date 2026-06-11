@@ -1,0 +1,15 @@
+# Ambiente virtual
+**/venv/
+.venv/
+env/
+
+# Cache Python
+__pycache__/
+*.pyc
+
+# Variáveis de ambiente
+.env
+
+backend/requirements.txt
+
+**/.angular

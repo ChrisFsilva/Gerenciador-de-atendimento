@@ -1,4 +1,7 @@
-// Modelo para envio das informações de agendamentons/Follows
+export interface AtualizacaoLoteResponse {
+    mensagem: string;
+    quantidade: number;
+}
 
 export interface FollowsModel {
 
@@ -42,22 +45,23 @@ export interface FollowsModel {
 
     forma_contato: string;
 
-    estagio:
-        'Sem necessidade de ajuste' |
-        'Ajuste de proposta'|
-        'Contornando objeções'|
-        'Aguardando decisão'|
-        'Momento de entender a preferencia'|
-        'Em negociação'|
-        'Negociação final'|
-        'Fechamento';
+    estagio: string;
+    // estagio:
+    //     'Sem necessidade de ajuste' |
+    //     'Ajuste de proposta'|
+    //     'Contornando objeções'|
+    //     'Aguardando decisão'|
+    //     'Momento de entender a preferencia'|
+    //     'Em negociação'|
+    //     'Negociação final'|
+    //     'Fechamento';
     
-    status:
-        'Em follow'|
-        'Não realizou o follow'|
-        'Encerrado Brentwood'|
-        'Encerrado concorrência'|
-        'Reagendado' |
-        'Desistiu da compra';
+    status: string;
+    // status:
+    //     'Em follow'|
+    //     'Não realizou o follow'|
+    //     'Encerrado Brentwood'|
+    //     'Encerrado concorrência'|
+    //     'Reagendado' |
+    //     'Desistiu da compra';
 }
-

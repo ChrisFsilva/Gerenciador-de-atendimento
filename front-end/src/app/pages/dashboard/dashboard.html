@@ -1,1 +1,155 @@
-<p>dashboard works!</p>
+<!-- CARDS DE FOLLOWS POR DIA -->
+<div class="cards-container">
+    <div class="dashboard-card"
+        style="border-color: rgb(165, 157, 42);
+        box-shadow: 0 4px 12px rgba(165, 157, 42,0.5);">
+        <h3>Follows Hoje</h3>
+        <span>
+            {{ cards.hoje }}
+        </span>
+    </div>
+
+    <div class="dashboard-card"
+        style="border-color: brown;
+        box-shadow: 0 4px 12px rgba(165,42,42,0.5);">
+        <h3>Total de follows neste mês</h3>
+        <span>
+            {{ cards.mes }}
+        </span>
+    </div>
+
+    <div class="dashboard-card"
+        style="border-color: rgb(42, 110, 165);
+        box-shadow: 0 4px 12px rgba(42, 110, 165,0.5);">
+        <h3>Follows nos últimos 15 dias</h3>
+        <span>
+        {{ cards.ultimos15dias }}
+        </span>
+    </div>
+</div>
+
+<!-- Cards de analise de atendimento -->
+<div class="cards-container">
+
+  <div class="dashboard-card"
+    style="border-color: rgb(165, 157, 42);
+    box-shadow: 0 4px 12px rgba(165, 157, 42,0.5);">
+    <h3>Atendimentos realizados</h3>
+    <span>
+      {{ cardsAtendimento.atendimentos }}
+    </span>
+  </div>
+  <div class="dashboard-card"
+    style="border-color: brown;
+    box-shadow: 0 4px 12px rgba(165,42,42,0.5);">
+    <h3>Atendimentos Hoje</h3>
+    <span>
+      {{ cardsAtendimento.atendimentos_hoje }}
+    </span>
+  </div>
+  <div class="dashboard-card"
+    style="border-color: rgb(42, 110, 165);
+    box-shadow: 0 4px 12px rgba(42, 110, 165,0.5);">
+    <h3>Atendimentos no Mês</h3>
+    <span>
+      {{ cardsAtendimento.atendimentos_mes }}
+    </span>
+  </div>
+</div>
+
+<div class="cards-container">
+  <div class="dashboard-card"
+    style="border-color: rgb(165, 157, 42);
+    box-shadow: 0 4px 12px rgba(165, 157, 42,0.5);">
+    <h3>Orçamentos</h3>
+    <span>
+      {{ cardsAtendimento.orcamentos }}
+    </span>
+  </div>
+  <div class="dashboard-card"
+    style="border-color: rgb(42, 110, 165);
+    box-shadow: 0 4px 12px rgba(42, 110, 165,0.5);">
+    <h3>Taxa de conversão</h3>
+    <span>
+      {{ cardsAtendimento.percentual }}%
+    </span>
+  </div>  
+</div>
+
+<div class="dashboard-graph">
+  <p>Atendimentos por mês</p>
+  <apx-chart
+    *ngIf="chartOptions.chart"
+    [series]="chartOptions.series"
+    [chart]="chartOptions.chart"
+    [xaxis]="chartOptions.xaxis"
+    [yaxis]="chartOptions.yaxis"
+    [colors]="chartOptions.colors"
+    [stroke]="chartOptions.stroke"
+    [markers]="chartOptions.markers"
+    [dataLabels]="chartOptions.dataLabels">
+  </apx-chart>
+</div>
+
+<div id="gantt-container"></div>
+
+<!-- GRAFICO GANDD -->
+<div class="timeline-container">
+  <h1 style="text-align: center; font-size: 25px;font-weight: bold; color: red; border-bottom: 2px solid #ddd;padding-bottom: 10px;">Timeline de Follows</h1>
+  @for (vendedor of ganttData; track vendedor.vendedor) {
+    <div class="vendedor-bloco">
+      <h3 style="text-align: center; font-size: 20px;font-weight: bold">
+        Vendedor: {{ vendedor.vendedor }}
+      </h3>
+      @for (
+        cliente of vendedor.clientes | keyvalue;
+        track cliente.key
+      ) {
+        <div class="cliente-bloco">
+          <div class="cliente-nome">
+            {{ cliente.key }}
+          </div>
+          @for (
+            follow of cliente.value;
+            track follow.id;
+            let i = $index
+          )
+          {
+            <div class="follow-linha"  
+              [style.margin-left.px]="obterDeslocamento(i)">
+              <div class="follow-info">
+                # Follow {{ i+1 }}
+                <small>
+                  {{ follow.data_agendamento | date:'dd/MM/yyyy' }}
+                  →
+                  {{ follow.prazo_final | date:'dd/MM/yyyy' }}
+                </small>
+              </div>
+              <div class="barra-fundo">
+                <div
+                  class="barra-progresso"
+                  [style.width.px]="
+                    calcularLarguraFollow(
+                      follow,
+                      cliente.value[$index + 1]
+                    )
+                  "
+                  [style.background]="
+                    obterCor(follow.status)
+                  ">
+
+                  {{ follow.estagio }}
+
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+
+      }
+
+    </div>
+
+  }
+
+</div>

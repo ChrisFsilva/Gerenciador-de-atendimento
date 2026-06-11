@@ -1,13 +1,14 @@
 from pydantic import BaseModel
 from typing import Optional
 from datetime import datetime, date, time
+from typing import List
 
 # Modelo padrão de inforamções que alimentará a tabela 'Users'
 class UsuarioCreate(BaseModel):
 
     nome: str
     email: str
-    senha_hash: str
+    senha: str
     loja: str
     perfil: str
 
@@ -56,3 +57,16 @@ class AgendamentoResponse(AgendamentoBase):
     id: int
     class Config:
         from_attributes = True
+
+# SISTEMA DE LOGIN
+class LoginRequest(BaseModel):
+    email: str
+    senha: str
+
+class AtualizacaoLoteRequest(BaseModel):
+    follow_ids: List[int]
+    status: str
+
+class AtualizacaoLoteResponse(BaseModel):
+    mensagem: str
+    quantidade: int

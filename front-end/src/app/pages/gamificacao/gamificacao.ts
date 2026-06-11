@@ -27,6 +27,7 @@ export class Gamificacao {
 
   // Índice da pergunta atual
   currentIndex: number = 0;
+  
 
   // Estrutura das perguntas
   questions = [
@@ -70,9 +71,9 @@ export class Gamificacao {
         nextId: 3
       },
 
-      nao: {
+      não: {
         points: -1000,
-        nextQuestion: 'Cliente deseja follow-up?',
+        nextQuestion: 'finalizar atendimento',
         nextId: null
       }
     },
@@ -543,11 +544,11 @@ finalizarAtendimentoFila() {
 
     orcamento: this.respostas[2],
 
-    concorrentes: this.respostas[7],
+    concorrentes: this.respostas[7] ?? null,
 
-    gerou_follow: this.respostas[3],
+    gerou_follow: this.respostas[3] ?? 'False',
 
-    data_follow: this.respostas[4],
+    data_follow: this.respostas[4] ?? null,
 
     respostas: this.respostas
   };
@@ -574,7 +575,7 @@ finalizarAtendimentoFila() {
 
         console.error(
           'Erro ao salvar',
-          erro
+          erro.error
         );
 
       }

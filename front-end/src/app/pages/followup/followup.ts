@@ -4,6 +4,8 @@ import { FollowupServices } from '../../services/followup/followup.service';
 import { FollowsModel } from '../../models/follow.model';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../services/api/api';
+import { ChangeDetectorRef } from '@angular/core';
+
 
 @Component({
   selector: 'app-followup',
@@ -42,7 +44,7 @@ export class Followup implements OnInit {
   // Variavel para coletar as informações do banco de dados
   follows: FollowsModel[] = [];
 
-  // Variavel para calcular a data de entrega (atrasados)
+  // Variavel para filtrar a data de entrega (atrasados)
   followsAtrasados: FollowsModel[] = [];
 
   // Variavel para filtrar a data de entrega (hoje)
@@ -67,61 +69,61 @@ export class Followup implements OnInit {
     | 'Em follow'
     = 'Em follow';
 
+
   constructor(
     private followServices: FollowupServices,
-    private apiService: ApiService
-  ) {}
+    private apiService: ApiService,
+    private cdr: ChangeDetectorRef
+  ){}
 
   ngOnInit(): void {
-
-    this.followServices
-      .obterFollowup()
-      .subscribe((dados) => {
-
-        this.follows = dados;
-
-        this.atualizarCards();
-
-      });
+    if (typeof window === 'undefined') {
+      return;
+    }
+    console.log('CARREGAR FOLLOWS');
+    this.carregarFollows();
   }
 
   // Função para carregar fila inicial
   carregarFollows() {
-
+    console.log('CARREGANDO FOLLOWS');
     this.followServices
-      .obterFollowup()
-      .subscribe((dados) => {
-
-        this.follows = dados;
-
-        this.atualizarCards();
-
-      });
+      .obterDados()
+      .subscribe({
+        next: (dados) => {
+          this.follows = dados
+          // this.atualizarStatusAtrasados()
+          this.atualizarStatusAtrasado()
+          this.filtrarCards()
+          this.cdr.detectChanges()
+        }
+    });
   }
 
-  // Função para atualizar as filas de agendamento
-  atualizarCards() {
-    
-    this.atualizarStatusAtrasados();
-
+  // Função para filtrar as filas de agendamento
+  filtrarCards() {
+    console.log('FILTRANDO CARDS');
     const hojeFormatado = this.formatarDataLocal(
       new Date()
     );
 
     this.followsHoje = this.follows.filter(
       follow =>
-        follow.data_agendamento === hojeFormatado
-        && follow.status === 'Em follow'
-        || follow.data_agendamento === hojeFormatado
-        && follow.status === 'Não realizou o follow'
+        follow.data_agendamento === hojeFormatado && 
+        (follow.status === 'Em follow'
+        || 
+        follow.status === 'Não realizou o follow'
+        ),
     );
 
     this.followsAtrasados = this.follows.filter(
       follow =>
-        follow.data_agendamento < hojeFormatado 
-        && follow.status === 'Em follow'
-        || follow.data_agendamento < hojeFormatado 
-        && follow.status === 'Não realizou o follow'
+        follow.data_agendamento < hojeFormatado &&
+        (
+          follow.status === 'Em follow'
+          ||
+          follow.status === 'Não realizou o follow'
+        ),
     );
   }
 
@@ -162,9 +164,7 @@ export class Followup implements OnInit {
       .subscribe({
 
         next: (dados) => {
-
           this.dadosAtendimento = dados;
-
         },
 
         error: (erro) => {
@@ -180,16 +180,18 @@ export class Followup implements OnInit {
 
   // Função para fechar modal
   fecharModal() {
-
+    console.log("FECHANDO MODAL");
     this.modalAberto = false;
 
     this.acaoSelecionada = '';
+
+    console.log('Modal Fechado com sucesso')
 
   }
 
   // Função para reagendar o follow
   abrirReagendamento() {
-
+    console.log("ABRINDO REAGENDAMENTO");
     this.acaoSelecionada = 'reagendar';
     
     // Limpa formulário
@@ -206,74 +208,16 @@ export class Followup implements OnInit {
 
   // Função para finalizar follow
   abrirEncerramento() {
-
+    console.log("ABRINDO ENCERRAMENTO");
     this.acaoSelecionada = 'finalizar';
-
   }
 
   // Função para reagendar follow
   confirmaReagendamento() {
-
+    console.log('INICIO REAGENDAMENTO');
     if (!this.followSelecionado) {
-
       return;
-
     }
-
-    // INICIALMENTE FOI PLANEJADO PARA QUE O FORMULARIO DE REAGENDAMENTO GERASSE UM NOVO REGISTRO DE ATENDIMENTO, ESSA FUNÇÃO FOI DESATIVADA POIS FOI INTERPRETADO QUE OS REGISTROS DE ATENDIMENTO É REFERENTE ATENDIMENTO LOJA PRESENCIAL, ENQUANTO OS REGISTROS DE FOLLOW DEVEM HAVER UM HISTÓRICO PRÓPRIO
-    // // Cria novo atendimento
-    // const novoAtendimento = {
-
-    //   vendedor_id: this.followSelecionado.vendedor_id,
-
-    //   loja: this.followSelecionado.loja_id,
-
-    //   score: this.scoreReagendamento,
-
-    //   ranking: this.rankingReagendamento,
-
-    //   orcamento: '',
-
-    //   concorrentes: '',
-
-    //   gerou_follow: true,
-
-    //   data_follow: this.novaData,
-
-    //   respostas: this.respostasReagendamento
-    // };
-    
-    //Atualiza follow antigo
-    this.followServices
-      .atualizarFollow(
-        this.followSelecionado.id,
-        {
-          status: 'Reagendado'
-        }
-      )
-      
-      .subscribe({
-        next: () => {
-          console.log('Follow atualizado com sucesso');
-        },
-
-        error: (erro) => {
-          console.error(
-            'Erro ao criar atendimento',
-            erro
-          );
-        }
-      });
-
-
-    // Salva atendimento
-    // this.apiService
-    //   .criarAtendimento(novoAtendimento)
-    //   .subscribe({
-
-        // next: (atendimentoCriado: any) => {
-
-          // Cria novo follow
     const novoFollow = {
 
       cliente: this.followSelecionado?.cliente,
@@ -320,15 +264,32 @@ export class Followup implements OnInit {
     };
 
     this.followServices
-      .criarFollow(novoFollow)
+      .atualizarFollow(
+        this.followSelecionado.id,
+        {
+          status: 'Reagendado'
+        }
+      )
+      
       .subscribe({
-
         next: () => {
+          console.log('Follow atualizado com sucesso');
+          
+          this.followServices
+            .criarFollow(novoFollow)
+            .subscribe({
 
-          this.carregarFollows();
+              next: () => {
 
-          this.modalAberto = false;
+                console.log('Novo follow criado');
+          
+                this.fecharModal();
 
+                console.log('Follow Services rodou')
+
+                this.carregarFollows();
+
+                console.log('Página Atualizada')
         },
 
         error: (erro) => {
@@ -340,15 +301,24 @@ export class Followup implements OnInit {
           console.log(erro.error.detail);
         }
       });
+        },
+
+        error: (erro) => {
+          console.error(
+            'Erro ao criar atendimento',
+            erro
+          );
+        }
+      });
   };
 
   confirmaEncerramento() {
-
+    console.log("CONFIRMANDO ENCERRAMENTO");
     if (this.followSelecionado) {
 
       this.followSelecionado.status = this.statusEncerramento;
 
-      this.atualizarCards();
+      this.filtrarCards();
 
       this.fecharModal();
 
@@ -360,7 +330,7 @@ export class Followup implements OnInit {
       )
       .subscribe({
         next: () => {
-          console.log('Follow atualizado com suesso');
+          console.log('Follow atualizado com sucesso');
         },
         error: (erro) => {
           console.error(`erro ao atualizar follow: ${erro}`);
@@ -384,91 +354,36 @@ export class Followup implements OnInit {
 
     return `${ano}-${mes}-${dia}`;
   }
+  
+  atualizarStatusAtrasado() {
 
-  // INICIALMENTE FOI PLANEJADO PARA QUE O FORMULARIO DE REAGENDAMENTO GERASSE UM NOVO REGISTRO DE ATENDIMENTO, ESSA FUNÇÃO FOI DESATIVADA POIS FOI INTERPRETADO QUE OS REGISTROS DE ATENDIMENTO É REFERENTE ATENDIMENTO LOJA PRESENCIAL, ENQUANTO OS REGISTROS DE FOLLOW DEVEM HAVER UM HISTÓRICO PRÓPRIO
-
-  // calcularScoreReagendamento() {
-
-  //   let score = 0;
-
-  //   if (
-  //     this.respostasReagendamento.seguranca === 'Sim'
-  //   ) {
-
-  //     score += 100;
-
-  //   }
-
-  //   if (
-  //     this.respostasReagendamento.entendimento === 'Sim'
-  //   ) {
-
-  //     score += 100;
-
-  //   }
-
-  //   if (
-  //     this.respostasReagendamento.nivel_atendimento === 'Diferencial Brentwood'
-  //   ) {
-
-  //     score += 300;
-
-  //   }
-
-  //   this.scoreReagendamento = score;
-
-  //   if (score >= 400) {
-
-  //     this.rankingReagendamento = 'Diamante';
-
-  //   }
-  //   else if (score >= 250) {
-
-  //     this.rankingReagendamento = 'Ouro';
-
-  //   }
-  //   else {
-
-  //     this.rankingReagendamento = 'Prata';
-
-  //   }
-  // }
-
-  // Função para atualizar follows colocando eles para atrasado
-  atualizarStatusAtrasados() {
-
+    console.log("Atualizando follows atrasados")
     const hojeFormatado = this.formatarDataLocal(
       new Date()
     );
-
-    this.follows.forEach(follow => {
-
-      if (
+    
+    const idsParaAtualizar = this.follows
+      .filter(follow =>
         follow.data_agendamento < hojeFormatado &&
-        follow.status !== 'Reagendado' &&
-        follow.status !== 'Não realizou o follow'
-      ) {
-
-        follow.status = 'Não realizou o follow';
-
-        this.followServices
-          .atualizarFollow(
-            follow.id,
-            {
-              status: 'Não realizou o follow'
-            }
-          )
-          .subscribe({
-            error: (erro) => {
-
-              console.error(
-                'Erro ao atualizar follow atrasado',
-                erro
-              );
-
-            }
-          });
+        follow.status === 'Em follow'
+      )
+      .map(follow => follow.id);
+    
+      if (idsParaAtualizar.length > 0) {
+        this.followServices.atualizarFollowsLote(
+          idsParaAtualizar,
+          'Não realizou o follow'
+        ).subscribe({
+          next: (res) => {
+                console.log(`${res.quantidade} follows atualizados`);
+                this.carregarFollows();
+            },
+          error: (erro) => {
+              console.error('Erro ao atualizar lote:', erro.error);
+              console.log(erro.error.detail)
+              // this.showToast('Erro ao atualizar follows atrasados', 'error')
+          }
+        });
       }
-    });
   }
 }

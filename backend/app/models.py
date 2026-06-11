@@ -78,6 +78,11 @@ class Atendimento(Base):
         "Usuario",
         back_populates="atendimentos"
     )
+    created_at = Column(
+        DateTime,
+        default=lambda: datetime.now(timezone.utc)
+    )
+
 
 # Classe que se comunicará com o banco de dados, na tabela Anwser_records
 
@@ -151,3 +156,4 @@ class Agendamento(Base):
     possibilidade = Column(String)
     
     forma_contato = Column(String)
+

@@ -6,14 +6,17 @@ from sqlalchemy.orm import Session
 from jose import jwt
 
 
-from app.security import SECRET_KEY, ALGORITHM
+from app.security import (SECRET_KEY, 
+                          ALGORITHM,
+                          filtro_permissao)
 from app.database import engine, SessionLocal
 from app.models import (
     Base,
     Usuario,
     Atendimento,
     AnswerRecord,
-    Agendamento
+    Agendamento,
+    FilaAtendimento
 )
 from app.schemas import (AtualizacaoLoteRequest)
 
@@ -197,6 +200,7 @@ def obter_usuario(
             detail="Token Inválido",
         )
 
+
 # LISTAR FOLLOWS
 @app.get(
     "/follows",
@@ -208,29 +212,18 @@ def listar_agendamentos(
 ):
     print("MONTANDO JSON")
 
-    if usuario["perfil"] in ["admin", "diretoria"]:
-        print("Perfil:",usuario["perfil"],"ID:",usuario["id"],"LOJA:",usuario["loja"])
-        agendamentos = db.query(
-            Agendamento).all()
-    
-    elif usuario["perfil"] == "gerente":
-        print("Perfil: ",usuario["perfil"],"ID:",usuario["id"],"LOJA:",usuario["loja"])
-        agendamentos = db.query(
-            models.Agendamento
-        ).filter(
-            models.Agendamento.loja_id == usuario["loja"]
-            ).all()
-    
-    else:
-        print("Perfil:",usuario["perfil"],"ID:",usuario["id"],"LOJA:",usuario["loja"])
-        agendamentos = db.query(
-            models.Agendamento
-                ).filter(
-                    models.Agendamento.vendedor_id == usuario["id"]
-                ).all()
-        
-    return agendamentos
+    query = db.query(
+        Agendamento
+    )
 
+    query = filtro_permissao(
+        query,
+        usuario,
+        Agendamento.loja_id,
+        Agendamento.vendedor_id
+    )
+
+    return query.all()
 
 # OBTER ATENDIMENTO
 @app.get("/atendimento/{atendimento_id}")
@@ -313,6 +306,7 @@ def criar_follow(
 def criar_atendimento(
     atendimento: schemas.AtendimentoCreate,
     db: Session = Depends(get_db)
+    
 ):
 
     # REGISTRO NA TABELA SERVICES_RECORDS
@@ -364,19 +358,27 @@ def criar_atendimento(
 # Cards diarios
 @app.get("/dashboard/cards")
 def dashboard_cards(
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    usuario_logado: Usuario = Depends(obter_usuario)  
 ):
+    query = db.query(Agendamento)
+
+    query = filtro_permissao(
+        query,
+        usuario_logado,
+        Agendamento.loja_id,
+        Agendamento.vendedor_id
+    )
 
     hoje = datetime.now().date()
 
     inicio_mes = hoje.replace(day=1)
 
     ultimos_15_dias = hoje - timedelta(days=15)
+    print("TOTAL APÓS FILTRO:", query.count())
 
-    follows = db.query(
-        Agendamento
-    ).all()
-
+    follows = query.all()
+    print("FOLLOWS ENCONTRADOS:", len(follows))
     follows_hoje = 0
     follows_15_dias = 0
     follows_mes = 0
@@ -409,12 +411,17 @@ def dashboard_cards(
 # Graficos de rendimento mês
 @app.get("/dashboard/follows-mensais")
 def follows_mensais(
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    usuario_logado: Usuario = Depends(obter_usuario)  
 ):
+    atendimentos = db.query(Atendimento)
 
-    atendimentos = db.query(
-        Atendimento
-    ).all()
+    atendimentos = filtro_permissao(
+        atendimentos,
+        usuario_logado,
+        Atendimento.loja,
+        Atendimento.vendedor_id
+    )
 
     meses = [
         "Jan", "Fev", "Mar", "Abr",
@@ -440,12 +447,19 @@ def follows_mensais(
 # Cards de atendimento e produtividade
 @app.get("/dashboard/atendimentos")
 def dashboard_atendimentos(
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    usuario_logado: Usuario = Depends(obter_usuario)  
 ):
+    query = db.query(Atendimento)
 
-    atendimentos = db.query(
-        Atendimento
-    ).all()
+    query = filtro_permissao(
+        query,
+        usuario_logado,
+        Atendimento.loja,
+        Atendimento.vendedor_id
+    )
+    
+    atendimentos = query.all()
 
     total_atendimentos = len(atendimentos)
 
@@ -504,51 +518,45 @@ def dashboard_atendimentos(
 # Tabela Gantt
 @app.get("/dashboard/gantt")
 def dashboard_gantt(
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    usuario_logado: Usuario = Depends(obter_usuario)
 ):
+    query = (
+        db.query(
+            Agendamento,
+            Usuario
+        )
+        .join(
+            Usuario,
+            Usuario.id == Agendamento.vendedor_id
+        )
+    )
 
-    follows = db.query(
-        Agendamento
-    ).all()
-
+    query = filtro_permissao(
+        query,
+        usuario_logado,
+        Agendamento.loja_id,
+        Agendamento.vendedor_id
+    )
+    resultados = query.all()
     vendedores = {}
 
-    for follow in follows:
-
-        vendedor = db.query(
-            Usuario
-        ).filter(
-            Usuario.id == follow.vendedor_id
-        ).first()
-
-        if not vendedor:
-            continue
-
+    for follow, vendedor in resultados:
         if vendedor.nome not in vendedores:
-
             vendedores[vendedor.nome] = {
                 "vendedor": vendedor.nome,
                 "clientes": {}
             }
-
         cliente = follow.cliente
 
         if cliente not in vendedores[vendedor.nome]["clientes"]:
-
             vendedores[vendedor.nome]["clientes"][cliente] = []
-
         vendedores[vendedor.nome]["clientes"][cliente].append({
-
-            "id": follow.id,
-
-            "data_agendamento": follow.data_agendamento,
-
-            "prazo_final": follow.prazo_final,
-
-            "status": follow.status,
-
-            "estagio": follow.estagio
-
+        "id":follow.id,
+        "data_agendamento": follow.data_agendamento,
+        "prazo_final": follow.prazo_final,
+        "status": follow.status,
+        "estagio": follow.estagio
         })
 
     return list(vendedores.values())
@@ -616,3 +624,89 @@ def atualizar_follow(
     db.refresh(follow)
 
     return follow
+
+@app.post("/fila/entrar")
+def entrar_fila(
+    db: Session  = Depends (get_db),
+    usuario_logado = Depends(obter_usuario)
+):
+    fila_existente = db.query(
+        FilaAtendimento
+    ).filter(
+        FilaAtendimento.usuario_id == usuario_logado["id"],
+        FilaAtendimento.ativo == True
+    ).first()
+
+    if fila_existente:
+        raise HTTPException(
+            status_code=400,
+            detail="Usuário já está na fila"
+        )
+    
+    novo_registro = FilaAtendimento(
+        usuario_id  = usuario_logado["id"],
+        loja = usuario_logado["loja"],
+        data_entrada = datetime.now(),
+        ativo = True
+    )
+
+    db.add(novo_registro)
+    db.commit()
+    db.refresh(novo_registro)
+
+    return {
+        "mensagem":"Entrou na fila com sucesso"
+    }
+
+@app.get("/fila/minha-posicao")
+def minha_posicao(
+    db: Session = Depends(get_db),
+    usuario_logado = Depends(obter_usuario)
+):
+    registro = db.query(
+        FilaAtendimento
+    ).filter(
+        FilaAtendimento.usuario_id == usuario_logado ["id"],
+        FilaAtendimento.ativo == True
+    ).first()
+
+    if not registro:
+        raise HTTPException(
+            status_code=404,
+            detail="Usuário não está na fila"
+        )
+    pessoas_antes = db.query(
+        FilaAtendimento
+    ).filter(
+        FilaAtendimento.loja == usuario_logado["loja"],
+        FilaAtendimento.ativo == True,
+        FilaAtendimento.data_entrada < registro.data_entrada
+    ).count()
+
+    return{
+        "posicao": pessoas_antes + 1
+    }
+
+@app.post("/fila/sair")
+def sair_fila(
+    db: Session = Depends(get_db),
+    usuario_logado = Depends(obter_usuario)
+):
+    registro = db.query(
+        FilaAtendimento
+    ).filter(
+        FilaAtendimento.usuario_id == usuario_logado["id"],
+        FilaAtendimento.ativo == True
+    ).first()
+
+    if not registro:
+        {
+            "mensagem":"Usuário não esta na fila"
+        }
+        
+    registro.ativo = False
+
+    db.commit()
+    return {
+        "mensagem":"Saiu da fila com sucesso"
+    }

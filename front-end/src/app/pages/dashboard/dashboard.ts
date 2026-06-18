@@ -164,19 +164,50 @@ export class Dashboard implements OnInit {
     return Math.max(dias * 30, 40);
   }
 
-  obterCor(status: string): string {
-      switch (status) {
-        case 'Encerrado Brentwood':
-          return '#22c55e';
-        case 'Encerrado concorrência':
-          return '#ef4444';
-        case 'Reagendado':
-          return '#3b82f6';
-        case 'Não realizou o follow':
-          return '#991b1b';
-        default:
-          return '#facc15';
-      }
+  obterCor(estagio: string): string {
+    switch (estagio) {
+      case 'Ajuste de proposta':
+        return '#81c256ff';
+      case 'Negociação final':
+        return '#22c594ff';
+      case 'Fechamento':
+        return '#229fc5ff';
+      case 'Em negociação':
+        return '#eb6e6eff';
+      case 'Aguardando decisão':
+        return '#ef4444';
+      case 'Contornando objeções':
+        return '#cbd358ff';
+      case 'Sem necessidade de ajuste':
+        return '#8c9ec0ff';
+      case 'Momento de entender a preferencia':
+        return '#bec0c4ff';
+      default:
+        return '#facc15';
+    }
+  }
+    
+  obterIcone(estagio: string): string {
+    switch (estagio) {
+      case 'Ajuste de proposta':
+        return '🔥';
+      case 'Negociação final':
+        return '🔥';
+      case 'Fechamento':
+        return '🔥';
+      case 'Em negociação':
+        return '🧊';
+      case 'Aguardando decisão':
+        return '🧊';
+      case 'Sem necessidade de ajuste':
+        return '🍃';
+      case 'Momento de entender a preferencia':
+        return '🍃';
+      case 'Contornando objeções':
+        return '🧊';
+      default:
+        return '🍃';
+    }
   }
   
   obterDeslocamento(indice: number): number {

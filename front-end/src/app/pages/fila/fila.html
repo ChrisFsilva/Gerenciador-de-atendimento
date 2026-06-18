@@ -40,7 +40,7 @@
 
     <!-- PAINEL DA FILA -->
     <div
-        *ngIf="estaNaFila"
+        *ngIf="filaService.estaNaFila"
         class="relative mt-4">
 
         <!-- GLOW -->
@@ -89,7 +89,7 @@
 
     <!-- ESTADO VAZIO -->
     <div
-        *ngIf="!estaNaFila"
+        *ngIf="!filaService.estaNaFila"
         class="
             mt-10
             text-center
@@ -126,7 +126,7 @@
 
         <!-- ENTRAR NA FILA -->
         <button
-            *ngIf="!estaNaFila"
+            *ngIf="!filaService.estaNaFila"
             (click)="entrarFila()"
             class="
                 flex
@@ -159,7 +159,7 @@
 
         <!-- REGISTRAR ATENDIMENTO -->
         <button
-            *ngIf="estaNaFila"
+            *ngIf="filaService.estaNaFila"
             (click)="registrarAtendimento()"
             class="
                 flex
@@ -191,10 +191,9 @@
             </span>
 
         </button>
-
         <!-- SAIR DA FILA -->
         <button
-            *ngIf="estaNaFila"
+            *ngIf="filaService.estaNaFila"
             (click)="sairFila()"
             class="
                 flex
@@ -224,9 +223,6 @@
             ">
                 SAIR DA FILA
             </span>
-
         </button>
-
     </div>
-
 </div>

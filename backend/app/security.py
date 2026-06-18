@@ -50,3 +50,22 @@ def criar_token(dados: dict):
     )
 
     return token
+
+def filtro_permissao(
+    query,
+    usuario,
+    campo_loja,
+    campo_vendedor
+):
+
+    if usuario["perfil"] in ["admin", "diretoria"]:
+        return query
+
+    elif usuario["perfil"] == "gerente":
+        return query.filter(
+            campo_loja == usuario["loja"]
+        )
+
+    return query.filter(
+        campo_vendedor == usuario["id"]
+    )

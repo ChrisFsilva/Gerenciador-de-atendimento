@@ -8,6 +8,14 @@ import { HttpClient } from '@angular/common/http';
 export class DashboardService {
 
   private api = 'http://127.0.0.1:8000';
+  // private obterToken(): string {
+
+  //   if (typeof window === 'undefined') {
+  //       return '';
+  //   }
+
+  //   return localStorage.getItem('token') || '';
+  // }
 
   constructor(
     private http: HttpClient
@@ -15,26 +23,26 @@ export class DashboardService {
 
     obterVendasMensais() {
       return this.http.get<any>(
-          `${this.api}/dashboard/follows-mensais`
+          `${this.api}/dashboard/follows-mensais`,
       );
     }
 
     obterCardsDashboard() {
-        return this.http.get<any>(
-            `${this.api}/dashboard/cards`
-        );
+      return this.http.get<any>(
+          `${this.api}/dashboard/cards`,
+      );
     }
 
     obterCardsAtendimentos() {
-        return this.http.get<any>(
-        `${this.api}/dashboard/atendimentos`
-        );
+      return this.http.get<any>(
+        `${this.api}/dashboard/atendimentos`,
+      );
     }
     
     obterGantt() {
-        return this.http.get<any>(
-            `${this.api}/dashboard/gantt`
-        );
+      return this.http.get<any>(
+          `${this.api}/dashboard/gantt`,
+      );
 
     }
 

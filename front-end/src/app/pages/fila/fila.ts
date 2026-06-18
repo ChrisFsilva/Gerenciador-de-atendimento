@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FilaModel } from '../../models/fila.model';
-
+import { FilaService } from '../../services/fila/fila.service';
+import { ChangeDetectorRef } from '@angular/core';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-fila',
@@ -14,15 +16,27 @@ import { FilaModel } from '../../models/fila.model';
   styleUrl: './fila.css',
 })
 
+export class Fila implements OnInit {
 
-export class Fila {
-  estaNaFila: boolean = false;
   posicaoFila: number = 0;
   fila: FilaModel[]=[];
 
   constructor(
-    private router: Router
+    private router: Router,
+    public filaService: FilaService,
+    private cdr: ChangeDetectorRef
   ){}
+
+  ngOnInit() {
+    this.atualizarPosicao();
+
+    interval(5000)
+      .subscribe(() => {
+        console.log('teste');
+        this.atualizarPosicao();
+        this.cdr.detectChanges();
+      })
+  }
 
   showToast(message: string, type: string = 'success') {
 
@@ -121,25 +135,74 @@ export class Fila {
 
     }, 3000);
   }
-  entrarFila() {
-    this.estaNaFila = true;
-    this.posicaoFila = Math.floor(Math.random() * 10) + 1;;
-    this.showToast(
-      'Você entrou na fila',
-      'success'
-    );
+  entrarFila(){
+    this.filaService
+      .entrarFila()
+      .subscribe({
+        next: () => {
+          this.filaService.estaNaFila = true;
+          console.log(this.filaService.estaNaFila);
+          this.atualizarPosicao();
+          this.cdr.detectChanges();
+          this.showToast(
+            'Você entrou na fila',
+            'success'
+          );
+        },
+      error: (erro) => {
+        console.error(erro);
+        this.showToast(
+          'Erro ao entrar na fila',
+          'error'
+        );
+      }
+    })
   }
-  sairFila() {
-    this.estaNaFila = false;
-    this.posicaoFila = 0;
-    this.showToast(
-      'Você saiu da fila',
-      'error'
-    );
+  atualizarPosicao(){
+    console.log('Consultando fila');
+    this.filaService
+      .obterPosicao()
+      .subscribe({
+        next: (res) => {
+          this.posicaoFila = res.posicao;
+          console.log('Fila consultada', res.posicao);
+          this.filaService.estaNaFila = true;
+          this.cdr.detectChanges();
+        },
+        error: () => {
+          this.posicaoFila = 0;
+          this.filaService.estaNaFila = false;
+          console.log('Não está na fila')
+        }
+      });
   }
-  registrarAtendimento(){
 
-    // Navega para a gamificação
+  sairFila() {
+
+    this.filaService
+    .sairFila()
+    .subscribe({
+      next:() =>{
+        this.filaService.estaNaFila = false;
+        this.posicaoFila = 0;
+        this.cdr.detectChanges();
+        this.showToast(
+          'Você saiu da fila',
+          'error'
+        );
+      },
+      error: (erro) => {
+        console.error(erro);
+
+        this.showToast(
+          'Erro ao sair da fila',
+          'error'
+        );
+      }
+    });
+  }
+
+  registrarAtendimento(){
     this.router.navigate(['/home/gamificacao'])
       .then(() => {
         console.log('SAIU DA FILA')

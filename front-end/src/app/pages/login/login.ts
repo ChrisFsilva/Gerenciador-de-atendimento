@@ -48,7 +48,16 @@ export class Login {
         );
 
 
-        this.router.navigate(['/home']);
+          console.log('INICIANDO TRANSFERENCIA PARA HOME');
+
+          this.router.navigate(['/home'])
+            .then(resultado => {
+              console.log('NAVEGOU?', resultado);
+            })
+            .catch(erro => {
+              console.error('ERRO NAVEGAÇÃO', erro);
+            });
+
       },
 
       error: (erro) => {

@@ -157,3 +157,38 @@ class Agendamento(Base):
     
     forma_contato = Column(String)
 
+class FilaAtendimento(Base):
+    __tablename__ = "fila_atendimento"
+
+    id = Column(
+        Integer,
+        primary_key = True
+    )
+
+    usuario_id = Column(
+        Integer,
+        ForeignKey("users.id")
+    )
+
+    loja =  Column(
+        String(50)
+    )
+
+    data_entrada = Column(
+        DateTime,
+        default=lambda: datetime.now(timezone.utc)
+    )
+
+    ativo = Column(
+        Boolean, 
+        default=True
+    )
+
+    created_at = Column(
+        DateTime,
+        default=lambda: datetime.now(timezone.utc)
+    )
+
+    usuario = relationship(
+        "Usuario"
+    )

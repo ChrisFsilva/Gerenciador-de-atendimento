@@ -50,6 +50,8 @@ export class Followup implements OnInit {
   // Variavel para filtrar a data de entrega (hoje)
   followsHoje: FollowsModel[] = [];
 
+  followsnextday: FollowsModel[] = [];
+
   // Varivael par identificar o card selecionado
   followSelecionado: FollowsModel | null = null;
 
@@ -60,6 +62,10 @@ export class Followup implements OnInit {
   acaoSelecionada: string = '';
   // Consultar histórico de follows
   historicoFollows: FollowsModel[] = [];
+
+  estagiosAtrasados: { [key: string]: number } = {};
+  estagiosHoje: { [key: string]: number } = {};
+  estagiosAmanha: { [key: string]: number } = {};
 
   // Variavel para definir status do agendamento
   statusEncerramento:
@@ -125,6 +131,22 @@ export class Followup implements OnInit {
           follow.status === 'Não realizou o follow'
         ),
     );
+    
+    this.followsnextday = this.follows.filter(
+      follow =>
+        follow.data_agendamento > hojeFormatado+1 &&
+        (
+          follow.status === 'Em follow'
+          ||
+          follow.status === 'Não realizou o follow'
+        ),
+    );
+
+    this.estagiosAtrasados = this.contarEstagios(this.followsAtrasados);
+
+    this.estagiosHoje = this.contarEstagios(this.followsHoje);
+
+    this.estagiosAmanha = this.contarEstagios(this.followsnextday);
   }
 
   // Função expandir o card selecionado
@@ -385,5 +407,17 @@ export class Followup implements OnInit {
           }
         });
       }
+  }
+
+  contarEstagios(lista: FollowsModel[]) {
+    const resultado: { [key: string]: number } = {};
+
+    lista.forEach(follow => {
+      const estagio = follow.estagio || 'Sem estágio';
+
+      resultado[estagio] = (resultado[estagio] || 0) + 1;
+    });
+
+    return resultado;
   }
 }

@@ -27,4 +27,11 @@ export class ApiService {
 
   }
 
+  salvarLojaCheia(payload: any) {
+    return this.http.post(
+      `${this.apiUrl}/loja-cheia`,
+      payload
+    );
+  }
+
 }

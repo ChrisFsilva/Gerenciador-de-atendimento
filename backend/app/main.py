@@ -16,14 +16,16 @@ from app.models import (
     Atendimento,
     AnswerRecord,
     Agendamento,
-    FilaAtendimento
+    FilaAtendimento,
+    UpdatePendencia
 )
 from app.schemas import (AtualizacaoLoteRequest)
 
 from app.schemas import (
     UsuarioCreate,
     AgendamentoResponse,
-    AtualizacaoLoteResponse
+    AtualizacaoLoteResponse,
+    UpdatePendenciaCreate
 )
 
 from datetime import datetime, timedelta
@@ -710,3 +712,26 @@ def sair_fila(
     return {
         "mensagem":"Saiu da fila com sucesso"
     }
+
+@app.post("/loja-cheia")
+def criar_pendencia(   
+    payload: UpdatePendenciaCreate,
+    db: Session = Depends(get_db),
+    usuario_logado = Depends(obter_usuario)
+):
+    nova = UpdatePendencia(
+        cliente=payload.cliente,
+        status=payload.status,
+        vendedor_id=usuario_logado["id"],
+        loja=usuario_logado["loja"]
+    )
+
+    db.add(nova)
+    db.commit()
+    db.refresh(nova)
+
+    return {
+        "message": "Criado com sucesso",
+        "id": nova.id
+    }
+

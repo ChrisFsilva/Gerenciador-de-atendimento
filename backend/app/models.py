@@ -192,3 +192,26 @@ class FilaAtendimento(Base):
     usuario = relationship(
         "Usuario"
     )
+
+class UpdatePendencia(Base):
+    __tablename__ = "pendencia"
+
+    id = Column(
+        Integer, 
+        primary_key=True, 
+        index=True)
+
+    cliente = Column(String(150))
+    
+    status =  Column(
+        String(50)
+    )
+    
+    vendedor_id = Column(
+        Integer,
+        ForeignKey("users.id")
+    )
+
+    loja =  Column(
+        String(50)
+    )

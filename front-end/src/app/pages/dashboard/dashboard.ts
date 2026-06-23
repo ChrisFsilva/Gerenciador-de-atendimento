@@ -167,15 +167,15 @@ export class Dashboard implements OnInit {
   obterCor(estagio: string): string {
     switch (estagio) {
       case 'Ajuste de proposta':
-        return '#81c256ff';
+        return '#facc15';
       case 'Negociação final':
-        return '#22c594ff';
-      case 'Fechamento':
-        return '#229fc5ff';
-      case 'Em negociação':
         return '#eb6e6eff';
-      case 'Aguardando decisão':
+      case 'Fechamento':
         return '#ef4444';
+      case 'Em negociação':
+        return '#22c594ff';
+      case 'Aguardando decisão':
+        return '#229fc5ff';
       case 'Contornando objeções':
         return '#cbd358ff';
       case 'Sem necessidade de ajuste':
@@ -183,7 +183,7 @@ export class Dashboard implements OnInit {
       case 'Momento de entender a preferencia':
         return '#bec0c4ff';
       default:
-        return '#facc15';
+        return '#81c256ff';
     }
   }
     

@@ -70,3 +70,7 @@ class AtualizacaoLoteRequest(BaseModel):
 class AtualizacaoLoteResponse(BaseModel):
     mensagem: str
     quantidade: int
+
+class UpdatePendenciaCreate(BaseModel):
+    cliente: str
+    status: str

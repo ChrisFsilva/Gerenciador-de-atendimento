@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FilaModel } from '../../models/fila.model';
 import { FilaService } from '../../services/fila/fila.service';
+import { FormsModule } from '@angular/forms';
 import { ChangeDetectorRef } from '@angular/core';
 import { interval } from 'rxjs';
 
@@ -11,13 +12,15 @@ import { interval } from 'rxjs';
   standalone: true,
   templateUrl: './fila.html',
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   styleUrl: './fila.css',
 })
 
 export class Fila implements OnInit {
-
+  
+  lojaCheia: boolean = false;
   posicaoFila: number = 0;
   fila: FilaModel[]=[];
 
@@ -32,7 +35,6 @@ export class Fila implements OnInit {
 
     interval(5000)
       .subscribe(() => {
-        console.log('teste');
         this.atualizarPosicao();
         this.cdr.detectChanges();
       })
@@ -203,10 +205,13 @@ export class Fila implements OnInit {
   }
 
   registrarAtendimento(){
-    this.router.navigate(['/home/gamificacao'])
-      .then(() => {
-        console.log('SAIU DA FILA')
-        this.sairFila();
-      });
+    if (this.lojaCheia){
+      this.router.navigate(['/home/lojaCheia']);
+      console.log("Botão ativo")
+    } else{
+      this.router.navigate(['/home/gamificacao']);
+      console.log("Botão desativado")
+    }
+    this.sairFila();
   }
 }

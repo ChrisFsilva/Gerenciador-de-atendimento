@@ -5,6 +5,7 @@ import { Fila } from './pages/fila/fila';
 import { Followup } from './pages/followup/followup';
 import { Dashboard } from './pages/dashboard/dashboard';
 import { Gamificacao } from './pages/gamificacao/gamificacao';
+import { LojaCheia } from './pages/lojaCheia/lojaCheia';
 
 // Rota de acesso as paginas
 export const routes: Routes = [
@@ -45,6 +46,10 @@ export const routes: Routes = [
             {
                 path:'gamificacao',
                 component: Gamificacao
+            },
+            {
+                path:'lojaCheia',
+                component: LojaCheia
             }
         ]
     }

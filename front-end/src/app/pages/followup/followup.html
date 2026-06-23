@@ -1,13 +1,42 @@
-<div class="container">        
-    <div class="board">
-
-        <!-- Coluna Atrasados -->
+<div class="container">
+    <div class="board board-summary">
         <div class="column">
             <div class="column-header">
                 Atrasados {{ followsAtrasados.length }} 
             </div>
+            <div 
+                class="card"
+                *ngFor="let item of estagiosAtrasados | keyvalue"> 
+                <div class="info-row">{{ item.key }}: {{ item.value }}</div> 
+            </div> 
+        </div>
         
-            
+        <div class="column">
+            <div class="column-header">
+                Hoje {{ followsHoje.length }} 
+            </div>
+            <div 
+                class="card"
+                *ngFor="let item of estagiosHoje | keyvalue"> 
+                <div class="info-row">{{ item.key }}: {{ item.value }}</div> 
+            </div> 
+        </div>
+
+        <div class="column">
+            <div class="column-header">
+                Amanhã {{ followsnextday.length }}
+            </div>
+            <div 
+                class="card"
+                *ngFor="let item of estagiosAmanha | keyvalue"> 
+                <div class="info-row">{{ item.key }}: {{ item.value }}</div> 
+            </div> 
+        </div>
+    </div>      
+    <div class="board board-cards">
+
+        <!-- Coluna Atrasados -->
+        <div class="column">     
             <div
                 class="card"
                 *ngFor="let infoCard of followsAtrasados"
@@ -83,14 +112,87 @@
 
         <!-- Coluna Hoje -->
         <div class="column">
-
-            <div class="column-header">
-                Hoje {{ followsHoje.length }}
-            </div>
-
             <div
                 class="card"
                 *ngFor="let follow of followsHoje"
+                (click)="abrirModal(follow)">
+
+                <div class="card-title">
+                    {{ follow.cliente }}
+                </div>
+
+                <div class="card-info">
+
+                    <div class="info-row">
+                        <span class="info-label">
+                            Orçamento:
+                        </span>
+
+                        <span class="info-value">
+                            {{ follow.orcamento }}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card-info">
+
+                    <div class="info-row">
+                        <span class="info-label">
+                            Arquiteto:
+                        </span>
+
+                        <span class="info-value">
+                            {{ follow.arquiteto }}
+                        </span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">
+                            Data:
+                        </span>
+
+                        <span class="info-value">
+                            {{ follow.data_agendamento | date:'dd/MM/yyyy' }}
+                        </span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">
+                            Hora:
+                        </span>
+
+                        <span class="info-value">
+                            {{ follow.hora_agendamento }}
+                        </span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">
+                            Decisão:
+                        </span>
+
+                        <span class="info-value">
+                            {{ follow.prazo_final | date:'dd/MM/yyyy'}}
+                        </span>
+                    </div>
+
+
+                    <!-- Bloco de anotações -->
+                    <span class="badge badge-today badge-notes">
+                        <p>📍 Estágio atual: {{ follow.estagio }}</p>
+                        <p>💡 Estretégia: {{ follow.estrategia }}</p>
+                        <p>🔍 Observações do follow: {{ follow.obs_follow }}</p>
+                        <p>🗣️ Forma de contato: {{ follow.forma_contato }}</p>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Coluna Amanhã -->
+        <div class="column">
+            <div
+                class="card"
+                *ngFor="let follow of followsnextday"
                 (click)="abrirModal(follow)">
 
                 <div class="card-title">

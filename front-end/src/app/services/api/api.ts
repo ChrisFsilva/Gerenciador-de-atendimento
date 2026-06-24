@@ -34,4 +34,10 @@ export class ApiService {
     );
   }
 
+  listarpendencias(){
+    return this.http.get<[]>(
+      `${this.apiUrl}/pendencias`
+    );
+  }
+
 }

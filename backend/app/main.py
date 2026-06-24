@@ -735,3 +735,14 @@ def criar_pendencia(
         "id": nova.id
     }
 
+@app.get("/pendencias")
+def listarpendencias( 
+    db: Session = Depends(get_db),
+    usuario_logado = Depends(obter_usuario)
+
+):
+    return(
+        db.query(UpdatePendencia)
+        .filter(UpdatePendencia.status == "Ativo", UpdatePendencia.vendedor_id == usuario_logado["id"])
+        .all()
+    )

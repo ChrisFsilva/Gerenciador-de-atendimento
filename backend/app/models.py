@@ -206,6 +206,11 @@ class UpdatePendencia(Base):
     status =  Column(
         String(50)
     )
+
+    data_criacao =  Column(
+        DateTime,
+        default=lambda: datetime.now(timezone.utc)
+    )
     
     vendedor_id = Column(
         Integer,

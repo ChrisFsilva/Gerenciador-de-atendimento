@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-home',
   standalone: true,
-  // ATIVAR ELEMENTOS IMPORTADOS
+  
   imports: [
     CommonModule,
     RouterOutlet,

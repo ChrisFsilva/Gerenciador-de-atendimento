@@ -1,0 +1,22 @@
+<div class="lousa">
+<div style="display: flex; justify-content: center; align-items: center;">
+    <img src="../assets/pendencias.png" style="width: 250px;" />
+</div>
+    <div class="content-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Cliente</th>
+                    <th>Data do atendimento</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let clientes of lista"
+                    (click)="registrarAtendimento()">
+                    <td>{{ clientes.cliente }}</td>
+                    <td style="text-align: center;">{{ clientes.data_criacao | date: 'dd/MM/yyyy HH:mm'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -19,16 +19,16 @@ import { interval } from 'rxjs';
 })
 
 export class Fila implements OnInit {
-  
-  lojaCheia: boolean = false;
-  posicaoFila: number = 0;
-  fila: FilaModel[]=[];
 
   constructor(
     private router: Router,
     public filaService: FilaService,
     private cdr: ChangeDetectorRef
   ){}
+  
+  lojaCheia: boolean = false;
+  posicaoFila: number = 0;
+  fila: FilaModel[]=[];
 
   ngOnInit() {
     this.atualizarPosicao();
@@ -161,20 +161,17 @@ export class Fila implements OnInit {
     })
   }
   atualizarPosicao(){
-    console.log('Consultando fila');
     this.filaService
       .obterPosicao()
       .subscribe({
         next: (res) => {
           this.posicaoFila = res.posicao;
-          console.log('Fila consultada', res.posicao);
           this.filaService.estaNaFila = true;
           this.cdr.detectChanges();
         },
         error: () => {
           this.posicaoFila = 0;
           this.filaService.estaNaFila = false;
-          console.log('Não está na fila')
         }
       });
   }

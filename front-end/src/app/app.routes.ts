@@ -6,6 +6,7 @@ import { Followup } from './pages/followup/followup';
 import { Dashboard } from './pages/dashboard/dashboard';
 import { Gamificacao } from './pages/gamificacao/gamificacao';
 import { LojaCheia } from './pages/lojaCheia/lojaCheia';
+import { Pendencias } from './pages/pendencias/pendencias';
 
 // Rota de acesso as paginas
 export const routes: Routes = [
@@ -50,6 +51,10 @@ export const routes: Routes = [
             {
                 path:'lojaCheia',
                 component: LojaCheia
+            },
+            {
+                path:'pendencias',
+                component: Pendencias
             }
         ]
     }

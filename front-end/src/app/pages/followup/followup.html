@@ -5,9 +5,8 @@
                 Atrasados {{ followsAtrasados.length }} 
             </div>
             <div 
-                class="card"
-                *ngFor="let item of estagiosAtrasados | keyvalue"> 
-                <div class="info-row">{{ item.key }}: {{ item.value }}</div> 
+                class="card"> 
+                <div *ngFor="let item of estagiosAtrasados | keyvalue" class="info-row">{{ item.key }}: {{ item.value }}</div> 
             </div> 
         </div>
         

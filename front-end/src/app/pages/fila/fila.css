@@ -1,42 +1,27 @@
-.metodh{
-    font-weight: bold;
-    
-    margin-top: 10px;
-}
-
 .checkbox-btn {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 12px;
-
+    margin-top: 15px;
     background: #7c3aed;
     color: white;
-
     padding: 16px;
     border-radius: 12px;
-
     width: 100%;
-    max-width: 288px; /* equivalente ao sm:w-72 */
-
+    max-width: 288px;
     cursor: pointer;
-
     box-shadow: 0 10px 20px rgba(220, 38, 38, 0.2);
-
     transition: all 0.2s ease;
+    font-weight:bold;
+
 }
 
-/* hover igual seu botão */
 .checkbox-btn:hover {
     background: #6f2e8d;    
     transform: scale(1.1);
     transition: 0.2s ease;
 }
-
-/* active igual seu botão
-.checkbox-btn:active {
-    background: #2d8525;
-} */
 
 .checkbox-btn input {
     display: none;

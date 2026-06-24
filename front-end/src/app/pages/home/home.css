@@ -1,0 +1,21 @@
+.menu {
+  display: flex;
+    
+}
+
+.menu-button {
+    position: relative;
+    z-index: 1;
+    border-left: 2px solid rgba(0, 0, 0, 0.3);
+}
+
+/* todos exceto o primeiro */
+.menu-button + .menu-button {
+  margin-left: -50px;
+}
+
+.menu-button:hover{
+    transform: scale(1.1);
+    transition: 0.2s ease;
+    z-index: 10;
+}

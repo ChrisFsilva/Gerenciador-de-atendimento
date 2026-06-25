@@ -40,4 +40,18 @@ export class ApiService {
     );
   }
 
+  inativarPendencia(id: number){
+    return this.http.put(
+      `${this.apiUrl}/pendencias/${id}/inativar`,
+      {}
+    );
+  }
+
+  criarOrcamentoFuturo(payload: any){
+    return this.http.post(
+      `${this.apiUrl}/orcamento-futuro`,
+      payload
+    );
+  }
+
 }

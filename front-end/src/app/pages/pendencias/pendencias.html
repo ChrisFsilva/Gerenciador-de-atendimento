@@ -12,8 +12,8 @@
             </thead>
             <tbody>
                 <tr *ngFor="let clientes of lista"
-                    (click)="registrarAtendimento()">
-                    <td>{{ clientes.cliente }}</td>
+                    >
+                    <td (click)="registrarAtendimento(clientes)">{{ clientes.cliente }}</td>
                     <td style="text-align: center;">{{ clientes.data_criacao | date: 'dd/MM/yyyy HH:mm'}}</td>
                 </tr>
             </tbody>

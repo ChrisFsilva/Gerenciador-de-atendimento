@@ -74,3 +74,23 @@ class AtualizacaoLoteResponse(BaseModel):
 class UpdatePendenciaCreate(BaseModel):
     cliente: str
     status: str
+
+    from datetime import date, time
+from pydantic import BaseModel
+from typing import Optional
+
+class OrcamentoFuturoCreate(BaseModel):
+
+    cliente: str
+
+    telefone: Optional[str] = None
+    email: Optional[str] = None
+
+    forma_contato: Optional[str] = None
+
+    data_contato: Optional[date] = None
+    hora_contato: Optional[time] = None
+
+    observacoes: Optional[str] = None
+
+    loja_id: int

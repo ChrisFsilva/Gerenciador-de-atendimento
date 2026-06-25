@@ -22,13 +22,12 @@ export class Pendencias {
   lista: any[] = [];
 
   ngOnInit(){
-    console.log(this.router);
     this.ApiService
       .listarpendencias()
       .subscribe({
         next: (dados) => {
           this.lista = dados;
-          console.log(this.lista)
+          console.log('lista de clientes',this.lista);
           this.cdr.detectChanges();
         },
         error: (erro) =>{
@@ -37,8 +36,25 @@ export class Pendencias {
       });
   }
 
-  registrarAtendimento(){
-    console.log('Click detectado')
-    this.router.navigate(['/home/gamificacao']);
+  registrarAtendimento(cliente: any){
+    console.log('ID:', cliente.id);
+    this.ApiService
+      .inativarPendencia(cliente.id)
+      .subscribe({
+        next: () => {
+          this.router.navigate(
+            ['/home/gamificacao'],
+            {
+              queryParams: {
+                pendenciaId: cliente.id
+              }
+            }
+          );
+      },
+
+      error: (erro) => {
+        console.error(erro);
+      }
+    });
   }
 }

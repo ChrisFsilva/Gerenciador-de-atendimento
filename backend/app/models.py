@@ -220,3 +220,27 @@ class UpdatePendencia(Base):
     loja =  Column(
         String(50)
     )
+
+class OrcamentoFuturo(Base):
+    __tablename__ = "orcamento_futuro"
+
+    id = Column(Integer, primary_key=True, index=True)
+
+    cliente = Column(String(255), nullable=False)
+
+    telefone = Column(String(50), nullable=True)
+    email = Column(String(255), nullable=True)
+
+    forma_contato = Column(String(50), nullable=True)
+
+    data_contato = Column(Date, nullable=True)
+    hora_contato = Column(Time, nullable=True)
+
+    vendedor_id = Column(Integer, nullable=False)
+    loja_id = Column(Integer, nullable=False)
+
+    observacoes = Column(String(255), nullable=True)
+
+    status = Column(String(50), default="Ativo")
+
+    data_criacao = Column(DateTime, default=datetime.utcnow)

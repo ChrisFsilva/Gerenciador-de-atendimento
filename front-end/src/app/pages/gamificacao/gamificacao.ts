@@ -27,6 +27,8 @@ export class Gamificacao {
 
   // Índice da pergunta atual
   currentIndex: number = 0;
+
+  tipoFluxo: 'normal' | 'orcamento_futuro' = 'normal';
   
 
   // Estrutura das perguntas
@@ -61,21 +63,30 @@ export class Gamificacao {
 
       category: 'Follow-up',
 
-      type: 'boolean',
+      type: 'select',
 
-      text: 'Foi gerado orçamento?',
+      text: 'Foi gerado orçamento no ato?',
 
-      sim: {
-        points: 500,
-        nextQuestion: 'Qual o número do orçamento?',
-        nextId: 3
-      },
+      options: [
 
-      não: {
-        points: -1000,
-        nextQuestion: 'finalizar atendimento',
-        nextId: null
-      }
+        {
+          label: 'Não',
+          points: 100,
+          nextId: 3
+        },
+
+        {
+          label: 'Orçamento futuro',
+          points: 50,
+          nextId: 4
+        },
+
+        {
+          label: 'Sim',
+          points: 100,
+          nextId: 3
+        },
+      ]
     },
 
     {
@@ -202,16 +213,16 @@ export class Gamificacao {
 
       type: 'boolean',
 
-      text: 'Neste projeto, há profissional envolvido?',
+      text: 'Utilizei a abordagem Brentwood?',
 
       sim: {
         points: 100,
-        nextQuestion: 'Você conseguiu descobrir os produtos adicionais que o cliente tem interesse?',
+        nextQuestion: 'Descobri a jornada do cliente?',
         nextId: 10
       },
       não: {
         points: -100,
-        nextQuestion: 'Você conseguiu descobrir os produtos adicionais que o cliente tem interesse?',
+        nextQuestion: 'Descobri a jornada do cliente?',
         nextId: 10
       },
     },
@@ -222,16 +233,16 @@ export class Gamificacao {
 
       type: 'boolean',
 
-      text: 'Você conseguiu descobrir os produtos adicionais que o cliente tem interesse?',
+      text: 'Descobri a jornada do cliente?',
 
       sim: {
         points: 100,
-        nextQuestion: 'Você conseguiu descobrir as pessoas que farão parte do processo de decisão?',
+        nextQuestion: 'Descobri o motivo da compra?',
         nextId: 11
       },
       não: {
         points: -100,
-        nextQuestion: 'Você conseguiu descobrir as pessoas que farão parte do processo de decisão?',
+        nextQuestion: 'Descobri o motivo da compra?',
         nextId: 11
       },
     },
@@ -242,16 +253,16 @@ export class Gamificacao {
 
       type: 'boolean',
 
-      text: 'Você conseguiu descobrir as pessoas que farão parte do processo de decisão?',
+      text: 'Descobri o motivo da compra?',
 
       sim: {
         points: 100,
-        nextQuestion: 'Você conseguiu descobrir o gosto do cliente?',
+        nextQuestion: 'Descobri as pessoas que farão parte do processo de decisão?',
         nextId: 12
       },
       não: {
         points: -100,
-        nextQuestion: 'Você conseguiu descobrir o gosto do cliente?',
+        nextQuestion: 'Descobri as pessoas que farão parte do processo de decisão?',
         nextId: 12
       },
     },
@@ -262,16 +273,16 @@ export class Gamificacao {
 
       type: 'boolean',
 
-      text: 'Você conseguiu descobrir o gosto do cliente?',
+      text: 'Descobri as pessoas que farão parte do processo de decisão?',
 
       sim: {
         points: 100,
-        nextQuestion: 'Você conseguiu descobrir como este produto será utilizado?',
+        nextQuestion: 'Descobri se há profissional auxiliando no processo de decisão?',
         nextId: 13
       },
       não: {
         points: -100,
-        nextQuestion: 'Você conseguiu descobrir como este produto será utilizado?',
+        nextQuestion: 'Descobri se há profissional auxiliando no processo de decisão?',
         nextId: 13
       },
     },
@@ -282,16 +293,16 @@ export class Gamificacao {
 
       type: 'boolean',
 
-      text: 'Você conseguiu descobrir como este produto será utilizado?',
+      text: 'Descobri se há profissional auxiliando no processo de decisão?',
 
       sim: {
         points: 100,
-        nextQuestion: 'Você conseguiu descobrir o momento do projeto?',
+        nextQuestion: 'Descobri o produto inicial?',
         nextId: 14
       },
       não: {
         points: -100,
-        nextQuestion: 'Você conseguiu descobrir o momento do projeto?',
+        nextQuestion: 'Descobri o produto inicial?',
         nextId: 14
       },
     },
@@ -302,16 +313,16 @@ export class Gamificacao {
 
       type: 'boolean',
 
-      text: 'Você conseguiu descobrir o momento do projeto?',
+      text: 'Descobri o produto inicial?',
 
       sim: {
         points: 100,
-        nextQuestion: 'Você conseguiu descobrir o que o cliente valoriza?',
+        nextQuestion: 'Descobri a possibilidade de produtos adicionais para o ambiente inicial?',
         nextId: 15
       },
       não: {
         points: -100,
-        nextQuestion: 'Você conseguiu descobrir o que o cliente valoriza?',
+        nextQuestion: 'Descobri a possibilidade de produtos adicionais para o ambiente inicial?',
         nextId: 15
       },
     },
@@ -322,16 +333,16 @@ export class Gamificacao {
 
       type: 'boolean',
 
-      text: 'Você conseguiu descobrir o que o cliente valoriza?',
+      text: 'Descobri a possibilidade de produtos adicionais para o ambiente inicial?',
 
       sim: {
         points: 100,
-        nextQuestion: 'Você seguiu a abordagem Brentwood?',
+        nextQuestion: 'Descobri demais ambientes e todas as possibilidades de produtos adicionais?',
         nextId: 16
       },
       não: {
         points: -100,
-        nextQuestion: 'Você seguiu a abordagem Brentwood?',
+        nextQuestion: 'Descobri demais ambientes e todas as possibilidades de produtos adicionais?',
         nextId: 16
       },
     },
@@ -342,16 +353,16 @@ export class Gamificacao {
 
       type: 'boolean',
 
-      text: 'Você seguiu a abordagem Brentwood?',
+      text: 'Descobri demais ambientes e todas as possibilidades de produtos adicionais?',
 
       sim: {
         points: 100,
-        nextQuestion: 'Você seguiu a demonstração Brentwood?',
+        nextQuestion: 'Descobri estilo, gosto e prefêrencia do cliente?',
         nextId: 17
       },
       não: {
         points: -100,
-        nextQuestion: 'Você seguiu a demonstração Brentwood?',
+        nextQuestion: 'Descobri estilo, gosto e prefêrencia do cliente?',
         nextId: 17
       },
     },
@@ -362,27 +373,187 @@ export class Gamificacao {
 
       type: 'boolean',
 
-      text: 'Você seguiu a demonstração Brentwood?',
+      text: 'Descobri estilo, gosto e prefêrencia do cliente?',
 
       sim: {
         points: 100,
-        nextQuestion: 'Qual a data limite do cliente?',
+        nextQuestion: 'Descobri como será utilizado os produtos iniciais?',
         nextId: 18
       },
       não: {
         points: -100,
-        nextQuestion: 'Digite o nome dos concorrentes',
+        nextQuestion: 'Descobri como será utilizado os produtos iniciais?',
         nextId: 18
       },
     },
-        {
-      id: 18,
+    {
+      id: 19,
 
       category: 'Sondagem',
 
       type: 'boolean',
 
-      text: 'Você estabeleceu valor real para o cliente?',
+      text: 'Descobri como será utilizado os produtos iniciais?',
+
+      sim: {
+        points: 100,
+        nextQuestion: 'Descobri experiências que possam ter gerado gerado insatisfações?',
+        nextId: null
+      },
+      não: {
+        points: -100,
+        nextQuestion: 'Descobri experiências que possam ter gerado gerado insatisfações?',
+        nextId: null
+      },
+    },
+    {
+      id: 20,
+
+      category: 'Sondagem',
+
+      type: 'boolean',
+
+      text: 'Descobri experiências que possam ter gerado gerado insatisfações?',
+
+      sim: {
+        points: 100,
+        nextQuestion: 'Descobri o valor real para o cliente?',
+        nextId: null
+      },
+      não: {
+        points: -100,
+        nextQuestion: 'Descobri o valor real para o cliente?o',
+        nextId: null
+      },
+    },
+    {
+      id: 21,
+
+      category: 'Sondagem',
+
+      type: 'boolean',
+
+      text: 'Descobri o valor real para o cliente?',
+
+      sim: {
+        points: 100,
+        nextQuestion: 'Descobri a arena competitiva?',
+        nextId: null
+      },
+      não: {
+        points: -100,
+        nextQuestion: 'Descobri a arena competitiva',
+        nextId: null
+      },
+    },
+    {
+      id: 22,
+
+      category: 'Sondagem',
+
+      type: 'boolean',
+
+      text: 'Descobri a arena competitiva?',
+
+      sim: {
+        points: 100,
+        nextQuestion: 'Descobri o valor que o cliente pretente investir?',
+        nextId: null
+      },
+      não: {
+        points: -100,
+        nextQuestion: 'Descobri o valor que o cliente pretente investir',
+        nextId: null
+      },
+    },
+    {
+      id: 23,
+
+      category: 'Sondagem',
+
+      type: 'boolean',
+
+      text: 'Descobri o valor que o cliente pretente investir?',
+
+      sim: {
+        points: 100,
+        nextQuestion: 'Utilizei a forma de demonstração Brentwood?',
+        nextId: null
+      },
+      não: {
+        points: -100,
+        nextQuestion: 'Utilizei a forma de demonstração Brentwood',
+        nextId: null
+      },
+    },
+    {
+      id: 24,
+
+      category: 'Sondagem',
+
+      type: 'boolean',
+
+      text: 'Utilizei a forma de demonstração Brentwood?',
+
+      sim: {
+        points: 100,
+        nextQuestion: 'Estabeleci o que é "valor" para o cliente?',
+        nextId: null
+      },
+      não: {
+        points: -100,
+        nextQuestion: 'Estabeleci o que é "valor" para o cliente?',
+        nextId: null
+      },
+    },
+    {
+      id: 25,
+
+      category: 'Sondagem',
+
+      type: 'boolean',
+
+      text: 'Estabeleci o que é "valor" para o cliente?',
+
+      sim: {
+        points: 100,
+        nextQuestion: 'Utilizei a forma de contorno de objeções Brentwood?',
+        nextId: null
+      },
+      não: {
+        points: -100,
+        nextQuestion: 'Utilizei a forma de contorno de objeções Brentwood',
+        nextId: null
+      },
+    },
+        {
+      id: 26,
+
+      category: 'Sondagem',
+
+      type: 'boolean',
+
+      text: 'Utilizei a forma de contorno de objeções Brentwood?',
+
+      sim: {
+        points: 100,
+        nextQuestion: 'Descobri a verdadeira objeção?',
+        nextId: null
+      },
+      não: {
+        points: -100,
+        nextQuestion: 'Descobri a verdadeira objeção?',
+        nextId: null
+      },
+    },
+        {
+      id: 27,
+
+      category: 'Sondagem',
+
+      type: 'boolean',
+
+      text: 'Descobri a verdadeira objeção?',
 
       sim: {
         points: 100,
@@ -445,17 +616,15 @@ export class Gamificacao {
   // Responder pergunta do Select
   responderSelect(opcao: any) {
 
-    // Salvar resposta
     this.respostas[this.perguntaAtual.id] = opcao.label;
 
-    // Soma pontuação
     this.score += opcao.points;
 
-    // Próxima pergunta
-    this.irParaPergunta(
-      opcao.nextId
-    );
+    if (opcao.label === 'Orçamento futuro') {
+      this.tipoFluxo = 'orcamento_futuro';
+    }
 
+    this.irParaPergunta(opcao.nextId);
   }
 
   // Ranking baseado na pontuação

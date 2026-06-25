@@ -176,8 +176,6 @@ def obter_usuario(
         credenciais: HTTPAuthorizationCredentials = Depends(security)
     ):
     
-    print("TOKEN RECEBIDO:", credenciais.credentials)
-    print("SCHEME:", credenciais.scheme)
     token = credenciais.credentials
 
     try:
@@ -196,7 +194,6 @@ def obter_usuario(
         }
     
     except Exception as e:
-        print("ERRO JWT:", e)
         raise HTTPException(
             status_code=401,
             detail="Token Inválido",
@@ -212,7 +209,6 @@ def listar_agendamentos(
     usuario = Depends(obter_usuario),
     db: Session = Depends(get_db)
 ):
-    print("MONTANDO JSON")
 
     query = db.query(
         Agendamento
@@ -377,10 +373,8 @@ def dashboard_cards(
     inicio_mes = hoje.replace(day=1)
 
     ultimos_15_dias = hoje - timedelta(days=15)
-    print("TOTAL APÓS FILTRO:", query.count())
 
     follows = query.all()
-    print("FOLLOWS ENCONTRADOS:", len(follows))
     follows_hoje = 0
     follows_15_dias = 0
     follows_mes = 0
@@ -599,7 +593,6 @@ def atualizar_follow(
     dados: dict,
     db: Session = Depends(get_db)
 ):
-    print("ENTROU NO PUT")
 
     follow = db.query(
         models.Agendamento
@@ -746,3 +739,62 @@ def listarpendencias(
         .filter(UpdatePendencia.status == "Ativo", UpdatePendencia.vendedor_id == usuario_logado["id"])
         .all()
     )
+
+@app.put("/pendencias/{id}/inativar")
+def inativar_pendencia(
+    id: int,
+    db: Session = Depends(get_db)
+):
+    pendencia = (
+        db.query(UpdatePendencia)
+            .filter(UpdatePendencia.id == id)
+            .first()
+    )
+
+    if not pendencia:
+        raise HTTPException(
+            status_code=404,
+            detail="Pendência não encontrada"
+        )
+    
+    pendencia.status = "Inativo"
+
+    db.commit()
+
+    return {"mensage":"Pendência atualizada"}
+
+@app.post("/orcamento-futuro")
+def criar_orcamento_futuro(
+    payload: schemas.OrcamentoFuturoCreate,
+    db: Session = Depends(get_db),
+    usuario_logado = Depends(obter_usuario)
+):
+
+    novo_registro = models.OrcamentoFuturo(
+
+        cliente = payload.cliente,
+
+        telefone = payload.telefone,
+        email = payload.email,
+
+        forma_contato = payload.forma_contato,
+
+        data_contato = payload.data_contato,
+        hora_contato = payload.hora_contato,
+
+        observacoes = payload.observacoes,
+
+        loja_id = payload.loja_id,
+
+        vendedor_id = usuario_logado["id"],
+
+        status = "Ativo"
+    )
+
+    db.add(novo_registro)
+
+    db.commit()
+
+    db.refresh(novo_registro)
+
+    return novo_registro

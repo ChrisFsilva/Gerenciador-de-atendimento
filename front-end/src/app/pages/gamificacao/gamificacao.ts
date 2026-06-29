@@ -78,7 +78,7 @@ export class Gamificacao {
         {
           label: 'Orçamento futuro',
           points: 50,
-          nextId: 4
+          nextId: 101
         },
 
         {
@@ -546,7 +546,7 @@ export class Gamificacao {
         nextId: null
       },
     },
-        {
+    {
       id: 27,
 
       category: 'Sondagem',
@@ -566,6 +566,106 @@ export class Gamificacao {
         nextId: null
       },
     },
+
+    // PERGUNTAS DE ORÇAMENTO FUTURO
+
+    {
+      id: 101,
+
+      category: 'Follow-up',
+
+      type: 'input',
+
+      text: 'Qual é o nome do cliente?',
+
+      placeholder: 'Digite um nome que facilitará o reconhecimento dele',
+
+      value: '',
+
+      points: 0,
+
+      nextId: 102
+    },
+
+    {
+      id: 102,
+
+      category: 'Follow-up',
+
+      type: 'datetime-local',
+
+      text: 'Qual a data do próximo contato?',
+
+      value: '',
+
+      points: 0,
+
+      nextId: 103
+    },
+    {
+      id: 103,
+
+      category: 'Follow-up',
+
+      type: 'select',
+
+      text: 'Como ficou o alinhado o contato com o cliente?',
+
+      options: [
+
+        {
+          label: 'Whatsapp',
+          points: 100,
+          nextId: 104
+        },
+
+        {
+          label: 'E-mail',
+          points: 100,
+          nextId: 105
+        },
+
+        {
+          label: 'Visita na loja',
+          points: 100,
+          nextId: 104
+        },
+      ]
+    },
+    {
+      id: 104,
+
+      category: 'Follow-up',
+
+      type: 'input',
+
+      text: 'Qual o número do telefone do cliente?',
+
+      placeholder: 'Digite o número de contato do telefone em que o whatsapp está cadastrado',
+
+      value: '',
+
+      points: 0,
+
+      nextId: 105
+    },
+    {
+      id: 105,
+
+      category: 'Follow-up',
+
+      type: 'input',
+
+      text: 'Qual o endereço de e-mail do cliente?',
+
+      placeholder: 'Digite o e-mail de contato do cliente',
+
+      value: '',
+
+      points: 0,
+
+      nextId: null
+    },
   ];
 
   constructor(
@@ -578,7 +678,6 @@ export class Gamificacao {
 
   // Responder pergunta de input
   responderInput() {
-
     // Bloqueia informação vazia
     if (
       !this.respostaInput ||
@@ -586,10 +685,8 @@ export class Gamificacao {
     ) {
       return;
     }
-
     // Salvar valor da resposta
     this.perguntaAtual.value = this.respostaInput;
-
     // Salva resposta localmente
     this.respostas[this.perguntaAtual.id] = this.respostaInput;
 
@@ -598,11 +695,12 @@ export class Gamificacao {
 
     // Próxima pergunta
     this.irParaPergunta(
-      (this.perguntaAtual as any).nextId
-    );
-
+      
+      (this.perguntaAtual as any).nextId);
+      
     // Limpa campo
     this.respostaInput = '';
+    
 
   }
 
@@ -673,13 +771,18 @@ export class Gamificacao {
     nextId: number | null
   ) {
 
+    console.log("Próximo ID:", nextId);
+
     // Finalizar fluxo
     if (nextId === null) {
-
-      this.telaAtual = 'resultado';
-
+      if (this.tipoFluxo === 'orcamento_futuro'){
+        console.log("Finalizar Orçamento futuro");
+        this.finalizarOrcamentoFuturo();        
+      } else{
+        console.log("Finalizar atendimento fila");
+        this.finalizarAtendimentoFila();
+      }
       return;
-
     }
 
     // Localizar próxima pergunta
@@ -696,55 +799,100 @@ export class Gamificacao {
   }
 
   // Finalizar atendimento
-finalizarAtendimentoFila() {
-  
-  // APRESENTAR VARIAVEIS NO CONSOLE
-  console.log(this.respostas);
+  finalizarAtendimentoFila() {
+    
+    // APRESENTAR VARIAVEIS NO CONSOLE
+    console.log(this.respostas);
 
-  const atendimento = {
+    const atendimento = {
 
-    vendedor_id: 1,
+      score: this.score,
 
-    loja: 'Matriz',
+      ranking: this.ranking,
 
-    score: this.score,
+      orcamento: this.respostas[2],
 
-    ranking: this.ranking,
+      concorrentes: this.respostas[7] ?? null,
 
-    orcamento: this.respostas[2],
+      gerou_follow: this.respostas[3] ?? 'False',
 
-    concorrentes: this.respostas[7] ?? null,
+      data_follow: this.respostas[4] ?? null,
 
-    gerou_follow: this.respostas[3] ?? 'False',
+      respostas: this.respostas
+    };
+    console.log(atendimento);
 
-    data_follow: this.respostas[4] ?? null,
+    this.apiService
+      .criarAtendimento(atendimento)
+      .subscribe({
 
-    respostas: this.respostas
-  };
-  console.log(atendimento);
+        next: (resposta: any) => {
+          
+          console.log(
+            'Atendimento salvo',
+            resposta
+          );
 
-  this.apiService
-    .criarAtendimento(atendimento)
-    .subscribe({
+          this.router.navigate(
+            ['/home/fila']
+          );
 
-      next: (resposta: any) => {
-        
-        console.log(
-          'Atendimento salvo',
-          resposta
-        );
+        },
 
-        this.router.navigate(
-          ['/home/fila']
-        );
+        error: (erro: any) => {
 
-      },
+          console.error(
+            'Erro ao salvar',
+            erro.error
+          );
+
+        }
+      });
+  }
+
+  finalizarOrcamentoFuturo() {
+    const dataAgendamento = this.respostas[102];
+    const orcamentoFuturo ={
+      cliente: this.respostas[101],
+
+      telefone : this.respostas[104],
+      
+      email : this.respostas[105],
+
+      forma_contato : this.respostas[103],
+
+      data_contato : this.respostas[102],
+
+      vendedor_id : "",
+      
+      loja_id : "",
+
+      status: "Ativo",
+
+      data_criacao : "",
+    };
+    this.apiService
+      .criarOrcamentoFuturo(orcamentoFuturo)
+      .subscribe({
+
+        next: (resposta: any) => {
+          
+          console.log(
+            'orçamento futuro salvo',
+            resposta
+          );
+
+          this.router.navigate(
+            ['/home/fila']
+          );
+
+        },
 
       error: (erro: any) => {
 
         console.error(
           'Erro ao salvar',
-          erro.error
+          console.log(erro.error)
         );
 
       }

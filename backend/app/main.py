@@ -775,16 +775,14 @@ def criar_orcamento_futuro(
         cliente = payload.cliente,
 
         telefone = payload.telefone,
+        
         email = payload.email,
 
         forma_contato = payload.forma_contato,
 
         data_contato = payload.data_contato,
-        hora_contato = payload.hora_contato,
 
-        observacoes = payload.observacoes,
-
-        loja_id = payload.loja_id,
+        loja_id = usuario_logado["loja"],
 
         vendedor_id = usuario_logado["id"],
 

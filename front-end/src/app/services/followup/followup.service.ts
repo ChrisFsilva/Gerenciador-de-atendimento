@@ -58,11 +58,6 @@ export class FollowupServices {
 
     atualizarFollow(id: number, dados: any) {
 
-        console.log(
-            'TOKEN PUT:',
-            this.obterToken()
-        );
-
         const headers = new HttpHeaders({
             Authorization: `Bearer ${this.obterToken()}`
         }); 

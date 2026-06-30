@@ -243,3 +243,30 @@ class OrcamentoFuturo(Base):
     status = Column(String(50), default="Ativo")
 
     data_criacao = Column(DateTime, default=datetime.utcnow)
+
+class UpdateFuture(Base):
+    __tablename__ = "orcamento_futuro"
+
+    id = Column(Integer, primary_key=True, index=True)
+
+    cliente = Column(String(255), nullable=True)
+
+    telefone = Column(String(50))
+
+    email = Column(String(255))
+
+    forma_contato = Column(String(50))
+
+    data_contato = Column(DateTime, 
+                          default=lambda: datetime.now(timezone.utc))
+
+    vendedor_id = Column(Integer,
+        ForeignKey("users.id"))
+    
+    loja_id = Column(Integer,
+        ForeignKey("users.loja"))
+    
+    status = Column(String(50))
+
+    data_criacao = Column(DateTime, 
+                        default=datetime.utcnow)

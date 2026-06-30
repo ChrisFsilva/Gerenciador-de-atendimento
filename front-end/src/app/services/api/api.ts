@@ -53,4 +53,10 @@ export class ApiService {
       payload
     );
   }
+    carregarOrcamentoFuturo(payload: any){
+    return this.http.post(
+      `${this.apiUrl}/carregar-orcamento-futuro`,
+      payload
+    );
+  }
 }

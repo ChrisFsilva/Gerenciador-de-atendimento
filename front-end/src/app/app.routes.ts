@@ -7,6 +7,7 @@ import { Dashboard } from './pages/dashboard/dashboard';
 import { Gamificacao } from './pages/gamificacao/gamificacao';
 import { LojaCheia } from './pages/lojaCheia/lojaCheia';
 import { Pendencias } from './pages/pendencias/pendencias';
+import { Futuro } from './pages/futuro/futuro';
 
 // Rota de acesso as paginas
 export const routes: Routes = [
@@ -55,7 +56,12 @@ export const routes: Routes = [
             {
                 path:'pendencias',
                 component: Pendencias
+            },
+            {
+                path:'futuro',
+                component: Futuro
             }
+
         ]
     }
 ];

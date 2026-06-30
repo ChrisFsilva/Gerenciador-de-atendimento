@@ -1,0 +1,90 @@
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+
+    <div
+        *ngFor="let cliente of lista"
+        class="
+            bg-white
+            rounded-2xl
+            shadow-lg
+            border
+            border-slate-200
+            p-5
+            transition
+            hover:shadow-xl
+            hover:-translate-y-1
+            cursor-pointer
+        "
+    >
+
+        <!-- Cabeçalho -->
+        <div class="flex justify-between items-center">
+
+            <i class="fa-solid fa-file-lines text-slate-400 text-xl"></i>
+
+            <span
+                class="
+                    bg-yellow-500
+                    text-white
+                    text-xs
+                    font-semibold
+                    px-3
+                    py-1
+                    rounded-full
+                ">
+                ORÇAMENTO FUTURO
+            </span>
+
+        </div>
+
+        <!-- Cliente -->
+        <h2 class="mt-5 text-xl font-semibold text-slate-800">
+            {{ cliente.cliente }}
+        </h2>
+
+        <!-- Informações -->
+        <div class="mt-4 space-y-2 text-slate-500 text-sm">
+
+            <div>
+                <i class="fa-solid fa-calendar-days mr-2"></i>
+                {{ cliente.data_contato | date:'dd/MM/yyyy HH:mm' }}
+            </div>
+
+            <div>
+                <i class="fa-solid fa-phone mr-2"></i>
+                {{ cliente.forma_contato }}
+            </div>
+
+        </div>
+
+        <!-- Botões -->
+        <div class="flex gap-3 mt-6">
+
+            <button
+                class="
+                    flex-1
+                    bg-green-600
+                    hover:bg-green-700
+                    text-white
+                    rounded-lg
+                    py-2
+                    font-medium
+                ">
+                Atender
+            </button>
+
+            <button
+                class="
+                    w-12
+                    bg-red-500
+                    hover:bg-red-700
+                    rounded-lg
+                    text-white
+                ">
+                <i class="fa-solid fa-trash"></i>
+            </button>
+
+        </div>
+
+    </div>
+
+</div>

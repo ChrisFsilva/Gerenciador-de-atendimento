@@ -387,7 +387,7 @@ export class Gamificacao {
       },
     },
     {
-      id: 19,
+      id: 18,
 
       category: 'Sondagem',
 
@@ -398,16 +398,16 @@ export class Gamificacao {
       sim: {
         points: 100,
         nextQuestion: 'Descobri experiências que possam ter gerado gerado insatisfações?',
-        nextId: null
+        nextId: 19
       },
       não: {
         points: -100,
         nextQuestion: 'Descobri experiências que possam ter gerado gerado insatisfações?',
-        nextId: null
+        nextId: 19
       },
     },
     {
-      id: 20,
+      id: 19,
 
       category: 'Sondagem',
 
@@ -418,16 +418,16 @@ export class Gamificacao {
       sim: {
         points: 100,
         nextQuestion: 'Descobri o valor real para o cliente?',
-        nextId: null
+        nextId: 20
       },
       não: {
         points: -100,
         nextQuestion: 'Descobri o valor real para o cliente?o',
-        nextId: null
+        nextId: 20
       },
     },
     {
-      id: 21,
+      id: 20,
 
       category: 'Sondagem',
 
@@ -438,16 +438,16 @@ export class Gamificacao {
       sim: {
         points: 100,
         nextQuestion: 'Descobri a arena competitiva?',
-        nextId: null
+        nextId: 21
       },
       não: {
         points: -100,
         nextQuestion: 'Descobri a arena competitiva',
-        nextId: null
+        nextId: 21
       },
     },
     {
-      id: 22,
+      id: 21,
 
       category: 'Sondagem',
 
@@ -458,16 +458,16 @@ export class Gamificacao {
       sim: {
         points: 100,
         nextQuestion: 'Descobri o valor que o cliente pretente investir?',
-        nextId: null
+        nextId: 22
       },
       não: {
         points: -100,
         nextQuestion: 'Descobri o valor que o cliente pretente investir',
-        nextId: null
+        nextId: 22
       },
     },
     {
-      id: 23,
+      id: 22,
 
       category: 'Sondagem',
 
@@ -478,16 +478,16 @@ export class Gamificacao {
       sim: {
         points: 100,
         nextQuestion: 'Utilizei a forma de demonstração Brentwood?',
-        nextId: null
+        nextId: 23
       },
       não: {
         points: -100,
         nextQuestion: 'Utilizei a forma de demonstração Brentwood',
-        nextId: null
+        nextId: 23
       },
     },
     {
-      id: 24,
+      id: 23,
 
       category: 'Sondagem',
 
@@ -498,16 +498,16 @@ export class Gamificacao {
       sim: {
         points: 100,
         nextQuestion: 'Estabeleci o que é "valor" para o cliente?',
-        nextId: null
+        nextId: 24
       },
       não: {
         points: -100,
         nextQuestion: 'Estabeleci o que é "valor" para o cliente?',
-        nextId: null
+        nextId: 24
       },
     },
     {
-      id: 25,
+      id: 24,
 
       category: 'Sondagem',
 
@@ -518,16 +518,16 @@ export class Gamificacao {
       sim: {
         points: 100,
         nextQuestion: 'Utilizei a forma de contorno de objeções Brentwood?',
-        nextId: null
+        nextId: 25
       },
       não: {
         points: -100,
         nextQuestion: 'Utilizei a forma de contorno de objeções Brentwood',
-        nextId: null
+        nextId: 25
       },
     },
         {
-      id: 26,
+      id: 25,
 
       category: 'Sondagem',
 
@@ -538,16 +538,16 @@ export class Gamificacao {
       sim: {
         points: 100,
         nextQuestion: 'Descobri a verdadeira objeção?',
-        nextId: null
+        nextId: 26
       },
       não: {
         points: -100,
         nextQuestion: 'Descobri a verdadeira objeção?',
-        nextId: null
+        nextId: 26
       },
     },
     {
-      id: 27,
+      id: 26,
 
       category: 'Sondagem',
 
@@ -664,7 +664,7 @@ export class Gamificacao {
 
       points: 0,
 
-      nextId: null
+      nextId: 9
     },
   ];
 

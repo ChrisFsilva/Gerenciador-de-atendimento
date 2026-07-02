@@ -9,7 +9,6 @@ import { LojaCheia } from './pages/lojaCheia/lojaCheia';
 import { Pendencias } from './pages/pendencias/pendencias';
 import { Futuro } from './pages/futuro/futuro';
 
-// Rota de acesso as paginas
 export const routes: Routes = [
     /* Definir a página de login como inicial */
     {
@@ -21,7 +20,6 @@ export const routes: Routes = [
         path:'login',
         component: Login
     },
-    // Página home
     {
         path:'home',
         component: Home,

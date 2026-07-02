@@ -31,9 +31,7 @@ export class FollowupServices {
         const headers = new HttpHeaders({
             Authorization: `Bearer ${this.obterToken()}`
         }); 
-        console.log('TOKEN ENVIADO:', this.obterToken());   
-        console.trace('QUEM ESTA CHAMANDO OS DADOS');
-        
+
         return this.http.get<FollowsModel[]>(
             `${this.apiUrl}/follows`,
             { headers }
@@ -70,19 +68,19 @@ export class FollowupServices {
     }
     
     atualizarFollowsLote(followsIDs: number[], status: string): Observable<AtualizacaoLoteResponse>{
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.obterToken()}`
-    });
+        const headers = new HttpHeaders({
+        Authorization: `Bearer ${this.obterToken()}`
+        });
 
-    const body = {
-      follow_ids: followsIDs,
-      status: status
-    };
+        const body = {
+        follow_ids: followsIDs,
+        status: status
+        };
 
-    return this.http.put<AtualizacaoLoteResponse>(
-      `${this.apiUrl}/follows/atualizar-lote`,
-      body,
-      { headers }
-    )
-  }
+        return this.http.put<AtualizacaoLoteResponse>(
+        `${this.apiUrl}/follows/atualizar-lote`,
+        body,
+        { headers }
+        )
+    }
 }

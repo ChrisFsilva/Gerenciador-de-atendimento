@@ -17,7 +17,8 @@ from app.models import (
     AnswerRecord,
     Agendamento,
     FilaAtendimento,
-    UpdatePendencia
+    UpdatePendencia,
+    OrcamentoFuturo
 )
 from app.schemas import (AtualizacaoLoteRequest)
 
@@ -796,3 +797,17 @@ def criar_orcamento_futuro(
     db.refresh(novo_registro)
 
     return novo_registro
+
+@app.get("/carregar-orcamento-futuro")
+def listarfuturos( 
+    db: Session = Depends(get_db),
+    usuario_logado = Depends(obter_usuario)
+
+):
+    return (
+        db.query(OrcamentoFuturo)
+            .filter(
+                OrcamentoFuturo.status == "Ativo", 
+                OrcamentoFuturo.vendedor_id == usuario_logado["id"])
+            .all()
+    )

@@ -83,3 +83,12 @@ class OrcamentoFuturoCreate(BaseModel):
     email: Optional[str] = None
     forma_contato: Optional[str] = None
     data_contato: Optional[datetime] = None
+
+class UpdateFuturo(BaseModel):
+    
+    cliente: str
+    telefone: Optional[str] = None
+    email: Optional[str] = None
+    forma_contato: Optional[str] = None
+    data_contato: Optional[datetime] = None
+    data_criacao: datetime

@@ -37,12 +37,12 @@ export class Login {
 
     .subscribe({
       next: (res: any) =>{
-        localStorage.setItem(
+        sessionStorage.setItem(
           'token',
           res.access_token
         );
 
-        localStorage.setItem(
+        sessionStorage.setItem(
           'usuario',
           JSON.stringify(res.usuario)
         );

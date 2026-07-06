@@ -16,12 +16,12 @@ class UsuarioCreate(BaseModel):
 # Modelo padrão de inforamções que alimentará a tabela 'Services_Records'
 class AtendimentoCreate(BaseModel):
 
-    vendedor_id: int
-    loja: str
+    # vendedor_id: int
+    # loja: str
     score: int
-    ranking: str
+    ranking: int
     orcamento: Optional[str] = None
-    concorrentes: Optional[str] = None
+    concorrentes: Optional[str] = 'Não mencionado'
     gerou_follow: str
     data_follow: Optional[datetime] = None
     respostas: dict

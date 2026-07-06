@@ -69,7 +69,7 @@ export class FollowupServices {
     
     atualizarFollowsLote(followsIDs: number[], status: string): Observable<AtualizacaoLoteResponse>{
         const headers = new HttpHeaders({
-        Authorization: `Bearer ${this.obterToken()}`
+            Authorization: `Bearer ${this.obterToken()}`
         });
 
         const body = {
@@ -78,9 +78,9 @@ export class FollowupServices {
         };
 
         return this.http.put<AtualizacaoLoteResponse>(
-        `${this.apiUrl}/follows/atualizar-lote`,
-        body,
-        { headers }
-        )
+            `${this.apiUrl}/follows/atualizar-lote`,
+            body,
+            { headers }
+        )  
     }
 }

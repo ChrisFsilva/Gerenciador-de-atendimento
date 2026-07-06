@@ -286,17 +286,20 @@
         <p class="text-slate-400 text-sm uppercase mb-3">
             Ranking
         </p>
-        <h2
-            class="
-            text-4xl
-            font-bold
-            text-amber-400">
-            {{ ranking }}
-        </h2>
+        <div class="text-2xl">
+            <i
+                *ngFor="let estrela of estrelas"
+                class="fa-star"
+                [class.fa-solid]="estrela"
+                [class.fa-regular]="!estrela"
+                [class.text-yellow-400]="estrela"
+                [class.text-gray-400]="!estrela">
+            </i>
+        </div>
     </div>
     <!-- BOTÃO -->
     <button
-        (click)="finalizarAtendimentoFila()"
+        (click)="encerrarGamificacao()"
         class="
         w-full
         bg-emerald-600

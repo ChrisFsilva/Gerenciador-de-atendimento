@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FilaModel } from '../../models/fila.model';
 import { FilaService } from '../../services/fila/fila.service';
 import { FormsModule } from '@angular/forms';
 import { ChangeDetectorRef } from '@angular/core';
-import { interval } from 'rxjs';
+import { interval, Subscription } from 'rxjs';
+
+
 
 @Component({
   selector: 'app-fila',
@@ -18,26 +20,46 @@ import { interval } from 'rxjs';
   styleUrl: './fila.css',
 })
 
-export class Fila implements OnInit {
+
+export class Fila implements OnInit, OnDestroy  {
+  
+  private heartbeatSubscription?: Subscription
 
   constructor(
     private router: Router,
     public filaService: FilaService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,  
   ){}
   
   lojaCheia: boolean = false;
   posicaoFila: number = 0;
   fila: FilaModel[]=[];
 
-  ngOnInit() {
-    this.atualizarPosicao();
+  private filaSubscription!: Subscription;
 
-    interval(5000)
-      .subscribe(() => {
-        this.atualizarPosicao();
-        this.cdr.detectChanges();
-      })
+  ngOnInit(): void {
+
+    this.atualizarPosicao();
+    this.carregarFila();
+    this.heartbeatSubscription = interval(60000).subscribe(() => {
+
+      this.atualizarPosicao();
+
+      this.filaService
+        .heartbeatFila()
+        .subscribe({
+          error: (erro) => {
+            console.error("Heartbeat falhou", erro);
+          }
+        });
+
+      this.cdr.detectChanges();
+
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.heartbeatSubscription?.unsubscribe();
   }
 
   showToast(message: string, type: string = 'success') {
@@ -135,7 +157,7 @@ export class Fila implements OnInit {
         toast.remove();
       }, 300);
 
-    }, 3000);
+    }, 300);
   }
   entrarFila(){
     this.filaService
@@ -168,6 +190,7 @@ export class Fila implements OnInit {
           this.posicaoFila = res.posicao;
           this.filaService.estaNaFila = true;
           this.cdr.detectChanges();
+          this.carregarFila();
         },
         error: () => {
           this.posicaoFila = 0;
@@ -185,6 +208,7 @@ export class Fila implements OnInit {
         this.filaService.estaNaFila = false;
         this.posicaoFila = 0;
         this.cdr.detectChanges();
+        this.carregarFila();
         this.showToast(
           'Você saiu da fila',
           'error'
@@ -211,4 +235,18 @@ export class Fila implements OnInit {
     }
     this.sairFila();
   }
+
+  usuariosFila: any[] = [];
+
+  carregarFila() {
+    this.filaService
+      .listarFila()
+      .subscribe({
+      next: res => {
+        this.usuariosFila = res;
+        this.cdr.detectChanges();
+      }
+    });
+  }
+  
 }

@@ -557,12 +557,12 @@ export class Gamificacao {
 
       sim: {
         points: 100,
-        nextQuestion: 'finalizar atendimento',
+        nextQuestion: 'null',
         nextId: null
       },
       não: {
         points: -100,
-        nextQuestion: 'finalizar atendimento',
+        nextQuestion: 'null',
         nextId: null
       },
     },
@@ -726,21 +726,21 @@ export class Gamificacao {
   }
 
   // Ranking baseado na pontuação
-  get ranking(): string {
+  get ranking(): number {
 
-    if (this.score >= 1500) {
-      return 'Diamante';
-    }
+    if (this.score >= 3000) return 5;
+    if (this.score >= 2400) return 4;
+    if (this.score >= 1800) return 3;
+    if (this.score >= 1200) return 2;
 
-    if (this.score >= 1000) {
-      return 'Ouro';
-    }
+    return 1;
+  }
 
-    if (this.score >= 500) {
-      return 'Prata';
-    }
-
-    return 'Bronze';
+  get estrelas(): boolean[] {
+      return Array.from(
+          { length: 5 },
+          (_, i) => i < this.ranking
+      );
   }
 
   // Coleta das perguntas Boolean
@@ -775,13 +775,7 @@ export class Gamificacao {
 
     // Finalizar fluxo
     if (nextId === null) {
-      if (this.tipoFluxo === 'orcamento_futuro'){
-        console.log("Finalizar Orçamento futuro");
-        this.finalizarOrcamentoFuturo();        
-      } else{
-        console.log("Finalizar atendimento fila");
-        this.finalizarAtendimentoFila();
-      }
+      this.telaAtual = 'resultado';
       return;
     }
 
@@ -798,6 +792,14 @@ export class Gamificacao {
     }
   }
 
+  encerrarGamificacao() {
+    if (this.tipoFluxo === 'orcamento_futuro') {
+      this.finalizarOrcamentoFuturo();
+    } else {
+      this.finalizarAtendimentoFila();
+    }
+  }
+
   // Finalizar atendimento
   finalizarAtendimentoFila() {
     
@@ -810,11 +812,11 @@ export class Gamificacao {
 
       ranking: this.ranking,
 
-      orcamento: this.respostas[2],
+      orcamento: this.respostas[3],
 
-      concorrentes: this.respostas[7] ?? null,
+      concorrentes: this.respostas[6] ?? 'Não mencionado',
 
-      gerou_follow: this.respostas[3] ?? 'False',
+      gerou_follow: this.respostas[2] ?? 'False',
 
       data_follow: this.respostas[4] ?? null,
 
@@ -851,6 +853,7 @@ export class Gamificacao {
   }
 
   finalizarOrcamentoFuturo() {
+
     const dataAgendamento = this.respostas[102];
     const orcamentoFuturo ={
       cliente: this.respostas[101],

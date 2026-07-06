@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders  } from "@angular/common/http";
+
 
 @Injectable({
     providedIn: 'root'
@@ -12,6 +13,15 @@ export class FilaService{
     constructor(
         private http: HttpClient
     ){}
+
+    private obterToken(): string {
+
+        if (typeof window === 'undefined') {
+            return '';
+        }
+
+        return localStorage.getItem('token') || '';
+    }
 
     entrarFila(){
         return this.http.post<any>(
@@ -30,7 +40,30 @@ export class FilaService{
     sairFila() {
         return this.http.post(
             `${this.api}/fila/sair`,
-            {}
+            {},
         );
     }
+
+    heartbeatFila() {
+        const headers = new HttpHeaders({
+            Authorization: `Bearer ${this.obterToken()}`
+        }); 
+
+        return this.http.post(
+            `${this.api}/fila/heartbeat`,
+            { headers },
+            
+        );
+    }
+    
+    listarFila() {
+        const headers = new HttpHeaders({
+            Authorization: `Bearer ${this.obterToken()}`
+        });
+
+        return this.http.get<any[]>(
+            `${this.api}/fila`,
+            { headers },
+        );
+    }   
 }

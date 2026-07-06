@@ -26,67 +26,56 @@
     border-slate-200/50
 ">
 
-    <!-- TEXTO -->
-    <h2 class="
-        mt-5
-        text-lg
-        sm:text-xl
-        text-slate-600
-        font-medium
-        text-center
-    ">
-        Sua posição na fila:
-    </h2>
-
     <!-- PAINEL DA FILA -->
-    <div
-        *ngIf="filaService.estaNaFila"
-        class="relative mt-4">
+    <div>
+        <div
+            *ngIf="filaService.estaNaFila"
+            class="relative mt-4">
 
-        <!-- GLOW -->
-        <div class="
-            absolute
-            inset-0
-            rounded-full
-            bg-slate-200
-            animate-pulse-slow
-            scale-110
-            opacity-50
-        ">
-        </div>
-
-        <!-- CÍRCULO -->
-        <div class="
-            relative
-            w-40
-            h-40
-            sm:w-48
-            sm:h-48
-            rounded-full
-            border-[6px]
-            border-slate-800
-            flex
-            items-center
-            justify-center
-            bg-white
-            shadow-inner
-        ">
-
-            <!-- POSIÇÃO -->
-            <span class="
-                text-7xl
-                sm:text-8xl
-                font-light
-                text-slate-800
-                leading-none
+            <!-- GLOW -->
+            <div class="
+                absolute
+                inset-0
+                rounded-full
+                bg-slate-200
+                animate-pulse-slow
+                scale-110
+                opacity-50
             ">
-                {{ posicaoFila }}
-            </span>
+
+            </div>
+
+            <!-- CÍRCULO -->
+            <div class="
+                relative
+                w-40
+                h-40
+                sm:w-48
+                sm:h-48
+                rounded-full
+                border-[6px]
+            /    border-slate-800
+                flex
+                items-center
+                justify-center
+                bg-white
+                shadow-inner
+            ">
+                <!-- POSIÇÃO -->
+                <span class="
+                    text-7xl
+                    sm:text-8xl
+                    font-light
+                    text-slate-800
+                    leading-none
+                ">
+                    {{ posicaoFila }}
+                </span>
+
+            </div>
 
         </div>
-
     </div>
-
     <!-- ESTADO VAZIO -->
     <div
         *ngIf="!filaService.estaNaFila"
@@ -224,17 +213,36 @@
                 SAIR DA FILA
             </span>
         </button>
+        <!-- LOJA CHEIA -->
+        <div class="metodh">
+            <label class="checkbox-btn">LOJA CHEIA:
+                <input
+                    type="checkbox"
+                    [(ngModel)]="lojaCheia">
+                <span class="checkbox-ui">
+                    <i class="fa-solid fa-check icon"></i>
+            
+                </span>
+            </label>
+        </div>
     </div>
-    <!-- LOJA CHEIA -->
-    <div class="metodh">
-        <label class="checkbox-btn">LOJA CHEIA:
-            <input
-                type="checkbox"
-                [(ngModel)]="lojaCheia">
-            <span class="checkbox-ui">
-                <i class="fa-solid fa-check icon"></i>
-        
-            </span>
-        </label>
-    </div>
+<div>
+<div class="infotable">
+    <table class="w-full">
+        <thead>
+            <tr>
+                <th>Entrada</th>
+                <th>Usuário</th>
+                <th>Última atividade</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let usuario of usuariosFila">
+                <td>{{ usuario.entrada | date:'dd/MM/yyyy HH:mm'}}</td>
+                <td>{{ usuario.nome }}</td>
+                <td>{{ usuario.ultima_atividade | date:'HH:mm' }}</td>
+            </tr>
+        </tbody>
+    </table> 
 </div>

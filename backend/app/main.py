@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from sqlalchemy.orm import Session
 from jose import jwt
+from app.scheduler import scheduler
 
 
 from app.security import (SECRET_KEY, 
@@ -29,7 +30,7 @@ from app.schemas import (
     UpdatePendenciaCreate
 )
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from app import schemas, models
 
@@ -44,7 +45,7 @@ Base.metadata.create_all(bind=engine)
 # INSTÂNCIA API
 # =========================
 app = FastAPI()
-
+scheduler.start()
 # =========================
 # CORS
 # =========================
@@ -304,16 +305,16 @@ def criar_follow(
 @app.post("/atendimentos")
 def criar_atendimento(
     atendimento: schemas.AtendimentoCreate,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    usuario_logado: Usuario = Depends(obter_usuario)  
     
 ):
-
     # REGISTRO NA TABELA SERVICES_RECORDS
     novo_atendimento = models.Atendimento(
 
-        vendedor_id = atendimento.vendedor_id,
+        vendedor_id = usuario_logado["id"],
 
-        loja = atendimento.loja,
+        loja = usuario_logado["loja"],
 
         score = atendimento.score,
 
@@ -643,6 +644,7 @@ def entrar_fila(
         usuario_id  = usuario_logado["id"],
         loja = usuario_logado["loja"],
         data_entrada = datetime.now(),
+        ultima_atividade = datetime.now(),
         ativo = True
     )
 
@@ -811,3 +813,56 @@ def listarfuturos(
                 OrcamentoFuturo.vendedor_id == usuario_logado["id"])
             .all()
     )
+
+@app.post("/fila/heartbeat")
+def heartbeat(
+    db: Session = Depends(get_db),
+    usuario_logado = Depends(obter_usuario)
+):
+
+    registro = (
+        db.query(FilaAtendimento)
+        .filter(
+            FilaAtendimento.usuario_id == usuario_logado["id"],
+            FilaAtendimento.ativo == True
+        )
+        .first()
+    )
+
+    if registro:
+
+        registro.ultima_atividade = datetime.now()
+
+        db.commit()
+
+    return {"ok": True}
+
+@app.get("/fila")
+def listar_fila(
+    db: Session = Depends(get_db),
+    usuario_logado = Depends(obter_usuario)
+):
+
+    fila = (
+        db.query(FilaAtendimento, Usuario)
+        .join(
+            Usuario,
+            Usuario.id == FilaAtendimento.usuario_id
+        )
+        .filter(FilaAtendimento.ativo == True)
+        .order_by(FilaAtendimento.data_entrada.asc())
+        .all()
+    )
+
+    return [
+        {
+            "usuario_id": usuario.id,
+            "nome": usuario.nome,
+            "loja": registro.loja,
+            "entrada": registro.data_entrada,
+            "ultima_atividade": registro.ultima_atividade
+        }
+        for registro, usuario in fila
+    ]
+
+    return fila

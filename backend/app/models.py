@@ -35,12 +35,12 @@ class Usuario(Base):
 
     ultimo_login = Column(
         DateTime,
-        default=lambda: datetime.now(timezone.utc)
+        default=datetime.now
     )
 
     created_at = Column(
         DateTime,
-        default=lambda: datetime.now(timezone.utc)
+        default=datetime.now
     )
 
     atendimentos = relationship(
@@ -80,7 +80,7 @@ class Atendimento(Base):
     )
     created_at = Column(
         DateTime,
-        default=lambda: datetime.now(timezone.utc)
+        default=datetime.now
     )
 
 
@@ -145,7 +145,7 @@ class Agendamento(Base):
     )
     
     criado_em = Column(DateTime,
-        default=lambda: datetime.now(timezone.utc)
+        default=datetime.now
     )
     estrategia = Column(String)
     
@@ -176,7 +176,7 @@ class FilaAtendimento(Base):
 
     data_entrada = Column(
         DateTime,
-        default=lambda: datetime.now(timezone.utc)
+        default=datetime.now
     )
 
     ativo = Column(
@@ -186,11 +186,17 @@ class FilaAtendimento(Base):
 
     created_at = Column(
         DateTime,
-        default=lambda: datetime.now(timezone.utc)
+        default=datetime.now
     )
 
     usuario = relationship(
         "Usuario"
+    )
+
+    ultima_atividade = Column(
+        DateTime,
+        default=datetime.now,
+        nullable=False
     )
 
 class UpdatePendencia(Base):
@@ -209,7 +215,7 @@ class UpdatePendencia(Base):
 
     data_criacao =  Column(
         DateTime,
-        default=lambda: datetime.now(timezone.utc)
+        default=datetime.now
     )
     
     vendedor_id = Column(
@@ -234,7 +240,7 @@ class OrcamentoFuturo(Base):
 
     forma_contato = Column(String(50), nullable=True)
 
-    data_contato = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    data_contato = Column(DateTime, default=datetime.now)
 
     vendedor_id = Column(Integer,
         ForeignKey("users.id"))
@@ -245,4 +251,3 @@ class OrcamentoFuturo(Base):
     status = Column(String(50), default="Ativo")
 
     data_criacao = Column(DateTime, default=datetime.utcnow)
-

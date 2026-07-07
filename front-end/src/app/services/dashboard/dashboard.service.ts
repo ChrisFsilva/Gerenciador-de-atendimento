@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 
 export class DashboardService {
 
-  private api = 'http://127.0.0.1:8000';
+  private api = 'https://fila.brentwood.com.br/api';
   // private obterToken(): string {
 
   //   if (typeof window === 'undefined') {

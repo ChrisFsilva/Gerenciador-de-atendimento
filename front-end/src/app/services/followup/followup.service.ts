@@ -10,7 +10,8 @@ import { AtualizacaoLoteResponse } from "../../models/follow.model";
 })
 
 export class FollowupServices {
-    private apiUrl = 'http://127.0.0.1:8000';
+    private apiUrl = 
+    'https://fila.brentwood.com.br/api';
     
     constructor(
         private http: HttpClient

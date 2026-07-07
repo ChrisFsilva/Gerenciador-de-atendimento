@@ -9,7 +9,7 @@ export class FilaService{
     
     estaNaFila: boolean = false;
 
-    private api = 'http://127.0.0.1:8000';
+    private api = 'https://fila.brentwood.com.br/api';
     constructor(
         private http: HttpClient
     ){}

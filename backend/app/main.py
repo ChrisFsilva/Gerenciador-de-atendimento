@@ -44,7 +44,9 @@ Base.metadata.create_all(bind=engine)
 # =========================
 # INSTÂNCIA API
 # =========================
-app = FastAPI()
+app = FastAPI(
+  root_path="/api"
+  )
 scheduler.start()
 # =========================
 # CORS
@@ -54,8 +56,11 @@ app.add_middleware(
     CORSMiddleware,
 
     allow_origins=[
+        "http://127.0.0.1:8000",
         "http://localhost:4200",
-        "http://127.0.0.1:4200"
+        "http://127.0.0.1:4200",
+        "http://192.168.0.129",
+        "https://fila.brentwood.com.br"
     ],
 
     allow_credentials=True,

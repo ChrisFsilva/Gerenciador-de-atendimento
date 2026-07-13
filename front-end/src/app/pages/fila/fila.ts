@@ -251,5 +251,22 @@ export class Fila implements OnInit, OnDestroy  {
       }
     });
   }
+
+  StatusAtividade(ultimaAtividade: Date | string): string {
+    const ultima = new Date(ultimaAtividade);
+    const agora = new Date();
+
+    const minutos = (agora.getTime() - ultima.getTime()) / 1000 / 60;
+
+    if (minutos < 3) {
+      return 'status-verde';
+    }
+
+    if (minutos < 10) {
+      return 'status-amarelo';
+    }
+
+    return 'status-vermelho';
+  }
   
 }

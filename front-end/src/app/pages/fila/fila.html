@@ -234,6 +234,7 @@
                 <th>Entrada</th>
                 <th>Usuário</th>
                 <th>Última atividade</th>
+                <th>Status</th>
             </tr>
         </thead>
 
@@ -242,6 +243,12 @@
                 <td>{{ usuario.entrada | date:'dd/MM/yyyy HH:mm'}}</td>
                 <td>{{ usuario.nome }}</td>
                 <td>{{ usuario.ultima_atividade | date:'HH:mm' }}</td>
+                <td>
+                    <span
+                        class="status-bola"
+                        [ngClass]="StatusAtividade(usuario.ultima_atividade)">
+                    </span>
+                </td>
             </tr>
         </tbody>
     </table> 

@@ -3,7 +3,7 @@
     display: flex;
     border-color: black;
     border-style: double;
-    border-width: 10px;
+    border-width: 4px;
     margin: 20px;
     border-radius: 20px;
 }
@@ -11,6 +11,19 @@
 .infotable table{
     margin: 50px;
     text-align: center;
+}
+
+.infotable thead{
+    border-bottom-style:groove;
+    border-bottom-width: 4px;
+    padding-bottom: 100px;
+}
+
+.infotable td{
+    border-bottom-style:groove;
+    border-bottom-width: 2px;
+    padding-bottom: 2px;
+    padding-top: 2px;
 }
 
 .checkbox-btn {
@@ -55,4 +68,26 @@
     transform: scale(2);
     color: #40e25b;
     text-shadow: 2px 3px rgba(35,126,50, 0.8);
+}
+
+.status-bola {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    /* margin-right: 8px; */
+    vertical-align: middle;
+    border: 1px solid #999;
+}
+
+.status-verde {
+    background-color: #28a745;
+}
+
+.status-amarelo {
+    background-color: #ffc107;
+}
+
+.status-vermelho {
+    background-color: #dc3545;
 }

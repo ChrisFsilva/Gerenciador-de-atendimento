@@ -5,7 +5,7 @@ from urllib.parse import quote_plus as qp
 
 password = qp('Br3ntw00d@WP26')
 
-DATABASE_URL = f"mysql+pymysql://saleconcierge:{password}@saleconcierge.mysql.dbaas.com.br/saleconcierge"
+DATABASE_URL = f"mysql+pymysql://scdeveloper:{password}@scdeveloper.mysql.dbaas.com.br/scdeveloper"
 
 
 # testar validade da conexão

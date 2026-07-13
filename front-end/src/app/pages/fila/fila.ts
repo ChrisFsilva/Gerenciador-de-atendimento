@@ -41,13 +41,16 @@ export class Fila implements OnInit, OnDestroy  {
 
     this.atualizarPosicao();
     this.carregarFila();
-    this.heartbeatSubscription = interval(60000).subscribe(() => {
+    this.heartbeatSubscription = interval(30000).subscribe(() => {
 
       this.atualizarPosicao();
 
       this.filaService
         .heartbeatFila()
         .subscribe({
+          next: (res) => {
+            console.log("Heartbeat acionado", res)
+          },
           error: (erro) => {
             console.error("Heartbeat falhou", erro);
           }

@@ -51,6 +51,7 @@ export class FilaService{
 
         return this.http.post(
             `${this.api}/fila/heartbeat`,
+            {},
             { headers },
             
         );

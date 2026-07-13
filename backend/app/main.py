@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from sqlalchemy.orm import Session
 from jose import jwt
-from app.scheduler import scheduler
+# from app.scheduler import scheduler
 
 
 from app.security import (SECRET_KEY, 
@@ -47,7 +47,7 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI(
   root_path="/api"
   )
-scheduler.start()
+# scheduler.start()
 # =========================
 # CORS
 # =========================
@@ -840,7 +840,7 @@ def heartbeat(
 
         db.commit()
 
-    return {"ok": True}
+    return {"Atualização da ultima atividade": True}
 
 @app.get("/fila")
 def listar_fila(

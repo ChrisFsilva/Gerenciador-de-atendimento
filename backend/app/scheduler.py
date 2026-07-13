@@ -13,32 +13,30 @@ def remover_usuarios_inativos():
 
     try:
         agora = datetime.now()
+        limite = agora-timedelta(minutes=10)
 
         usuarios = (
             db.query(FilaAtendimento)
             .filter(
                 FilaAtendimento.ativo == True,
+                FilaAtendimento.ultima_atividade < limite
             )
             .all()
         )
 
 
         for usuario in usuarios:
-            limite = agora + timedelta(minutes=10)
-
-            remover = agora > limite
-
-            print(f"Removendo usuário -- {usuario.usuario_id}")
+            
             print(
             "Usuário:", usuario.usuario_id,
             "login", usuario.data_entrada,
             "Última atividade:", usuario.ultima_atividade,
+            "Agora é:", agora,
             "Limite:", limite,
-            "Remover?", usuario.ultima_atividade > limite
+            "Remover usuario?", agora > limite
             )
-            if remover:
-                print(f"Removendo usuário -- {usuario.usuario_id}")
-                usuario.ativo = False
+            print(f"Removendo usuário -- {usuario.usuario}")
+            usuario.ativo = False
 
         db.commit()
 

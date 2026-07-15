@@ -30,7 +30,7 @@ from app.schemas import (
     UpdatePendenciaCreate
 )
 
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta, time
 
 from app import schemas, models
 
@@ -871,3 +871,39 @@ def listar_fila(
     ]
 
     return fila
+
+@app.get("/fila/historico")
+def ultimos_dia_anterior(
+    db: Session = Depends(get_db),
+    usuario_logado = Depends(obter_usuario)
+):
+    ontem = datetime.now().date() - timedelta(days=1)
+    inicio = datetime.combine(ontem, time.min)
+    fim = datetime.combine(ontem, time.max)
+
+    historicoFila = (
+        db.query(FilaAtendimento, Usuario)
+        .join(Usuario,
+              Usuario.loja == FilaAtendimento.loja)
+          .filter(
+              FilaAtendimento.data_entrada >= inicio,
+              FilaAtendimento.data_entrada <= fim,
+              FilaAtendimento.loja == usuario_logado["loja"]
+          )
+          .order_by(desc(FilaAtendimento.data_entrada))
+          .limit(7)
+          .all()
+    )
+
+    return [
+        {
+            "usuario_id": usuario.id,
+            "nome": usuario.nome,
+            "loja": registro.loja,
+            "entrada": registro.data_entrada,
+            "ultima_atividade": registro.ultima_atividade
+        }
+        for registro, usuario in historicoFila
+    ]
+
+    return historicoFila

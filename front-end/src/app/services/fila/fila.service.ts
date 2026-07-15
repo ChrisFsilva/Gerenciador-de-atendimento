@@ -66,5 +66,16 @@ export class FilaService{
             `${this.api}/fila`,
             { headers },
         );
+    }
+    
+    listarHistorico() {
+        const headers = new HttpHeaders({
+            Authorization: `Bearer ${this.obterToken()}`
+        });
+
+        return this.http.get<any[]>(
+            `${this.api}/fila/historico`,
+            { headers },
+        );
     }   
 }

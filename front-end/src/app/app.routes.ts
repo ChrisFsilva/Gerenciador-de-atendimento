@@ -8,6 +8,7 @@ import { Gamificacao } from './pages/gamificacao/gamificacao';
 import { LojaCheia } from './pages/lojaCheia/lojaCheia';
 import { Pendencias } from './pages/pendencias/pendencias';
 import { Futuro } from './pages/futuro/futuro';
+import { Historico } from './pages/historico/historico';
 
 export const routes: Routes = [
     /* Definir a página de login como inicial */
@@ -58,8 +59,12 @@ export const routes: Routes = [
             {
                 path:'futuro',
                 component: Futuro
+            },
+            {
+                path:'historico',
+                component: Historico
             }
-
+                
         ]
     }
 ];

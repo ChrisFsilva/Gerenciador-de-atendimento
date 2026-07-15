@@ -128,6 +128,7 @@ export class Historico {
       .listarHistorico()
       .subscribe({
         next:(res) => {
+          console.log(res);
           this.historicoDia = res;
           this.cdr.detectChanges();
         },

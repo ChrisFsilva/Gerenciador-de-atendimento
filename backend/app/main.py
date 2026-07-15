@@ -60,7 +60,8 @@ app.add_middleware(
         "http://localhost:4200",
         "http://127.0.0.1:4200",
         "http://192.168.0.129",
-        "http://developer-fila.brentwood.com.br"
+        "http://developer-fila.brentwood.com.br",
+        "http://localhost:4200"
     ],
 
     allow_credentials=True,
@@ -863,47 +864,47 @@ def listar_fila(
         {
             "usuario_id": usuario.id,
             "nome": usuario.nome,
-            "loja": registro.loja,
-            "entrada": registro.data_entrada,
-            "ultima_atividade": registro.ultima_atividade
+            "loja": atendimento.loja,
+            "entrada": atendimento.data_entrada,
+            "ultima_atividade": atendimento.ultima_atividade
         }
-        for registro, usuario in fila
+        for atendimento, usuario in fila
     ]
 
-    return fila
+    # return fila
 
 @app.get("/fila/historico")
 def ultimos_dia_anterior(
     db: Session = Depends(get_db),
     usuario_logado = Depends(obter_usuario)
 ):
+    print("Executando histórico de fila")
     ontem = datetime.now().date() - timedelta(days=1)
     inicio = datetime.combine(ontem, time.min)
     fim = datetime.combine(ontem, time.max)
+    print(inicio)
+    print(fim)
 
     historicoFila = (
         db.query(FilaAtendimento, Usuario)
         .join(Usuario,
-              Usuario.loja == FilaAtendimento.loja)
+              Usuario.id == FilaAtendimento.usuario_id)
           .filter(
-              FilaAtendimento.data_entrada >= inicio,
-              FilaAtendimento.data_entrada <= fim,
-              FilaAtendimento.loja == usuario_logado["loja"]
+                FilaAtendimento.data_entrada.between(inicio, fim),
+                FilaAtendimento.loja == usuario_logado["loja"]
           )
-          .order_by(desc(FilaAtendimento.data_entrada))
+          .order_by(FilaAtendimento.data_entrada.desc())
           .limit(7)
           .all()
     )
-
     return [
         {
             "usuario_id": usuario.id,
             "nome": usuario.nome,
-            "loja": registro.loja,
-            "entrada": registro.data_entrada,
-            "ultima_atividade": registro.ultima_atividade
+            "loja": fila.loja,
+            "entrada": fila.data_entrada,
+            "ultima_atividade": fila.ultima_atividade
         }
-        for registro, usuario in historicoFila
-    ]
+        for fila, usuario in historicoFila
 
-    return historicoFila
+    ]

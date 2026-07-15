@@ -69,6 +69,7 @@ export class FilaService{
     }
     
     listarHistorico() {
+        console.log("Entrou no service do histórico");
         const headers = new HttpHeaders({
             Authorization: `Bearer ${this.obterToken()}`
         });

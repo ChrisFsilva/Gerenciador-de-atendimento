@@ -158,9 +158,9 @@ export class Fila implements OnInit, OnDestroy  {
 
       setTimeout(() => {
         toast.remove();
-      }, 300);
+      }, 3000);
 
-    }, 300);
+    }, 3000);
   }
   entrarFila(){
     this.filaService

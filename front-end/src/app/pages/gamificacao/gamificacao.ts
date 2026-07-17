@@ -72,7 +72,7 @@ export class Gamificacao {
         {
           label: 'Não',
           points: 100,
-          nextId: 3
+          nextId: null
         },
 
         {
@@ -812,7 +812,7 @@ export class Gamificacao {
 
       ranking: this.ranking,
 
-      orcamento: this.respostas[3],
+      orcamento: this.respostas[3] ?? 'Não gerou follow',
 
       concorrentes: this.respostas[6] ?? 'Não mencionado',
 

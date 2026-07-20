@@ -9,6 +9,7 @@ import { LojaCheia } from './pages/lojaCheia/lojaCheia';
 import { Pendencias } from './pages/pendencias/pendencias';
 import { Futuro } from './pages/futuro/futuro';
 import { Historico } from './pages/historico/historico';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
     /* Definir a página de login como inicial */
@@ -31,38 +32,47 @@ export const routes: Routes = [
                 path:'',
                 redirectTo:'fila',
                 pathMatch: 'full'
+                
             },
             {
                 path:'fila',
-                component: Fila
+                component: Fila,
+                canActivate: [authGuard]
             },
             {
                 path:'followup',
-                component: Followup
+                component: Followup,
+                canActivate: [authGuard]                
             },
             {
                 path:'dashboard',
-                component: Dashboard
+                component: Dashboard,
+                canActivate: [authGuard]
             },
             {
                 path:'gamificacao',
-                component: Gamificacao
+                component: Gamificacao,
+                canActivate: [authGuard]
             },
             {
                 path:'lojaCheia',
-                component: LojaCheia
+                component: LojaCheia,
+                canActivate: [authGuard]
             },
             {
                 path:'pendencias',
-                component: Pendencias
+                component: Pendencias,
+                canActivate: [authGuard]
             },
             {
                 path:'futuro',
-                component: Futuro
+                component: Futuro,
+                canActivate: [authGuard]
             },
             {
                 path:'historico',
-                component: Historico
+                component: Historico,
+                canActivate: [authGuard]
             }
                 
         ]

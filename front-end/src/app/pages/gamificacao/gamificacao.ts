@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../services/api/api';
+import { ToastService } from '../../services/toast/toast.service';
 
 @Component({
   selector: 'app-gamificacao',
@@ -27,6 +28,8 @@ export class Gamificacao {
 
   // Índice da pergunta atual
   currentIndex: number = 0;
+
+  emAndamento = true;
 
   tipoFluxo: 'normal' | 'orcamento_futuro' = 'normal';
   
@@ -397,12 +400,12 @@ export class Gamificacao {
 
       sim: {
         points: 100,
-        nextQuestion: 'Descobri experiências que possam ter gerado gerado insatisfações?',
+        nextQuestion: 'Descobri experiências que possam ter gerado insatisfações?',
         nextId: 19
       },
       não: {
         points: -100,
-        nextQuestion: 'Descobri experiências que possam ter gerado gerado insatisfações?',
+        nextQuestion: 'Descobri experiências que possam ter gerado insatisfações?',
         nextId: 19
       },
     },
@@ -413,7 +416,7 @@ export class Gamificacao {
 
       type: 'boolean',
 
-      text: 'Descobri experiências que possam ter gerado gerado insatisfações?',
+      text: 'Descobri experiências que possam ter gerado insatisfações?',
 
       sim: {
         points: 100,
@@ -670,7 +673,8 @@ export class Gamificacao {
 
   constructor(
     private router: Router,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private toastService: ToastService
   ) {}
 
   // Variável para armazenar o valor digitado
@@ -728,8 +732,8 @@ export class Gamificacao {
   // Ranking baseado na pontuação
   get ranking(): number {
 
-    if (this.score >= 3000) return 5;
-    if (this.score >= 2400) return 4;
+    if (this.score >= 2800) return 5;
+    if (this.score >= 2200) return 4;
     if (this.score >= 1800) return 3;
     if (this.score >= 1200) return 2;
 
@@ -829,12 +833,17 @@ export class Gamificacao {
       .subscribe({
 
         next: (resposta: any) => {
+
+          this.toastService.success(
+            'Atendimento registrado com sucesso',
+          );
           
           console.log(
             'Atendimento salvo',
             resposta
           );
 
+          this.emAndamento = false;
           this.router.navigate(
             ['/home/fila']
           );
@@ -842,6 +851,10 @@ export class Gamificacao {
         },
 
         error: (erro: any) => {
+
+          this.toastService.error(
+            'Erro no registro do atendimento, contate o seu TI',
+          );
 
           console.error(
             'Erro ao salvar',
@@ -879,12 +892,16 @@ export class Gamificacao {
       .subscribe({
 
         next: (resposta: any) => {
+
+          this.toastService.success(
+            'Orçamento futuro agendado com sucesso',
+          );
           
           console.log(
             'orçamento futuro salvo',
             resposta
           );
-
+          this.emAndamento = false;
           this.router.navigate(
             ['/home/fila']
           );
@@ -892,6 +909,10 @@ export class Gamificacao {
         },
 
       error: (erro: any) => {
+
+        this.toastService.error(
+          'Erro no agendamento do orçamento futuro, contate o seu TI',
+        );
 
         console.error(
           'Erro ao salvar',

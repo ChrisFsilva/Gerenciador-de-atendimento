@@ -5,6 +5,7 @@ import { Fila } from './pages/fila/fila';
 import { Followup } from './pages/followup/followup';
 import { Dashboard } from './pages/dashboard/dashboard';
 import { Gamificacao } from './pages/gamificacao/gamificacao';
+import { GamificacaoGuard } from './guards/gamificacao.guard';
 import { LojaCheia } from './pages/lojaCheia/lojaCheia';
 import { Pendencias } from './pages/pendencias/pendencias';
 import { Futuro } from './pages/futuro/futuro';
@@ -52,7 +53,9 @@ export const routes: Routes = [
             {
                 path:'gamificacao',
                 component: Gamificacao,
-                canActivate: [authGuard]
+                canActivate: [authGuard],
+                canDeactivate: [GamificacaoGuard]
+                
             },
             {
                 path:'lojaCheia',

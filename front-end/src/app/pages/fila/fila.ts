@@ -6,7 +6,7 @@ import { FilaService } from '../../services/fila/fila.service';
 import { FormsModule } from '@angular/forms';
 import { ChangeDetectorRef } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
-
+import { ToastService } from '../../services/toast/toast.service';
 
 
 @Component({
@@ -15,7 +15,7 @@ import { interval, Subscription } from 'rxjs';
   templateUrl: './fila.html',
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
   ],
   styleUrl: './fila.css',
 })
@@ -28,7 +28,8 @@ export class Fila implements OnInit, OnDestroy  {
   constructor(
     private router: Router,
     public filaService: FilaService,
-    private cdr: ChangeDetectorRef,  
+    private cdr: ChangeDetectorRef,
+    private toastService: ToastService
   ){}
   
   lojaCheia: boolean = false;
@@ -65,103 +66,6 @@ export class Fila implements OnInit, OnDestroy  {
     this.heartbeatSubscription?.unsubscribe();
   }
 
-  showToast(message: string, type: string = 'success') {
-
-    const container = document.getElementById('toast-container');
-
-    if (!container) return;
-
-    const toast = document.createElement('div');
-
-    const baseStyles = `
-      flex
-      items-center
-      gap-3
-      px-6
-      py-4
-      rounded-lg
-      shadow-2xl
-      transform
-      transition-all
-      duration-300
-      translate-x-full
-      opacity-0
-      max-w-sm
-    `;
-
-    let icon = '';
-
-    if (type === 'success') {
-
-      toast.className = `
-        ${baseStyles}
-        bg-white
-        border-l-4
-        border-green-500
-        text-slate-800
-      `;
-
-      icon = `
-        <i class="fa-solid fa-circle-check text-green-500 text-xl"></i>
-      `;
-    }
-
-    else if (type === 'error') {
-
-      toast.className = `
-        ${baseStyles}
-        bg-white
-        border-l-4
-        border-red-500
-        text-slate-800
-      `;
-
-      icon = `
-        <i class="fa-solid fa-circle-exclamation text-red-500 text-xl"></i>
-      `;
-    }
-
-    toast.innerHTML = `
-      ${icon}
-      <span class="font-medium">${message}</span>
-    `;
-
-    container.appendChild(toast);
-
-    // Entrada
-    setTimeout(() => {
-
-      toast.classList.remove(
-        'translate-x-full',
-        'opacity-0'
-      );
-
-      toast.classList.add(
-        'translate-x-0',
-        'opacity-100'
-      );
-
-    }, 10);
-
-    // Saída
-    setTimeout(() => {
-
-      toast.classList.remove(
-        'translate-x-0',
-        'opacity-100'
-      );
-
-      toast.classList.add(
-        'translate-x-full',
-        'opacity-0'
-      );
-
-      setTimeout(() => {
-        toast.remove();
-      }, 3000);
-
-    }, 3000);
-  }
   entrarFila(){
     this.filaService
       .entrarFila()
@@ -169,18 +73,16 @@ export class Fila implements OnInit, OnDestroy  {
         next: () => {
           this.filaService.estaNaFila = true;
           console.log(this.filaService.estaNaFila);
+          this.toastService.success(
+            'Você entrou na fila',
+          );
           this.atualizarPosicao();
           this.cdr.detectChanges();
-          this.showToast(
-            'Você entrou na fila',
-            'success'
-          );
         },
       error: (erro) => {
         console.error(erro);
-        this.showToast(
-          'Erro ao entrar na fila',
-          'error'
+        this.toastService.error(
+          'Erro ao entrar na fila, contate o TI',
         );
       }
     })
@@ -195,9 +97,26 @@ export class Fila implements OnInit, OnDestroy  {
           this.cdr.detectChanges();
           this.carregarFila();
         },
-        error: () => {
-          this.posicaoFila = 0;
-          this.filaService.estaNaFila = false;
+        error: (erro) => {
+          // Usuário realmente não está na fila
+          if (erro.status === 404) {
+            
+            this.posicaoFila = 0;
+            this.filaService.estaNaFila = false;
+
+          }
+          // Sessão expirou
+          else if (erro.status === 401) {
+            this.router.navigate(['/login']);
+          }
+
+          else {
+            this.toastService.error(
+              'Erro ao consultar a fila, atualize sua página'
+            );
+
+          }
+
         }
       });
   }
@@ -212,17 +131,13 @@ export class Fila implements OnInit, OnDestroy  {
         this.posicaoFila = 0;
         this.cdr.detectChanges();
         this.carregarFila();
-        this.showToast(
-          'Você saiu da fila',
-          'error'
-        );
+        this.toastService.success('Você saiu da fila');
       },
       error: (erro) => {
         console.error(erro);
 
-        this.showToast(
+        this.toastService.error(
           'Erro ao sair da fila',
-          'error'
         );
       }
     });

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-
+import { ToastService } from '../../services/toast/toast.service';
 import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
@@ -25,7 +25,8 @@ export class Login {
 
   constructor(
     private authService: AuthService,
-    private router: Router) {}
+    private router: Router,
+    private toastService: ToastService) {}
 
   login() {
     console.log(`Click Login: ${this.email} E-mail ${this.senha}`);
@@ -49,7 +50,7 @@ export class Login {
 
 
           console.log('INICIANDO TRANSFERENCIA PARA HOME');
-
+          this.toastService.success('Login realizado com sucesso')
           this.router.navigate(['/home'])
             .then(resultado => {
               console.log('NAVEGOU?', resultado);
@@ -64,39 +65,8 @@ export class Login {
         console.error(
           'Erro de login', erro
         );
-        this.showToast(
-          'Login ou senha inválidos',
-          'error');
+        this.toastService.error('Login ou senha inválidos');
       }
     });
-  }
-
-  showToast(
-  mensagem: string,
-  tipo: 'success' | 'error'
-  ) {
-
-  const toast = document.createElement('div');
-
-  toast.innerText = mensagem;
-
-  toast.style.position = 'fixed';
-  toast.style.top = '50%';
-  toast.style.left = '50%';
-  toast.style.transform = 'translate(-50%, -50%)';
-
-  toast.style.background = 'red';
-  toast.style.color = 'white';
-
-  toast.style.padding = '20px';
-
-  toast.style.zIndex = '99999';
-
-  document.body.appendChild(toast);
-
-  setTimeout(() => {
-    toast.remove();
-  }, 3000);
-  
   }
 }

@@ -1,0 +1,68 @@
+<div class="fixed
+        top-6
+        left-1/2
+        -translate-x-1/2
+        z-[9999]
+        flex
+        flex-col
+        gap-3">
+    <div
+        *ngFor="let toast of (toastService.toast$ | async)"
+        class="w-[550px]
+        min-h-[90px]
+        px-8
+        py-6
+        rounded-xl
+        shadow-2xl
+        bg-white
+        flex
+        items-center
+        gap-5
+        text-lg"
+
+        [ngClass]="{
+            'border-l-4 border-green-500': toast.type === 'success',
+            'border-l-4 border-red-500': toast.type === 'error',
+            'border-l-4 border-yellow-500': toast.type === 'warning',
+            'border-l-4 border-blue-500': toast.type === 'info'
+        }">
+
+        <!-- Ícone -->
+        <i
+            *ngIf="toast.type === 'success'"
+            class="fa-solid fa-circle-check text-green-500 text-xl">
+        </i>
+
+        <i
+            *ngIf="toast.type === 'error'"
+            class="fa-solid fa-circle-exclamation text-red-500 text-xl">
+        </i>
+
+        <i
+            *ngIf="toast.type === 'warning'"
+            class="fa-solid fa-triangle-exclamation text-yellow-500 text-xl">
+        </i>
+
+        <i
+            *ngIf="toast.type === 'info'"
+            class="fa-solid fa-circle-info text-blue-500 text-xl">
+        </i>
+
+        <!-- Mensagem -->
+        <span class="flex-1 font-medium text-slate-800">
+            {{ toast.message }}
+        </span>
+
+        <!-- Fechar -->
+        <button
+            type="button"
+            (click)="remover(toast.id)"
+            class="text-slate-400 hover:text-slate-700 transition-colors">
+
+            <i class="fa-solid fa-xmark"></i>
+
+        </button>
+
+    </div>
+
+</div>

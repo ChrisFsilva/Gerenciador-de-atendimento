@@ -60,7 +60,7 @@ app.add_middleware(
         "http://localhost:4200",
         "http://127.0.0.1:4200",
         "http://192.168.0.129",
-        "http://developer-fila.brentwood.com.br",
+        "https://fila.brentwood.com.br",
         "http://localhost:4200"
     ],
 
@@ -855,7 +855,8 @@ def listar_fila(
             Usuario,
             Usuario.id == FilaAtendimento.usuario_id
         )
-        .filter(FilaAtendimento.ativo == True)
+        .filter(FilaAtendimento.ativo == True,
+                FilaAtendimento.loja == usuario_logado["loja"])
         .order_by(FilaAtendimento.data_entrada.asc())
         .all()
     )

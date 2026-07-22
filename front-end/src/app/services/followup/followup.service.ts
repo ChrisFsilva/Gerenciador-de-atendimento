@@ -11,7 +11,7 @@ import { AtualizacaoLoteResponse } from "../../models/follow.model";
 
 export class FollowupServices {
     private apiUrl = 
-    'http://developer.fila.brentwood.com.br/api';
+    'https://fila.brentwood.com.br/api';
     
     constructor(
         private http: HttpClient

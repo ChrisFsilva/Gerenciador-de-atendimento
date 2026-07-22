@@ -8,7 +8,7 @@ import { Observable } from "rxjs";
 
 export class FutureService {
 
-    private apiUrl = 'http://developer.fila.brentwood.com.br/api';
+    private apiUrl = 'https://fila.brentwood.com.br/api';
 
     constructor(
         private http: HttpClient

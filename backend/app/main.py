@@ -60,7 +60,7 @@ app.add_middleware(
         "http://localhost:4200",
         "http://127.0.0.1:4200",
         "http://192.168.0.129",
-        "https://fila.brentwood.com.br",
+        "http://developer-fila.brentwood.com.br",
         "http://localhost:4200"
     ],
 

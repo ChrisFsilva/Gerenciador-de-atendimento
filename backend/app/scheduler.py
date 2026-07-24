@@ -45,6 +45,7 @@ def remover_usuarios_inativos():
             "Remover usuario?", agora > limite
             )
             print(f"Removendo usuário -- {usuario.usuario}")
+            print('Mensagem enviada ao Power automate')
             
             requests.post(
                 POWER_AUTOMATE_URL,
@@ -54,6 +55,7 @@ def remover_usuarios_inativos():
                     "ultima_atividade": str(usuario.ultima_atividade)
                 },
                 timeout=10
+                
             )
 
             usuario.ativo = False

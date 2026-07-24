@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 
 export class AuthService {
-    private api = 'http://developer.fila.brentwood.com.br/api';
+    private api = 'https://fila.brentwood.com.br/api';
 
     constructor(
         private http: HttpClient

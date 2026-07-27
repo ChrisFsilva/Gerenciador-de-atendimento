@@ -185,7 +185,7 @@ class FilaAtendimento(Base):
     )
 
     email = Column(String(255),
-            nullabre = False)
+            nullable=False)
 
     created_at = Column(
         DateTime,

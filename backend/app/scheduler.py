@@ -82,5 +82,3 @@ scheduler.add_job(
     "interval",
     seconds=50
 )
-
-scheduler.start()

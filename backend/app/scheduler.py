@@ -25,8 +25,8 @@ def remover_usuarios_inativos():
 
         agora = datetime.now()
 
-        limite_notificacao = agora - timedelta(minutes=1)
-        limite_remocao = agora - timedelta(minutes=3)
+        limite_notificacao = agora - timedelta(minutes=18)
+        limite_remocao = agora - timedelta(minutes=20)
 
         usuarios = (
             db.query(FilaAtendimento)

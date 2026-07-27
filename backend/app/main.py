@@ -649,6 +649,7 @@ def entrar_fila(
     novo_registro = FilaAtendimento(
         usuario_id  = usuario_logado["id"],
         loja = usuario_logado["loja"],
+        email=usuario_logado["email"],
         data_entrada = datetime.now(),
         ultima_atividade = datetime.now(),
         ativo = True
@@ -855,7 +856,8 @@ def listar_fila(
             Usuario,
             Usuario.id == FilaAtendimento.usuario_id
         )
-        .filter(FilaAtendimento.ativo == True)
+        .filter(FilaAtendimento.ativo == True,
+                FilaAtendimento.loja == usuario_logado["loja"])
         .order_by(FilaAtendimento.data_entrada.asc())
         .all()
     )

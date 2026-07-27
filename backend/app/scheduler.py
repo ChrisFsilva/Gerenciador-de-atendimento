@@ -46,6 +46,7 @@ def remover_usuarios_inativos():
                 json={
                     "usuario": usuario.usuario_id,
                     "loja": usuario.loja,
+                    "email": usuario.email,
                     "ultima_atividade": str(usuario.ultima_atividade)
                 },
                 timeout=30

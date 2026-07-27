@@ -649,6 +649,7 @@ def entrar_fila(
     novo_registro = FilaAtendimento(
         usuario_id  = usuario_logado["id"],
         loja = usuario_logado["loja"],
+        email=usuario_logado["email"],
         data_entrada = datetime.now(),
         ultima_atividade = datetime.now(),
         ativo = True

@@ -42,7 +42,7 @@ export class Fila implements OnInit, OnDestroy  {
 
     this.atualizarPosicao();
     this.carregarFila();
-    this.heartbeatSubscription = interval(30000).subscribe(() => {
+    this.heartbeatSubscription = interval(60000).subscribe(() => {
 
       this.atualizarPosicao();
 

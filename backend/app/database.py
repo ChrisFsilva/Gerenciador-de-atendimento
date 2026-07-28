@@ -1,12 +1,22 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import sessionmaker
-from urllib.parse import quote_plus as qp
+import os
+from dotenv import load_dotenv
 
-password = qp('Br3ntw00d@WP26')
+environment = os.getenv(
+    "ENVIRONMENT",
+    "dev"
+)
 
-DATABASE_URL = f"mysql+pymysql://scdeveloper:{password}@scdeveloper.mysql.dbaas.com.br/scdeveloper"
+load_dotenv( f".env.{environment}" )
 
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+if not DATABASE_URL:
+    raise Exception(
+        "Apontamento do banco de dados não encontrado (DATABASE_URL)"
+    )
 
 # testar validade da conexão
 engine = create_engine(

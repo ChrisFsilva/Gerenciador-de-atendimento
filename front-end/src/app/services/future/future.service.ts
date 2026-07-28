@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
+import { environment } from "../../../environments/environments";
 
 @Injectable({
     providedIn: 'root'
@@ -8,8 +9,7 @@ import { Observable } from "rxjs";
 
 export class FutureService {
 
-    private apiUrl = 'http://developer.fila.brentwood.com.br/api';
-
+    private apiUrl = environment.apiUrl;
     constructor(
         private http: HttpClient
     ) {}

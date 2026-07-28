@@ -80,7 +80,7 @@ export class Gamificacao {
 
         {
           label: 'Orçamento futuro',
-          points: 50,
+          points: 500,
           nextId: 101
         },
 
@@ -88,6 +88,11 @@ export class Gamificacao {
           label: 'Sim',
           points: 100,
           nextId: 3
+        },
+        {
+          label: 'Venda ato',
+          points: 1000,
+          nextId: 9
         },
       ]
     },
@@ -185,12 +190,10 @@ export class Gamificacao {
 
       sim: {
         points: 300,
-        nextQuestion: 'Qual a data limite do cliente?',
         nextId: 8
       },
       não: {
-        points: 100,
-        nextQuestion: 'Neste projeto, há profissional envolvido?',
+        points: -300,
         nextId: 9
       },
     },
@@ -205,7 +208,7 @@ export class Gamificacao {
 
       value: '',
 
-      points: 100,
+      points: 0,
 
       nextId: 9
     },
@@ -220,12 +223,10 @@ export class Gamificacao {
 
       sim: {
         points: 100,
-        nextQuestion: 'Descobri a jornada do cliente?',
         nextId: 10
       },
       não: {
         points: -100,
-        nextQuestion: 'Descobri a jornada do cliente?',
         nextId: 10
       },
     },
@@ -240,12 +241,10 @@ export class Gamificacao {
 
       sim: {
         points: 100,
-        nextQuestion: 'Descobri o motivo da compra?',
         nextId: 11
       },
       não: {
         points: -100,
-        nextQuestion: 'Descobri o motivo da compra?',
         nextId: 11
       },
     },
@@ -260,12 +259,10 @@ export class Gamificacao {
 
       sim: {
         points: 100,
-        nextQuestion: 'Descobri as pessoas que farão parte do processo de decisão?',
         nextId: 12
       },
       não: {
         points: -100,
-        nextQuestion: 'Descobri as pessoas que farão parte do processo de decisão?',
         nextId: 12
       },
     },
@@ -280,12 +277,10 @@ export class Gamificacao {
 
       sim: {
         points: 100,
-        nextQuestion: 'Descobri se há profissional auxiliando no processo de decisão?',
         nextId: 13
       },
       não: {
         points: -100,
-        nextQuestion: 'Descobri se há profissional auxiliando no processo de decisão?',
         nextId: 13
       },
     },
@@ -294,20 +289,30 @@ export class Gamificacao {
 
       category: 'Sondagem',
 
-      type: 'boolean',
+      type: 'select',
 
-      text: 'Descobri se há profissional auxiliando no processo de decisão?',
+      text: 'Neste projeto há profissional auxiliando no processo de decisão?',
 
-      sim: {
-        points: 100,
-        nextQuestion: 'Descobri o produto inicial?',
-        nextId: 14
-      },
-      não: {
-        points: -100,
-        nextQuestion: 'Descobri o produto inicial?',
-        nextId: 14
-      },
+      options: [
+
+        {
+          label: 'Sim',
+          points: 100,
+          nextId: 14
+        },
+
+        {
+          label: 'Não',
+          points: 100,
+          nextId: 14
+        },
+
+        {
+          label: 'Não descobri',
+          points: -100,
+          nextId: 14
+        },
+      ]
     },
     {
       id: 14,
@@ -320,12 +325,10 @@ export class Gamificacao {
 
       sim: {
         points: 100,
-        nextQuestion: 'Descobri a possibilidade de produtos adicionais para o ambiente inicial?',
         nextId: 15
       },
       não: {
         points: -100,
-        nextQuestion: 'Descobri a possibilidade de produtos adicionais para o ambiente inicial?',
         nextId: 15
       },
     },
@@ -340,12 +343,10 @@ export class Gamificacao {
 
       sim: {
         points: 100,
-        nextQuestion: 'Descobri demais ambientes e todas as possibilidades de produtos adicionais?',
         nextId: 16
       },
       não: {
         points: -100,
-        nextQuestion: 'Descobri demais ambientes e todas as possibilidades de produtos adicionais?',
         nextId: 16
       },
     },
@@ -360,12 +361,10 @@ export class Gamificacao {
 
       sim: {
         points: 100,
-        nextQuestion: 'Descobri estilo, gosto e prefêrencia do cliente?',
         nextId: 17
       },
       não: {
         points: -100,
-        nextQuestion: 'Descobri estilo, gosto e prefêrencia do cliente?',
         nextId: 17
       },
     },
@@ -380,12 +379,10 @@ export class Gamificacao {
 
       sim: {
         points: 100,
-        nextQuestion: 'Descobri como será utilizado os produtos iniciais?',
         nextId: 18
       },
       não: {
         points: -100,
-        nextQuestion: 'Descobri como será utilizado os produtos iniciais?',
         nextId: 18
       },
     },
@@ -400,12 +397,10 @@ export class Gamificacao {
 
       sim: {
         points: 100,
-        nextQuestion: 'Descobri experiências que possam ter gerado insatisfações?',
         nextId: 19
       },
       não: {
         points: -100,
-        nextQuestion: 'Descobri experiências que possam ter gerado insatisfações?',
         nextId: 19
       },
     },
@@ -420,12 +415,10 @@ export class Gamificacao {
 
       sim: {
         points: 100,
-        nextQuestion: 'Descobri o valor real para o cliente?',
         nextId: 20
       },
       não: {
         points: -100,
-        nextQuestion: 'Descobri o valor real para o cliente?o',
         nextId: 20
       },
     },
@@ -440,12 +433,10 @@ export class Gamificacao {
 
       sim: {
         points: 100,
-        nextQuestion: 'Descobri a arena competitiva?',
         nextId: 21
       },
       não: {
         points: -100,
-        nextQuestion: 'Descobri a arena competitiva',
         nextId: 21
       },
     },
@@ -460,12 +451,10 @@ export class Gamificacao {
 
       sim: {
         points: 100,
-        nextQuestion: 'Descobri o valor que o cliente pretente investir?',
         nextId: 22
       },
       não: {
         points: -100,
-        nextQuestion: 'Descobri o valor que o cliente pretente investir',
         nextId: 22
       },
     },
@@ -480,12 +469,10 @@ export class Gamificacao {
 
       sim: {
         points: 100,
-        nextQuestion: 'Utilizei a forma de demonstração Brentwood?',
         nextId: 23
       },
       não: {
         points: -100,
-        nextQuestion: 'Utilizei a forma de demonstração Brentwood',
         nextId: 23
       },
     },
@@ -500,12 +487,10 @@ export class Gamificacao {
 
       sim: {
         points: 100,
-        nextQuestion: 'Estabeleci o que é "valor" para o cliente?',
         nextId: 24
       },
       não: {
         points: -100,
-        nextQuestion: 'Estabeleci o que é "valor" para o cliente?',
         nextId: 24
       },
     },
@@ -520,12 +505,10 @@ export class Gamificacao {
 
       sim: {
         points: 100,
-        nextQuestion: 'Utilizei a forma de contorno de objeções Brentwood?',
         nextId: 25
       },
       não: {
         points: -100,
-        nextQuestion: 'Utilizei a forma de contorno de objeções Brentwood',
         nextId: 25
       },
     },
@@ -540,12 +523,10 @@ export class Gamificacao {
 
       sim: {
         points: 100,
-        nextQuestion: 'Descobri a verdadeira objeção?',
         nextId: 26
       },
       não: {
         points: -100,
-        nextQuestion: 'Descobri a verdadeira objeção?',
         nextId: 26
       },
     },
@@ -560,12 +541,10 @@ export class Gamificacao {
 
       sim: {
         points: 100,
-        nextQuestion: 'null',
         nextId: null
       },
       não: {
         points: -100,
-        nextQuestion: 'null',
         nextId: null
       },
     },
@@ -732,9 +711,9 @@ export class Gamificacao {
   // Ranking baseado na pontuação
   get ranking(): number {
 
-    if (this.score >= 2800) return 5;
+    if (this.score >= 2600) return 5;
     if (this.score >= 2200) return 4;
-    if (this.score >= 1800) return 3;
+    if (this.score >= 2000) return 3;
     if (this.score >= 1200) return 2;
 
     return 1;

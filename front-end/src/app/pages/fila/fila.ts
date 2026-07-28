@@ -173,11 +173,11 @@ export class Fila implements OnInit, OnDestroy  {
 
     const minutos = (agora.getTime() - ultima.getTime()) / 1000 / 60;
 
-    if (minutos < 3) {
+    if (minutos < 10) {
       return 'status-verde';
     }
 
-    if (minutos < 10) {
+    if (minutos < 17) {
       return 'status-amarelo';
     }
 

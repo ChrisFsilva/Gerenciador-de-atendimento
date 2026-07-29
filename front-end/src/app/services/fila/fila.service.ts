@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders  } from "@angular/common/http";
+import { environment } from "../../../environments/environments";
 
 
 @Injectable({
@@ -9,7 +10,7 @@ export class FilaService{
     
     estaNaFila: boolean = false;
 
-    private api = 'https://fila.brentwood.com.br/api';
+    private api = environment.apiUrl;
     constructor(
         private http: HttpClient
     ){}

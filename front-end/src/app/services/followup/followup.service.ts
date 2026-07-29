@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { FollowsModel } from "../../models/follow.model";
 import { AtualizacaoLoteResponse } from "../../models/follow.model";
+import { environment } from "../../../environments/environments";
 
 
 @Injectable ({
@@ -10,8 +11,7 @@ import { AtualizacaoLoteResponse } from "../../models/follow.model";
 })
 
 export class FollowupServices {
-    private apiUrl = 
-    'https://fila.brentwood.com.br/api';
+    private apiUrl = environment.apiUrl;
     
     constructor(
         private http: HttpClient

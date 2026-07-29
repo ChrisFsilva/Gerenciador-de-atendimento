@@ -33,7 +33,18 @@
               "allowedHosts": []
             }
           },
-          "configurations": {
+          "configurations": { 
+            "developer": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environments.ts",
+                  "with": "src/environments/environments.dev.ts"
+                }
+              ]
+            },
             "production": {
               "budgets": [
                 {
@@ -45,6 +56,12 @@
                   "type": "anyComponentStyle",
                   "maximumWarning": "4kB",
                   "maximumError": "8kB"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace":"src/environments/environments.ts",
+                  "with":"src/environments/environments.prod.ts"
                 }
               ],
               "outputHashing": "all"

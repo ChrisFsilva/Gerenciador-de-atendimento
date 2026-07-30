@@ -6,6 +6,7 @@ from sqlalchemy.orm import Session
 from jose import jwt
 from app.scheduler import scheduler
 
+from integrations.starsoft.starsoft_automation import enviar_orcamento
 
 from app.security import (SECRET_KEY, 
                           ALGORITHM,
@@ -358,6 +359,11 @@ def criar_atendimento(
         db.add(nova_resposta)
 
     db.commit()
+
+    # ACIONAR O POWER AUTOMATE
+    dados_starsoft = enviar_orcamento(
+        atendimento.orcamento
+    )
 
     return novo_atendimento
 

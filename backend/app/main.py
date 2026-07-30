@@ -7,6 +7,7 @@ from jose import jwt
 from app.scheduler import scheduler
 
 from integrations.starsoft.starsoft_automation import enviar_orcamento
+from integrations.teams.agend_teams import enviar_agfuturo
 
 from app.security import (SECRET_KEY, 
                           ALGORITHM,
@@ -254,6 +255,7 @@ def criar_follow(
     db: Session = Depends(get_db)
 ):
 
+
     novo_follow = models.Agendamento(
 
         cliente = follow.cliente,
@@ -296,7 +298,7 @@ def criar_follow(
 
         forma_contato = follow.forma_contato
     )
-
+    
     db.add(novo_follow)
 
     db.commit()
@@ -319,7 +321,7 @@ def criar_atendimento(
     enviar_orcamento(
         atendimento.orcamento
     )
-    
+
     # REGISTRO NA TABELA SERVICES_RECORDS
     novo_atendimento = models.Atendimento(
 
@@ -803,6 +805,11 @@ def criar_orcamento_futuro(
         vendedor_id = usuario_logado["id"],
 
         status = "Ativo"
+    )
+
+    enviar_agfuturo(
+        agend_cliente = novo_registro.cliente,
+        agend_date = novo_registro.data_contato
     )
 
     db.add(novo_registro)

@@ -316,6 +316,10 @@ def criar_atendimento(
     usuario_logado: Usuario = Depends(obter_usuario)  
     
 ):
+    enviar_orcamento(
+        atendimento.orcamento
+    )
+    
     # REGISTRO NA TABELA SERVICES_RECORDS
     novo_atendimento = models.Atendimento(
 
@@ -360,10 +364,6 @@ def criar_atendimento(
 
     db.commit()
 
-    # ACIONAR O POWER AUTOMATE
-    dados_starsoft = enviar_orcamento(
-        atendimento.orcamento
-    )
 
     return novo_atendimento
 

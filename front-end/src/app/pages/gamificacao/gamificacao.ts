@@ -786,9 +786,6 @@ export class Gamificacao {
   // Finalizar atendimento
   finalizarAtendimentoFila() {
     
-    // APRESENTAR VARIAVEIS NO CONSOLE
-    console.log(this.respostas);
-
     const atendimento = {
 
       score: this.score,
@@ -806,9 +803,32 @@ export class Gamificacao {
       respostas: this.respostas
     };
     console.log(atendimento);
+    
+    const follow = {
+      Date_Agenda: this.respostas[4],
+
+      Estagio: "Agendamento realizado",
+      
+      Status: "Em follow",
+      
+      Prioridade: "Média",
+      
+      Situation: "Ativo",
+      
+      Contact_Form: this.respostas[5],
+      
+      Final_Date: this.respostas[8]
+    };
+    
+    console.log(follow);
+
+    const dados = { 
+      atendimento: atendimento,
+      follow: follow
+    }
 
     this.apiService
-      .criarAtendimento(atendimento)
+      .criarAtendimento(dados)
       .subscribe({
 
         next: (resposta: any) => {

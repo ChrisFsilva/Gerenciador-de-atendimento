@@ -1,0 +1,45 @@
+nohup: ignoring input
+INFO:     Started server process [1595225]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+STATUS POWER AUTOMATE: 200
+RESPOSTA POWER AUTOMATE: {"orcamento":"ORC-090301","codigo_cliente":"240229","nome_cliente":"ANA LUCIA ROGGERO","telefone_cliente":"(11) 982148695","email_cliente":"ana @terra.com.br","codigo_profissional":"228379","nome_profissional":"ANA CAROLINA BARROS CORTADA DE ALMEIDA","cpf_cnpj_profissional":"40938721801","email_profissional":"arquitetura.anacortada@gmail.com","valor_bruto_orcamento":"74102.80"}
+STATUS POWER AUTOMATE: 200
+RESPOSTA POWER AUTOMATE: {"orcamento":"ORC-090301","codigo_cliente":"240229","nome_cliente":"ANA LUCIA ROGGERO","telefone_cliente":"(11) 982148695","email_cliente":"ana @terra.com.br","codigo_profissional":"228379","nome_profissional":"ANA CAROLINA BARROS CORTADA DE ALMEIDA","cpf_cnpj_profissional":"40938721801","email_profissional":"arquitetura.anacortada@gmail.com","valor_bruto_orcamento":"74102.80"}
+INFO:     192.168.0.153:0 - "POST /atendimentos HTTP/1.1" 200 OK
+INFO:     192.168.0.153:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.153:0 - "GET /fila HTTP/1.1" 200 OK
+INFO:     192.168.0.153:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.153:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+Executando histórico de fila
+2026-08-10 00:00:00
+2026-08-10 23:59:59.999999
+INFO:     192.168.0.153:0 - "GET /fila/historico HTTP/1.1" 200 OK
+INFO:     192.168.0.153:0 - "GET /fila HTTP/1.1" 200 OK
+INFO:     192.168.0.153:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.153:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.153:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.153:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.153:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.153:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.153:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.153:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.153:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.153:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.153:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.153:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.153:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.153:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.153:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+Executando histórico de fila
+2026-08-10 00:00:00
+2026-08-10 23:59:59.999999
+INFO:     192.168.0.153:0 - "GET /fila/historico HTTP/1.1" 200 OK
+INFO:     192.168.0.153:0 - "GET /pendencias HTTP/1.1" 200 OK
+Executando histórico de fila
+2026-08-10 00:00:00
+2026-08-10 23:59:59.999999
+INFO:     192.168.0.153:0 - "GET /fila/historico HTTP/1.1" 200 OK
+INFO:     192.168.0.153:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.153:0 - "GET /fila HTTP/1.1" 200 OK

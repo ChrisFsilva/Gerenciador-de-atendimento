@@ -29,27 +29,17 @@ class AtendimentoCreate(BaseModel):
 # Modelo padrão de agendamento
 class AgendamentoBase(BaseModel):
     
-    cliente: str
-    telefone: str
-    email: str
-    loja_id: str
-    vendedor_id: int
-    orcamento: Optional[str] = None
-    arquiteto: str
-    produto: str
-    data_agendamento: date
-    hora_agendamento: time
-    estagio: str
-    prioridade: str
-    observacoes: str
-    status: str
-    atendimento_id: int
-    follow_parent_id: Optional[int] = None
-    estrategia: Optional[str] = None
-    obs_follow: Optional[str] = None
-    prazo_final: Optional[date] = None
-    possibilidade: Optional[str] = None
-    forma_contato: str
+    Date_Agenda: datetime
+    Estagio: str
+    Status: str
+    Prioridade: str
+    Situation: str
+    Contact_Form: str
+    Final_Date: datetime
+    
+class AtendimentoRequest(BaseModel):
+    atendimento: AtendimentoCreate
+    follow: AgendamentoBase
 
 class AgendamentoCreate(AgendamentoBase):
     pass
@@ -92,3 +82,7 @@ class UpdateFuturo(BaseModel):
     forma_contato: Optional[str] = None
     data_contato: Optional[datetime] = None
     data_criacao: datetime
+
+class FinalizarAtendimentoRequest(BaseModel):
+    atendimento: AtendimentoCreate
+    agendamento: AgendamentoCreate

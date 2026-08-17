@@ -235,22 +235,65 @@ def obter_usuario(
     response_model = list[AgendamentoResponse]
 )
 def listar_agendamentos(
-    usuario = Depends(obter_usuario),
+
     db: Session = Depends(get_db)
 ):
 
     query = db.query(
-        Agendamento
+        models.NewFollow,
+        models.AddClient,
+        models.AddOrder,
+        models.AddProfissional,
+        models.Usuario
+    ).join(
+        models.AddClient,
+        models.NewFollow.Client_ID == models.AddClient.id
+    ).join(
+        models.AddOrder,
+        models.NewFollow.Order_ID == models.AddOrder.id
+    ).join(
+        models.AddProfissional,
+        models.NewFollow.Profissional_ID == models.AddProfissional.id
+    ).join(
+        models.Usuario,
+        models.NewFollow.Vendor_ID == models.Usuario.id
     )
 
-    query = filtro_permissao(
-        query,
-        usuario,
-        Agendamento.loja_id,
-        Agendamento.vendedor_id
-    )
+    resultado = query.all()
+    respostas = []
 
-    return query.all()
+    for follow, client, order, profissional, vendedor in resultado:
+
+        respostas.append(
+            AgendamentoResponse(
+                id = follow.id,
+
+                erp_client_id = client.ERP_Client_ID,
+                client_name = client.Name,
+                telefone = client.Phone,
+                email = client.Email,
+
+                erp_order_id = order.ERP_Order_ID,
+                valor = order.Valor,
+
+                vendedor_id = vendedor.id,
+
+                erp_profissional_id = profissional.ERP_Profissional_ID,
+                profissional_name = profissional.Profissional_Name,
+                profissional_mail = profissional.Profissional_Mail,
+
+                date_agenda = follow.Date_Agenda,
+                final_date = follow.Final_Date,
+
+                situation = follow.Situation,
+                estagio = follow.Estagio,
+                status = follow.Status,
+                prioridade = follow.Prioridade,
+                contact_form = follow.Contact_Form,
+                follow_parent_id = follow.Follow_Parent_ID
+            )
+        )
+    return respostas
 
 # =========================
 # OBTER ATENDIMENTO

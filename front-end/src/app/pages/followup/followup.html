@@ -42,7 +42,7 @@
                 (click)="abrirModal(infoCard)">
 
                 <div class="card-title">
-                    {{ infoCard.cliente }}
+                    {{ infoCard.client_name }}
                 </div>
                 
                 <div class="card-info">
@@ -52,7 +52,7 @@
                         </span>
 
                         <span class="info-value">
-                            {{ infoCard.orcamento }}
+                            {{ infoCard.erp_order_id }}
                         </span>
                     </div>
                 </div>
@@ -65,7 +65,7 @@
                         </span>
 
                         <span class="info-value">
-                            {{ infoCard.arquiteto }}
+                            {{ infoCard.profissional_name }}
                         </span>
                     </div>
 
@@ -75,16 +75,16 @@
                         </span>
 
                         <span class="info-value">
-                            {{ infoCard.data_agendamento | date:'dd/MM/yyyy'}}
+                            {{ infoCard.date_agenda | date:'dd/MM/yyyy'}}
                         </span>
                     </div>
 
                     <div class="info-row">
                         <span class="info-label">
-                            Hora:
+                            Hora TESTE:
                         </span>
                         <span class="info-value">
-                            {{ infoCard.hora_agendamento }}
+                            {{ infoCard.date_agenda | date:'HH:mm' }}
                         </span>
                     </div>
                     <div class="info-row">
@@ -93,7 +93,7 @@
                         </span>
 
                         <span class="info-value">
-                            {{ infoCard.prazo_final | date:'dd/MM/yyyy'}}
+                            {{ infoCard.final_date | date:'dd/MM/yyyy'}}
                         </span>
                     </div>
 
@@ -101,9 +101,9 @@
                     <!-- Bloco de anotações -->
                     <span class="badge badge-today badge-notes">
                         <p>📍 Estágio atual: {{ infoCard.estagio }}</p>
-                        <p>💡 Estretégia: {{ infoCard.estrategia }}</p>
-                        <p>🔍 Observações do follow: {{ infoCard.obs_follow }}</p>
-                        <p>🗣️ Forma de contato: {{ infoCard.forma_contato }}</p>
+                        <!-- <p>💡 Estretégia: {{ infoCard.estrategia }}</p> -->
+                        <!-- <p>🔍 Observações do follow: {{ infoCard.obs_follow }}</p> --> 
+                        <p>🗣️ Forma de contato: {{ infoCard.contact_form }}</p>
                     </span>
                 </div>
             </div>
@@ -117,7 +117,7 @@
                 (click)="abrirModal(follow)">
 
                 <div class="card-title">
-                    {{ follow.cliente }}
+                    {{ follow.client_name }}
                 </div>
 
                 <div class="card-info">
@@ -128,7 +128,7 @@
                         </span>
 
                         <span class="info-value">
-                            {{ follow.orcamento }}
+                            {{ follow.erp_order_id }}
                         </span>
                     </div>
                 </div>
@@ -141,7 +141,7 @@
                         </span>
 
                         <span class="info-value">
-                            {{ follow.arquiteto }}
+                            {{ follow.profissional_name }}
                         </span>
                     </div>
 
@@ -151,17 +151,17 @@
                         </span>
 
                         <span class="info-value">
-                            {{ follow.data_agendamento | date:'dd/MM/yyyy' }}
+                            {{ follow.date_agenda | date:'dd/MM/yyyy' }}
                         </span>
                     </div>
 
                     <div class="info-row">
                         <span class="info-label">
-                            Hora:
+                            Hora TESTE
                         </span>
 
                         <span class="info-value">
-                            {{ follow.hora_agendamento }}
+                            {{ follow.date_agenda | date:'HH:mm'  }}
                         </span>
                     </div>
 
@@ -171,7 +171,7 @@
                         </span>
 
                         <span class="info-value">
-                            {{ follow.prazo_final | date:'dd/MM/yyyy'}}
+                            {{ follow.final_date | date:'dd/MM/yyyy'}}
                         </span>
                     </div>
 
@@ -179,9 +179,9 @@
                     <!-- Bloco de anotações -->
                     <span class="badge badge-today badge-notes">
                         <p>📍 Estágio atual: {{ follow.estagio }}</p>
-                        <p>💡 Estretégia: {{ follow.estrategia }}</p>
-                        <p>🔍 Observações do follow: {{ follow.obs_follow }}</p>
-                        <p>🗣️ Forma de contato: {{ follow.forma_contato }}</p>
+                        <!-- <p>💡 Estretégia: {{ follow.estrategia }}</p> -->
+                        <!-- <p>🔍 Observações do follow: {{ follow.obs_follow }}</p> -->
+                        <p>🗣️ Forma de contato: {{ follow.contact_form }}</p>
                     </span>
                 </div>
             </div>
@@ -195,7 +195,7 @@
                 (click)="abrirModal(follow)">
 
                 <div class="card-title">
-                    {{ follow.cliente }}
+                    {{ follow.client_name }}
                 </div>
 
                 <div class="card-info">
@@ -206,7 +206,7 @@
                         </span>
 
                         <span class="info-value">
-                            {{ follow.orcamento }}
+                            {{ follow.erp_order_id }}
                         </span>
                     </div>
                 </div>
@@ -219,7 +219,7 @@
                         </span>
 
                         <span class="info-value">
-                            {{ follow.arquiteto }}
+                            {{ follow.profissional_name }}
                         </span>
                     </div>
 
@@ -229,17 +229,17 @@
                         </span>
 
                         <span class="info-value">
-                            {{ follow.data_agendamento | date:'dd/MM/yyyy' }}
+                            {{ follow.date_agenda | date:'dd/MM/yyyy' }}
                         </span>
                     </div>
 
                     <div class="info-row">
                         <span class="info-label">
-                            Hora:
+                            Hora TESTE
                         </span>
 
                         <span class="info-value">
-                            {{ follow.hora_agendamento }}
+                            {{ follow.date_agenda | date:'HH:mm'  }}
                         </span>
                     </div>
 
@@ -249,7 +249,7 @@
                         </span>
 
                         <span class="info-value">
-                            {{ follow.prazo_final | date:'dd/MM/yyyy'}}
+                            {{ follow.final_date | date:'dd/MM/yyyy'}}
                         </span>
                     </div>
 
@@ -257,9 +257,9 @@
                     <!-- Bloco de anotações -->
                     <span class="badge badge-today badge-notes">
                         <p>📍 Estágio atual: {{ follow.estagio }}</p>
-                        <p>💡 Estretégia: {{ follow.estrategia }}</p>
-                        <p>🔍 Observações do follow: {{ follow.obs_follow }}</p>
-                        <p>🗣️ Forma de contato: {{ follow.forma_contato }}</p>
+                        <!-- <p>💡 Estretégia: {{ follow.estrategia }}</p> -->
+                        <!-- <p>🔍 Observações do follow: {{ follow.obs_follow }}</p> -->
+                        <p>🗣️ Forma de contato: {{ follow.contact_form }}</p>
                     </span>
                 </div>
             </div>
@@ -370,13 +370,13 @@
 
                     <p>
                         <strong>Cliente:</strong>
-                        {{ followSelecionado?.cliente }}
+                        {{ followSelecionado?.client_name }}
 
                         <strong>| Arquiteto:</strong>
-                        {{ followSelecionado?.arquiteto }}
+                        {{ followSelecionado?.profissional_name }}
 
                         <strong>| Orçamento:</strong>
-                        {{ followSelecionado?.orcamento }}
+                        {{ followSelecionado?.erp_order_id }}
                     </p>
 
                     <p>
@@ -389,15 +389,15 @@
 
                     <p>
                         <strong>Data:</strong>
-                        {{ followSelecionado?.data_agendamento | date:'dd/MM/yyyy' }}
+                        {{ followSelecionado?.date_agenda | date:'dd/MM/yyyy' }}
 
-                        <strong>| Hora:</strong>
-                        {{ followSelecionado?.hora_agendamento }}
+                        <strong>| Hora TESTE: </strong>
+                        {{ followSelecionado?.date_agenda | date:'HH:mm'  }}
                     </p>
 
                     <p>
                         <strong>Produtos:</strong>
-                        {{ followSelecionado?.produto }}
+                        <!-- {{ followSelecionado?.produto }} -->
                     </p>
 
                     <p>
@@ -410,7 +410,7 @@
 
                     <p>
                         <strong>Observações do orçamento:</strong>
-                        {{ followSelecionado?.observacoes }}
+                        <!-- {{ followSelecionado?.observacoes }} -->
                     </p>
 
                 </div>
@@ -464,7 +464,7 @@
                     </div>
                     <div>
                         <label class="font-semibold block mb-2">
-                            O cliente saiu
+                            O client_name saiu
                         </label>
                         <select
                             [(ngModel)]="respostasReagendamento.possibilidade"  
@@ -512,7 +512,7 @@
                     </div>
                     <div>
                         <label class="font-semibold block mb-2">
-                           Qual estratégia você irá abordar com esse cliente no próximo follow?
+                           Qual estratégia você irá abordar com esse client_name no próximo follow?
                         </label>
                         <textarea
                             class="w-full border rounded-xl p-4 min-h-[120px]"
@@ -531,16 +531,16 @@
                             class="w-full border rounded-xl p-3 ">
                     </div>
 
-                    <!-- NOVA HORA -->
+                    <!-- NOVA HORA TESTE
                     <div>
 
                         <label class="font-semibold block mb-2">
-                            Hora do novo agendamento
+                            Hora TESTE novo agendamento
                         </label>
 
                         <input
                             type="time"
-                            [(ngModel)]="novaHora"
+                            [(ngModel)]="novaHora TESTE
                             class="w-full border rounded-xl p-3 ">
                     </div>
                     <div>
@@ -549,16 +549,16 @@
                         </label>
                         <select
                             class="w-full border rounded-xl p-4 min-h-[120px]"
-                            [(ngModel)]="respostasReagendamento.forma_contato">
+                            [(ngModel)]="respostasReagendamento.contact_form">
                             <option>E-mail</option>
                             <option>Ligação</option>
                             <option>Visita na loja</option>
-                            <option>Visita no local do cliente</option>
+                            <option>Visita no local do client_name</option>
                             <option>Whatsapp</option>
                         </select>
                     </div>
 
-                    <button
+                    <!-- <button
                         (click)="confirmaReagendamento()"
                         class="
                             bg-blue-600
@@ -569,7 +569,7 @@
                             w-full
                         ">
                         Salvar novo follow
-                    </button>
+                    </button> -->
 
                 </div>
 
@@ -642,9 +642,9 @@
                     <strong>Orçamento:</strong>
 
                     {{
-                        !dadosAtendimento?.orcamento
+                        !dadosAtendimento?.erp_order_id
                         ? 'Não foi apresentado orçamento'
-                        : dadosAtendimento?.orcamento
+                        : dadosAtendimento?.erp_order_id
                     }}
 
                 </div>
@@ -685,12 +685,12 @@
 
                     <p>
                         <strong>Data:</strong>
-                        {{ historico.data_agendamento | date:'dd/MM/yyyy' }}
+                        {{ historico.date_agenda | date:'dd/MM/yyyy' }}
                     </p>
 
                     <p>
-                        <strong>Hora:</strong>
-                        {{ historico.hora_agendamento }}
+                        <strong>Hora TESTE: </strong>
+                        {{ historico.date_agenda | date:'HH:mm'  }}
                     </p>
 
                     <p>
@@ -705,22 +705,22 @@
 
                     <p>
                         <strong>Contato anterior:</strong>
-                        {{ historico.forma_contato }}
+                        {{ historico.contact_form }}
                     </p>
 
                     <p>
                         <strong>Estratégia:</strong>
-                        {{ historico.estrategia }}
+                        <!-- {{ historico.estrategia }} -->
                     </p>
 
                     <p>
                         <strong>Observações:</strong>
-                        {{ historico.obs_follow }}
+                        <!-- {{ historico.obs_follow }} -->
                     </p>
 
                     <p>
                         <strong>Possibilidade:</strong>
-                        {{ historico.possibilidade }}
+                        <!-- {{ historico.possibilidade }} -->
                     </p>
 
                 </div>

@@ -44,10 +44,34 @@ class AtendimentoRequest(BaseModel):
 class AgendamentoCreate(AgendamentoBase):
     pass
 
-class AgendamentoResponse(AgendamentoBase):
+class AgendamentoResponse(BaseModel):
+    # New_Follows
     id: int
-    class Config:
-        from_attributes = True
+    date_agenda: datetime | None
+    estagio: str | None
+    status: str | None
+    prioridade: str | None
+    situation: str | None
+    contact_form: str | None
+    final_date: datetime | None
+    follow_parent_id: int | None
+
+    # Order
+    erp_order_id: str | None
+    valor: float | None
+
+    # Profissional
+    erp_profissional_id: int | str
+    profissional_name: str | None
+    profissional_mail: str | None
+
+    # Cliente
+    erp_client_id: int | None
+    client_name: str | None
+    telefone: str | None
+    email: str | None
+
+    
 
 # SISTEMA DE LOGIN
 class LoginRequest(BaseModel):

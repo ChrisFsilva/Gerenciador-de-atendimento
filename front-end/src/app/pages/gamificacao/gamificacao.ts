@@ -785,6 +785,12 @@ export class Gamificacao {
 
   // Finalizar atendimento
   finalizarAtendimentoFila() {
+
+    if (this.emAndamento === false) {
+      return;
+    }
+
+    this.toastService.info('Salvando agendamento');
     
     const atendimento = {
 
@@ -826,6 +832,7 @@ export class Gamificacao {
       atendimento: atendimento,
       follow: follow
     }
+    this.emAndamento = false;
 
     this.apiService
       .criarAtendimento(dados)
@@ -840,11 +847,6 @@ export class Gamificacao {
           console.log(
             'Atendimento salvo',
             resposta
-          );
-
-          this.emAndamento = false;
-          this.router.navigate(
-            ['/home/fila']
           );
 
         },
@@ -862,6 +864,8 @@ export class Gamificacao {
 
         }
       });
+
+    this.router.navigate(['/home/fila']);
   }
 
   finalizarOrcamentoFuturo() {

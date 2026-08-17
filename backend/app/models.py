@@ -101,7 +101,7 @@ class AnswerRecord(Base):
 
     resposta = Column(String(255))
 
-# Classe para coletar agendamentos do banco
+# # ANTIGO MODELO DE COMUNICAÇÃO COM A TABELA FOLLOWS
 class Agendamento(Base):
 
     __tablename__ = "follows"
@@ -254,3 +254,86 @@ class OrcamentoFuturo(Base):
     status = Column(String(50), default="Ativo")
 
     data_criacao = Column(DateTime, default=datetime.utcnow)
+
+class AddClient(Base):
+    __tablename__ = "Clientes"
+
+    id = Column(Integer, 
+                primary_key=True, 
+                unique=True)
+
+    ERP_Client_ID = Column(String(255), nullable=False)
+
+    Name = Column(String(255), nullable=False)
+
+    Phone = Column(String(255), nullable=False)
+
+    Email = Column(String(255))
+
+    CREATED_AT = Column(DateTime, default=datetime.utcnow)
+
+class AddOrder(Base):
+    __tablename__ = "ERP_Orders"
+
+    id = Column(Integer, 
+                primary_key=True, 
+                unique=True)
+
+    ERP_Order_ID = Column(String(255), nullable=False)
+
+    Client_ID = Column(String(255), nullable=False)
+
+    Vendor_ID = Column(String(255), nullable=False)
+
+    Valor = Column(String(255))
+
+    OBS = Column(String(255))
+
+    CREATED_AT = Column(DateTime, default=datetime.utcnow)
+
+class AddProfissional(Base):
+    __tablename__ = "Profissional"
+
+    id = Column(Integer, 
+                primary_key = True, 
+                unique = True,
+                index = True)
+
+    ERP_Profissional_ID = Column(String(20), nullable=False)
+
+    Profissional_Name = Column(String(255), nullable=False)
+
+    Profissional_Doc = Column(String(255), nullable=False)
+
+    Profissional_Mail = Column(String(255))
+
+    CREATED_AT = Column(DateTime, default=datetime.utcnow)
+
+class NewFollow(Base):
+    __tablename__ = "New_Follows"
+
+    id = Column(Integer, primary_key=True, index=True)
+
+    Client_ID = Column(Integer, ForeignKey("Clientes.id"), nullable=False)
+
+    Order_ID = Column(Integer, ForeignKey("ERP_Orders.id"))
+
+    Profissional_ID = Column(Integer, ForeignKey("Profissional.id"))
+
+    Vendor_ID = Column(Integer, ForeignKey("users.id"), nullable=False)
+
+    Date_Agenda = Column(DateTime)
+
+    Final_Date = Column(DateTime)
+
+    Contact_Form = Column(String(100))
+
+    Estagio = Column(String(50))
+
+    Status = Column(String(50))
+
+    Prioridade = Column(String(50))
+
+    Situation = Column(String(100))
+
+    Follow_Parent_ID = Column(Integer, ForeignKey("follows.id"))

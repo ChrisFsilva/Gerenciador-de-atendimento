@@ -29,35 +29,49 @@ class AtendimentoCreate(BaseModel):
 # Modelo padrão de agendamento
 class AgendamentoBase(BaseModel):
     
-    cliente: str
-    telefone: str
-    email: str
-    loja_id: str
-    vendedor_id: int
-    orcamento: Optional[str] = None
-    arquiteto: str
-    produto: str
-    data_agendamento: date
-    hora_agendamento: time
-    estagio: str
-    prioridade: str
-    observacoes: str
-    status: str
-    atendimento_id: int
-    follow_parent_id: Optional[int] = None
-    estrategia: Optional[str] = None
-    obs_follow: Optional[str] = None
-    prazo_final: Optional[date] = None
-    possibilidade: Optional[str] = None
-    forma_contato: str
+    Date_Agenda: datetime
+    Estagio: str
+    Status: str
+    Prioridade: str
+    Situation: str
+    Contact_Form: str
+    Final_Date: datetime
+    
+class AtendimentoRequest(BaseModel):
+    atendimento: AtendimentoCreate
+    follow: AgendamentoBase
 
 class AgendamentoCreate(AgendamentoBase):
     pass
 
-class AgendamentoResponse(AgendamentoBase):
+class AgendamentoResponse(BaseModel):
+    # New_Follows
     id: int
-    class Config:
-        from_attributes = True
+    date_agenda: datetime | None
+    estagio: str | None
+    status: str | None
+    prioridade: str | None
+    situation: str | None
+    contact_form: str | None
+    final_date: datetime | None
+    follow_parent_id: int | None
+
+    # Order
+    erp_order_id: str | None
+    valor: float | None
+
+    # Profissional
+    erp_profissional_id: int | str
+    profissional_name: str | None
+    profissional_mail: str | None
+
+    # Cliente
+    erp_client_id: int | None
+    client_name: str | None
+    telefone: str | None
+    email: str | None
+
+    
 
 # SISTEMA DE LOGIN
 class LoginRequest(BaseModel):
@@ -92,3 +106,7 @@ class UpdateFuturo(BaseModel):
     forma_contato: Optional[str] = None
     data_contato: Optional[datetime] = None
     data_criacao: datetime
+
+class FinalizarAtendimentoRequest(BaseModel):
+    atendimento: AtendimentoCreate
+    agendamento: AgendamentoCreate

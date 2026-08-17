@@ -1,0 +1,933 @@
+nohup: ignoring input
+INFO:     Started server process [2717]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     192.168.0.207:0 - "POST /login HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /follows HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /follows HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /follows HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /follows HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /login HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /follows HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /follows HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /follows HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/entrar HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /fila/sair HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /follows HTTP/1.1" 200 OK
+STATUS POWER AUTOMATE: 200
+RESPOSTA POWER AUTOMATE: {"orcamento":"ORC-090301","codigo_cliente":"240229","nome_cliente":"ANA LUCIA ROGGERO","telefone_cliente":"(11) 982148695","email_cliente":"ana @terra.com.br","codigo_profissional":"228379","nome_profissional":"ANA CAROLINA BARROS CORTADA DE ALMEIDA","cpf_cnpj_profissional":"40938721801","email_profissional":"arquitetura.anacortada@gmail.com","valor_bruto_orcamento":"74102.80"}
+INFO:     192.168.0.207:0 - "POST /atendimentos HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /dashboard/cards HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /dashboard/follows-mensais HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /dashboard/atendimentos HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /dashboard/gantt HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /follows HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/entrar HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /fila/sair HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /login HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /follows HTTP/1.1" 200 OK
+Executando histórico de fila
+2026-08-13 00:00:00
+2026-08-13 23:59:59.999999
+INFO:     192.168.0.207:0 - "GET /fila/historico HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /follows HTTP/1.1" 200 OK
+Executando histórico de fila
+2026-08-13 00:00:00
+2026-08-13 23:59:59.999999
+INFO:     192.168.0.207:0 - "GET /fila/historico HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /follows HTTP/1.1" 200 OK
+Executando histórico de fila
+2026-08-13 00:00:00
+2026-08-13 23:59:59.999999
+INFO:     192.168.0.207:0 - "GET /fila/historico HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /pendencias HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /follows HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /follows HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /follows HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /follows HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /pendencias HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /follows HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/entrar HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /fila/sair HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /atendimentos HTTP/1.1" 422 Unprocessable Entity
+INFO:     192.168.0.207:0 - "GET /fila HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/entrar HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /fila/sair HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /login HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /follows HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /pendencias HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /follows HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /follows HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /follows HTTP/1.1" 200 OK
+Executando histórico de fila
+2026-08-13 00:00:00
+2026-08-13 23:59:59.999999
+INFO:     192.168.0.207:0 - "GET /fila/historico HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /follows HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /follows HTTP/1.1" 200 OK
+Executando histórico de fila
+2026-08-13 00:00:00
+2026-08-13 23:59:59.999999
+INFO:     192.168.0.207:0 - "GET /fila/historico HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /follows HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+Executando histórico de fila
+2026-08-13 00:00:00
+2026-08-13 23:59:59.999999
+INFO:     192.168.0.207:0 - "GET /fila/historico HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /follows HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /pendencias HTTP/1.1" 200 OK
+Executando histórico de fila
+2026-08-13 00:00:00
+2026-08-13 23:59:59.999999
+INFO:     192.168.0.207:0 - "GET /fila/historico HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /follows HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /follows HTTP/1.1" 200 OK
+Executando histórico de fila
+2026-08-13 00:00:00
+2026-08-13 23:59:59.999999
+INFO:     192.168.0.207:0 - "GET /fila/historico HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /pendencias HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /dashboard/atendimentos HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /dashboard/follows-mensais HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /dashboard/cards HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /dashboard/gantt HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /pendencias HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /dashboard/cards HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /dashboard/follows-mensais HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /dashboard/atendimentos HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /dashboard/gantt HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /follows HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /dashboard/follows-mensais HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /dashboard/gantt HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /dashboard/atendimentos HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /dashboard/cards HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /pendencias HTTP/1.1" 200 OK
+Executando histórico de fila
+2026-08-13 00:00:00
+2026-08-13 23:59:59.999999
+INFO:     192.168.0.207:0 - "GET /fila/historico HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /follows HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+INFO:     192.168.0.207:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.207:0 - "POST /fila/heartbeat HTTP/1.1" 200 OK
+Job "remover_usuarios_inativos (trigger: interval[0:00:50], next run at: 2026-08-15 02:38:23 -03)" raised an exception
+Traceback (most recent call last):
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/pymysql/connections.py", line 661, in connect
+    sock = socket.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socket.py", line 852, in create_connection
+    raise exceptions[0]
+  File "/usr/lib/python3.12/socket.py", line 837, in create_connection
+    sock.connect(sa)
+TimeoutError: timed out
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3317, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 1272, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 717, in checkout
+    with util.safe_reraise():
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 715, in checkout
+    dbapi_connection = rec.get_connection()
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 866, in get_connection
+    self.__connect()
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 900, in __connect
+    with util.safe_reraise():
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 896, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/create.py", line 667, in connect
+    return dialect.connect(*cargs_tup, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 630, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/pymysql/connections.py", line 365, in __init__
+    self.connect()
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/pymysql/connections.py", line 723, in connect
+    raise exc
+pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on 'scdeveloper.mysql.dbaas.com.br' (timed out)")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/apscheduler/executors/base.py", line 131, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/app/scheduler.py", line 37, in remover_usuarios_inativos
+    .all()
+     ^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2711, in all
+    return self._iter().all()  # type: ignore
+           ^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2864, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2239, in _execute_internal
+    conn = self._connection_for_bind(bind)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2108, in _connection_for_bind
+    return trans._connection_for_bind(engine, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 1187, in _connection_for_bind
+    conn = bind.connect()
+           ^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3293, in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 145, in __init__
+    Connection._handle_dbapi_exception_noconnection(
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2448, in _handle_dbapi_exception_noconnection
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3317, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 1272, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 717, in checkout
+    with util.safe_reraise():
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 715, in checkout
+    dbapi_connection = rec.get_connection()
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 866, in get_connection
+    self.__connect()
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 900, in __connect
+    with util.safe_reraise():
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 896, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/create.py", line 667, in connect
+    return dialect.connect(*cargs_tup, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 630, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/pymysql/connections.py", line 365, in __init__
+    self.connect()
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/pymysql/connections.py", line 723, in connect
+    raise exc
+sqlalchemy.exc.OperationalError: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'scdeveloper.mysql.dbaas.com.br' (timed out)")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Job "remover_usuarios_inativos (trigger: interval[0:00:50], next run at: 2026-08-15 02:39:13 -03)" raised an exception
+Traceback (most recent call last):
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/pymysql/connections.py", line 661, in connect
+    sock = socket.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socket.py", line 852, in create_connection
+    raise exceptions[0]
+  File "/usr/lib/python3.12/socket.py", line 837, in create_connection
+    sock.connect(sa)
+TimeoutError: timed out
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3317, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 1272, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 717, in checkout
+    with util.safe_reraise():
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 715, in checkout
+    dbapi_connection = rec.get_connection()
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 866, in get_connection
+    self.__connect()
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 900, in __connect
+    with util.safe_reraise():
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 896, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/create.py", line 667, in connect
+    return dialect.connect(*cargs_tup, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 630, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/pymysql/connections.py", line 365, in __init__
+    self.connect()
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/pymysql/connections.py", line 723, in connect
+    raise exc
+pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on 'scdeveloper.mysql.dbaas.com.br' (timed out)")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/apscheduler/executors/base.py", line 131, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/app/scheduler.py", line 37, in remover_usuarios_inativos
+    .all()
+     ^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2711, in all
+    return self._iter().all()  # type: ignore
+           ^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2864, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2239, in _execute_internal
+    conn = self._connection_for_bind(bind)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2108, in _connection_for_bind
+    return trans._connection_for_bind(engine, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 1187, in _connection_for_bind
+    conn = bind.connect()
+           ^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3293, in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 145, in __init__
+    Connection._handle_dbapi_exception_noconnection(
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2448, in _handle_dbapi_exception_noconnection
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3317, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 1272, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 717, in checkout
+    with util.safe_reraise():
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 715, in checkout
+    dbapi_connection = rec.get_connection()
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 866, in get_connection
+    self.__connect()
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 900, in __connect
+    with util.safe_reraise():
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 896, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/create.py", line 667, in connect
+    return dialect.connect(*cargs_tup, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 630, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/pymysql/connections.py", line 365, in __init__
+    self.connect()
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/pymysql/connections.py", line 723, in connect
+    raise exc
+sqlalchemy.exc.OperationalError: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'scdeveloper.mysql.dbaas.com.br' (timed out)")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Job "remover_usuarios_inativos (trigger: interval[0:00:50], next run at: 2026-08-15 02:40:03 -03)" raised an exception
+Traceback (most recent call last):
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 1319, in _checkout
+    raise exc.InvalidatePoolError()
+sqlalchemy.exc.InvalidatePoolError: ()
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/pymysql/connections.py", line 661, in connect
+    sock = socket.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socket.py", line 852, in create_connection
+    raise exceptions[0]
+  File "/usr/lib/python3.12/socket.py", line 837, in create_connection
+    sock.connect(sa)
+TimeoutError: timed out
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3317, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 1353, in _checkout
+    with util.safe_reraise():
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 1350, in _checkout
+    fairy._connection_record.get_connection()
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 837, in get_connection
+    self.__connect()
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 900, in __connect
+    with util.safe_reraise():
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 896, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/create.py", line 667, in connect
+    return dialect.connect(*cargs_tup, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 630, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/pymysql/connections.py", line 365, in __init__
+    self.connect()
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/pymysql/connections.py", line 723, in connect
+    raise exc
+pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on 'scdeveloper.mysql.dbaas.com.br' (timed out)")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/apscheduler/executors/base.py", line 131, in run_job
+    retval = job.func(*job.args, **job.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/app/scheduler.py", line 37, in remover_usuarios_inativos
+    .all()
+     ^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2711, in all
+    return self._iter().all()  # type: ignore
+           ^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2864, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2239, in _execute_internal
+    conn = self._connection_for_bind(bind)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2108, in _connection_for_bind
+    return trans._connection_for_bind(engine, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 1187, in _connection_for_bind
+    conn = bind.connect()
+           ^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3293, in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 145, in __init__
+    Connection._handle_dbapi_exception_noconnection(
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2448, in _handle_dbapi_exception_noconnection
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3317, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 1353, in _checkout
+    with util.safe_reraise():
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 1350, in _checkout
+    fairy._connection_record.get_connection()
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 837, in get_connection
+    self.__connect()
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 900, in __connect
+    with util.safe_reraise():
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 896, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/create.py", line 667, in connect
+    return dialect.connect(*cargs_tup, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 630, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/pymysql/connections.py", line 365, in __init__
+    self.connect()
+  File "/home/brentwood/Gerenciador-de-atendimento/backend/venv/lib/python3.12/site-packages/pymysql/connections.py", line 723, in connect
+    raise exc
+sqlalchemy.exc.OperationalError: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'scdeveloper.mysql.dbaas.com.br' (timed out)")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+INFO:     192.168.0.153:0 - "POST /login HTTP/1.1" 200 OK
+INFO:     192.168.0.153:0 - "GET /fila HTTP/1.1" 200 OK
+INFO:     192.168.0.153:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.153:0 - "GET /follows HTTP/1.1" 200 OK
+INFO:     192.168.0.153:0 - "GET /fila HTTP/1.1" 200 OK
+INFO:     192.168.0.153:0 - "GET /fila/minha-posicao HTTP/1.1" 404 Not Found
+INFO:     192.168.0.153:0 - "POST /fila/entrar HTTP/1.1" 200 OK
+INFO:     192.168.0.153:0 - "GET /fila/minha-posicao HTTP/1.1" 200 OK
+INFO:     192.168.0.153:0 - "GET /fila HTTP/1.1" 200 OK
+INFO:     192.168.0.153:0 - "POST /fila/sair HTTP/1.1" 200 OK
+INFO:     192.168.0.153:0 - "GET /fila HTTP/1.1" 200 OK

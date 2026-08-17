@@ -6,6 +6,9 @@ from sqlalchemy.orm import Session
 from jose import jwt
 from app.scheduler import scheduler
 
+from integrations.starsoft.starsoft_automation import enviar_orcamento
+from integrations.teams.agend_teams import enviar_agendamento
+from integrations.starsoft.starsoft_service import salvar_cliente, salvar_order, salvar_profissional, salvar_follow
 
 from app.security import (SECRET_KEY, 
                           ALGORITHM,
@@ -19,8 +22,9 @@ from app.models import (
     Agendamento,
     FilaAtendimento,
     UpdatePendencia,
-    OrcamentoFuturo
+    OrcamentoFuturo,
 )
+
 from app.schemas import (AtualizacaoLoteRequest)
 
 from app.schemas import (
@@ -94,7 +98,13 @@ def home():
         "mensagem": "API funcionando"
     }
 
+# =========================
+# ENDPOINT PARA TRABALHAR COM USUARIOS
+# =========================
+
+# =========================
 # CRIAR USUÁRIO NOVO
+# =========================
 @app.post("/novousuarios")
 def criar_usuario(usuario: UsuarioCreate):
 
@@ -126,7 +136,9 @@ def criar_usuario(usuario: UsuarioCreate):
         "id": novo_usuario.id
     }
 
+# =========================
 # AUTENTICAÇÃO DE LOGIN 
+# =========================
 @app.post("/login")
 def login(
     dados: schemas.LoginRequest,
@@ -179,6 +191,10 @@ def login(
             "loja": usuario.loja
         }
     }
+
+# =========================
+# RECEBER INFORMAÇÕES DOS USUARIOS
+# =========================
 security = HTTPBearer()
 def obter_usuario(
         credenciais: HTTPAuthorizationCredentials = Depends(security)
@@ -207,31 +223,81 @@ def obter_usuario(
             detail="Token Inválido",
         )
 
+# =========================
+# ENDPOINT PARA OS FOLLOWS
+# =========================
 
+# =========================
 # LISTAR FOLLOWS
+# =========================
 @app.get(
     "/follows",
     response_model = list[AgendamentoResponse]
 )
 def listar_agendamentos(
-    usuario = Depends(obter_usuario),
+
     db: Session = Depends(get_db)
 ):
 
     query = db.query(
-        Agendamento
+        models.NewFollow,
+        models.AddClient,
+        models.AddOrder,
+        models.AddProfissional,
+        models.Usuario
+    ).join(
+        models.AddClient,
+        models.NewFollow.Client_ID == models.AddClient.id
+    ).join(
+        models.AddOrder,
+        models.NewFollow.Order_ID == models.AddOrder.id
+    ).join(
+        models.AddProfissional,
+        models.NewFollow.Profissional_ID == models.AddProfissional.id
+    ).join(
+        models.Usuario,
+        models.NewFollow.Vendor_ID == models.Usuario.id
     )
 
-    query = filtro_permissao(
-        query,
-        usuario,
-        Agendamento.loja_id,
-        Agendamento.vendedor_id
-    )
+    resultado = query.all()
+    respostas = []
 
-    return query.all()
+    for follow, client, order, profissional, vendedor in resultado:
 
+        respostas.append(
+            AgendamentoResponse(
+                id = follow.id,
+
+                erp_client_id = client.ERP_Client_ID,
+                client_name = client.Name,
+                telefone = client.Phone,
+                email = client.Email,
+
+                erp_order_id = order.ERP_Order_ID,
+                valor = order.Valor,
+
+                vendedor_id = vendedor.id,
+
+                erp_profissional_id = profissional.ERP_Profissional_ID,
+                profissional_name = profissional.Profissional_Name,
+                profissional_mail = profissional.Profissional_Mail,
+
+                date_agenda = follow.Date_Agenda,
+                final_date = follow.Final_Date,
+
+                situation = follow.Situation,
+                estagio = follow.Estagio,
+                status = follow.Status,
+                prioridade = follow.Prioridade,
+                contact_form = follow.Contact_Form,
+                follow_parent_id = follow.Follow_Parent_ID
+            )
+        )
+    return respostas
+
+# =========================
 # OBTER ATENDIMENTO
+# =========================
 @app.get("/atendimento/{atendimento_id}")
 def obter_atendimento(
     atendimento_id: int,
@@ -246,113 +312,91 @@ def obter_atendimento(
 
     return atendimento
 
-# CRIAR FOLLOW
-@app.post("/follows")
-def criar_follow(
-    follow: schemas.AgendamentoCreate,
-    db: Session = Depends(get_db)
-):
-
-    novo_follow = models.Agendamento(
-
-        cliente = follow.cliente,
-
-        telefone = follow.telefone,
-
-        email = follow.email,
-
-        loja_id = follow.loja_id,
-
-        vendedor_id = follow.vendedor_id,
-
-        arquiteto = follow.arquiteto,
-
-        produto = follow.produto,
-
-        data_agendamento = follow.data_agendamento,
-
-        hora_agendamento = follow.hora_agendamento,
-
-        estagio = follow.estagio,
-
-        prioridade = follow.prioridade,
-
-        observacoes = follow.observacoes,
-
-        obs_follow = follow.obs_follow,
-
-        estrategia = follow.estrategia,
-
-        prazo_final = follow.prazo_final,
-
-        possibilidade = follow.possibilidade,
-
-        status = follow.status,
-
-        atendimento_id = follow.atendimento_id,
-
-        follow_parent_id = follow.follow_parent_id,
-
-        forma_contato = follow.forma_contato
-    )
-
-    db.add(novo_follow)
-
-    db.commit()
-
-    db.refresh(novo_follow)
-
-    return novo_follow
-
-
 # =========================
-# CRIAR ATENDIMENTO
+# CRIAR ATENDIMENTOS
 # =========================
 @app.post("/atendimentos")
 def criar_atendimento(
-    atendimento: schemas.AtendimentoCreate,
+    dados: schemas.AtendimentoRequest,
     db: Session = Depends(get_db),
-    usuario_logado: Usuario = Depends(obter_usuario)  
-    
+    usuario_logado: Usuario = Depends(obter_usuario)
 ):
-    # REGISTRO NA TABELA SERVICES_RECORDS
+    
+    atendimento = dados.atendimento
+
+    follow = dados.follow
+
+    dados_starsoft = enviar_orcamento(
+        atendimento.orcamento
+    )
+    
+    cliente = salvar_cliente(
+        db,
+        dados_starsoft
+    )
+
+    orcamento = salvar_order(
+        db,
+        dados_starsoft,
+        cliente,
+        usuario_logado["id"]
+    )
+
+    profissional = salvar_profissional(
+        db,
+        dados_starsoft
+    )
+
+    new_follow = models.NewFollow(
+
+        Client_ID = cliente.id,
+
+        Order_ID = orcamento.id, 
+
+        Profissional_ID = profissional.id,
+
+        Vendor_ID = usuario_logado["id"],
+
+        Date_Agenda = follow.Date_Agenda,
+
+        Estagio = follow.Estagio,
+
+        Status = follow.Status,
+
+        Prioridade = follow.Prioridade,
+
+        Contact_Form = follow.Contact_Form,
+
+        Final_Date = follow.Final_Date
+
+    )
+
+    db.add(new_follow)
+    db.commit()
+    db.refresh(new_follow)
+
+    # return new_follow
+
     novo_atendimento = models.Atendimento(
-
         vendedor_id = usuario_logado["id"],
-
         loja = usuario_logado["loja"],
-
         score = atendimento.score,
-
         ranking = atendimento.ranking,
-
         orcamento = atendimento.orcamento,
-
         concorrentes = atendimento.concorrentes,
-
         gerou_follow = atendimento.gerou_follow,
-
         data_follow = atendimento.data_follow
     )
 
     db.add(novo_atendimento)
-
     db.commit()
-
     db.refresh(novo_atendimento)
 
-    # =========================
-    # SALVAR RESPOSTAS
-    # =========================
     for pergunta_id, resposta in atendimento.respostas.items():
-
         nova_resposta = models.AnswerRecord(
-
-            atendimento_id = novo_atendimento.id,
-
-            pergunta_id = int(pergunta_id),
-
-            resposta = str(resposta)
+            atendimento_id=novo_atendimento.id,
+            pergunta_id=int(pergunta_id),
+            resposta=str(resposta)
         )
 
         db.add(nova_resposta)
@@ -360,6 +404,125 @@ def criar_atendimento(
     db.commit()
 
     return novo_atendimento
+
+
+
+# =========================
+# CRIAR FOLLOW
+# =========================
+# @app.post("/follows")
+# def criar_follow(
+#     follow: schemas.AgendamentoCreate,
+#     db: Session = Depends(get_db),
+#     usuario_logado: Usuario = Depends(obter_usuario)
+# ):
+#     novo_follow = models.Agendamento(
+#         cliente=follow.cliente,
+#         telefone=follow.telefone,
+#         email=follow.email,
+
+#         loja_id=follow.loja_id,
+
+#         vendedor_id=usuario_logado["id"],
+
+#         arquiteto=follow.arquiteto,
+#         produto=follow.produto,
+
+#         data_agendamento=follow.data_agendamento,
+#         hora_agendamento=follow.hora_agendamento,
+
+#         estagio=follow.estagio,
+#         prioridade=follow.prioridade,
+#         observacoes=follow.observacoes,
+
+#         obs_follow=follow.obs_follow,
+#         estrategia=follow.estrategia,
+
+#         prazo_final=follow.prazo_final,
+#         possibilidade=follow.possibilidade,
+
+#         status=follow.status,
+
+#         atendimento_id=follow.atendimento_id,
+#         follow_parent_id=follow.follow_parent_id,
+
+#         forma_contato=follow.forma_contato
+#     )
+
+#     db.add(novo_follow)
+#     db.commit()
+#     db.refresh(novo_follow)
+
+#     return novo_follow
+
+# =========================
+# Registro de follow atrasado
+# =========================
+@app.put(
+    "/follows/atualizar-lote",
+    response_model=AtualizacaoLoteResponse
+)
+def atualizar_follow_lote(
+    dados: AtualizacaoLoteRequest,
+    db: Session = Depends(get_db)
+):
+    quantidade = (
+        db.query(Agendamento)
+        .filter(
+            Agendamento.id.in_(dados.follow_ids)
+        )
+        .update(
+            {"status": dados.status},
+            synchronize_session=False
+        )
+    )
+
+    db.commit()
+
+    return {
+        "mensagem": f"{quantidade} follows foram modificados para atrasado",
+        "quantidade": quantidade
+    }
+
+# =========================
+# ATUALIZAR FOLLOW
+# =========================
+@app.put("/follows/{id}")
+def atualizar_follow(
+    id: int,
+    dados: dict,
+    db: Session = Depends(get_db)
+):
+
+    follow = db.query(
+        models.Agendamento
+    ).filter(
+        models.Agendamento.id == id
+    ).first()
+
+    if not follow:
+
+        return {
+            "erro": "Follow não encontrado"
+        }
+
+    for chave, valor in dados.items():
+
+        setattr(
+            follow,
+            chave,
+            valor
+        )
+
+    db.commit()
+
+    db.refresh(follow)
+
+    return follow
+
+# =========================
+# DASHBOARDS
+# =========================
 
 # Cards diarios
 @app.get("/dashboard/cards")
@@ -412,7 +575,9 @@ def dashboard_cards(
         "mes": follows_mes
     }
 
+# =========================
 # Graficos de rendimento mês
+# =========================
 @app.get("/dashboard/follows-mensais")
 def follows_mensais(
     db: Session = Depends(get_db),
@@ -448,7 +613,9 @@ def follows_mensais(
         "valores": valores
     }
 
+# =========================
 # Cards de atendimento e produtividade
+# =========================
 @app.get("/dashboard/atendimentos")
 def dashboard_atendimentos(
     db: Session = Depends(get_db),
@@ -518,8 +685,9 @@ def dashboard_atendimentos(
         "atendimentos_mes": atendimentos_mes
 
     }
-
+# =========================
 # Tabela Gantt
+# =========================
 @app.get("/dashboard/gantt")
 def dashboard_gantt(
     db: Session = Depends(get_db),
@@ -565,69 +733,14 @@ def dashboard_gantt(
 
     return list(vendedores.values())
 
-# Registro de follow atrasado
-@app.put(
-    "/follows/atualizar-lote",
-    response_model=AtualizacaoLoteResponse
-)
-def atualizar_follow_lote(
-    dados: AtualizacaoLoteRequest,
-    db: Session = Depends(get_db)
-):
-    quantidade = (
-        db.query(Agendamento)
-        .filter(
-            Agendamento.id.in_(dados.follow_ids)
-        )
-        .update(
-            {"status": dados.status},
-            synchronize_session=False
-        )
-    )
-
-    db.commit()
-
-    return {
-        "mensagem": f"{quantidade} follows foram modificados para atrasado",
-        "quantidade": quantidade
-    }
 
 # =========================
-# ATUALIZAR FOLLOW
+# ENDPOINT PARA ATUAÇÃO NAS FILAS
 # =========================
-@app.put("/follows/{id}")
-def atualizar_follow(
-    id: int,
-    dados: dict,
-    db: Session = Depends(get_db)
-):
 
-    follow = db.query(
-        models.Agendamento
-    ).filter(
-        models.Agendamento.id == id
-    ).first()
-
-    if not follow:
-
-        return {
-            "erro": "Follow não encontrado"
-        }
-
-    for chave, valor in dados.items():
-
-        setattr(
-            follow,
-            chave,
-            valor
-        )
-
-    db.commit()
-
-    db.refresh(follow)
-
-    return follow
-
+# =========================
+# ENTRAR NA FILA
+# =========================
 @app.post("/fila/entrar")
 def entrar_fila(
     db: Session  = Depends (get_db),
@@ -663,6 +776,9 @@ def entrar_fila(
         "mensagem":"Entrou na fila com sucesso"
     }
 
+# =========================
+# RECEBER POSIÇÃO NA FILA
+# =========================
 @app.get("/fila/minha-posicao")
 def minha_posicao(
     db: Session = Depends(get_db),
@@ -692,6 +808,9 @@ def minha_posicao(
         "posicao": pessoas_antes + 1
     }
 
+# =========================
+# SAIR DA FILA
+# =========================
 @app.post("/fila/sair")
 def sair_fila(
     db: Session = Depends(get_db),
@@ -715,7 +834,9 @@ def sair_fila(
     return {
         "mensagem":"Saiu da fila com sucesso"
     }
-
+# =========================
+# ATIVAÇÃO DO BOTÃO LOJA CHEIA
+# =========================
 @app.post("/loja-cheia")
 def criar_pendencia(   
     payload: UpdatePendenciaCreate,
@@ -738,89 +859,9 @@ def criar_pendencia(
         "id": nova.id
     }
 
-@app.get("/pendencias")
-def listarpendencias( 
-    db: Session = Depends(get_db),
-    usuario_logado = Depends(obter_usuario)
-
-):
-    return(
-        db.query(UpdatePendencia)
-        .filter(UpdatePendencia.status == "Ativo", UpdatePendencia.vendedor_id == usuario_logado["id"])
-        .all()
-    )
-
-@app.put("/pendencias/{id}/inativar")
-def inativar_pendencia(
-    id: int,
-    db: Session = Depends(get_db)
-):
-    pendencia = (
-        db.query(UpdatePendencia)
-            .filter(UpdatePendencia.id == id)
-            .first()
-    )
-
-    if not pendencia:
-        raise HTTPException(
-            status_code=404,
-            detail="Pendência não encontrada"
-        )
-    
-    pendencia.status = "Inativo"
-
-    db.commit()
-
-    return {"mensage":"Pendência atualizada"}
-
-@app.post("/orcamento-futuro")
-def criar_orcamento_futuro(
-    payload: schemas.OrcamentoFuturoCreate,
-    db: Session = Depends(get_db),
-    usuario_logado = Depends(obter_usuario)
-):
-
-    novo_registro = models.OrcamentoFuturo(
-
-        cliente = payload.cliente,
-
-        telefone = payload.telefone,
-        
-        email = payload.email,
-
-        forma_contato = payload.forma_contato,
-
-        data_contato = payload.data_contato,
-
-        loja_id = usuario_logado["loja"],
-
-        vendedor_id = usuario_logado["id"],
-
-        status = "Ativo"
-    )
-
-    db.add(novo_registro)
-
-    db.commit()
-
-    db.refresh(novo_registro)
-
-    return novo_registro
-
-@app.get("/carregar-orcamento-futuro")
-def listarfuturos( 
-    db: Session = Depends(get_db),
-    usuario_logado = Depends(obter_usuario)
-
-):
-    return (
-        db.query(OrcamentoFuturo)
-            .filter(
-                OrcamentoFuturo.status == "Ativo", 
-                OrcamentoFuturo.vendedor_id == usuario_logado["id"])
-            .all()
-    )
-
+# =========================
+# VERIFICAÇÃO SE USUARIOS AINDA ESTA ATIVO
+# =========================
 @app.post("/fila/heartbeat")
 def heartbeat(
     db: Session = Depends(get_db),
@@ -844,6 +885,9 @@ def heartbeat(
 
     return {"Atualização da ultima atividade": True}
 
+# =========================
+# APRESENTAÇÃO EM LISTA DE USUARIO DA FILA
+# =========================
 @app.get("/fila")
 def listar_fila(
     db: Session = Depends(get_db),
@@ -874,7 +918,10 @@ def listar_fila(
     ]
 
     # return fila
-
+    
+# =========================
+# TELA DE HISTÓRICO DA FILA
+# =========================
 @app.get("/fila/historico")
 def ultimos_dia_anterior(
     db: Session = Depends(get_db),
@@ -910,3 +957,115 @@ def ultimos_dia_anterior(
         for fila, usuario in historicoFila
 
     ]
+# =========================
+# ENDPOINT'S DA PAGINA DE PENDENCIA
+# =========================
+
+# =========================
+# COLETAR PENDENCIAS NO BANCO DE DADOS
+# =========================
+@app.get("/pendencias")
+def listarpendencias( 
+    db: Session = Depends(get_db),
+    usuario_logado = Depends(obter_usuario)
+
+):
+    return(
+        db.query(UpdatePendencia)
+        .filter(UpdatePendencia.status == "Ativo", UpdatePendencia.vendedor_id == usuario_logado["id"])
+        .all()
+    )
+
+# =========================
+# INATIVAR PENDENCIAS
+# =========================
+@app.put("/pendencias/{id}/inativar")
+def inativar_pendencia(
+    id: int,
+    db: Session = Depends(get_db)
+):
+    pendencia = (
+        db.query(UpdatePendencia)
+            .filter(UpdatePendencia.id == id)
+            .first()
+    )
+
+    if not pendencia:
+        raise HTTPException(
+            status_code=404,
+            detail="Pendência não encontrada"
+        )
+    
+    pendencia.status = "Inativo"
+
+    db.commit()
+
+    return {"mensage":"Pendência atualizada"}
+
+
+# =========================
+# PAGINA DE ORÇAMENTO FUTURO
+# =========================
+
+# =========================
+# CRIAR ORÇAMENTO FUTURO
+# =========================
+@app.post("/orcamento-futuro")
+def criar_orcamento_futuro(
+    payload: schemas.OrcamentoFuturoCreate,
+    db: Session = Depends(get_db),
+    usuario_logado = Depends(obter_usuario)
+):
+
+    novo_registro = models.OrcamentoFuturo(
+
+        cliente = payload.cliente,
+
+        telefone = payload.telefone,
+        
+        email = payload.email,
+
+        forma_contato = payload.forma_contato,
+
+        data_contato = payload.data_contato,
+
+        loja_id = usuario_logado["loja"],
+
+        vendedor_id = usuario_logado["id"],
+
+        status = "Ativo"
+    )
+
+    enviar_agendamento(
+        type = "Orçamento futuro",
+        agenda_user = usuario_logado["email"],
+        agend_cliente = novo_registro.cliente,
+        agend_date = novo_registro.data_contato
+    )
+
+    db.add(novo_registro)
+
+    db.commit()
+
+    db.refresh(novo_registro)
+
+    return novo_registro
+
+# =========================
+# CARREGAR ORÇAMENTOS FUTUROS
+# =========================
+@app.get("/carregar-orcamento-futuro")
+def listarfuturos( 
+    db: Session = Depends(get_db),
+    usuario_logado = Depends(obter_usuario)
+
+):
+    return (
+        db.query(OrcamentoFuturo)
+            .filter(
+                OrcamentoFuturo.status == "Ativo", 
+                OrcamentoFuturo.vendedor_id == usuario_logado["id"])
+            .all()
+    )
+
+

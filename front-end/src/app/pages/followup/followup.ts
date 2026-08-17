@@ -86,20 +86,18 @@ export class Followup implements OnInit {
     if (typeof window === 'undefined') {
       return;
     }
-    console.log('CARREGAR FOLLOWS');
+    this.atualizarStatusAtrasado()
     this.carregarFollows();
+    this.cdr.detectChanges()
   }
 
   // Função para carregar fila inicial
   carregarFollows() {
-    console.log('CARREGANDO FOLLOWS');
     this.followServices
       .obterDados()
       .subscribe({
         next: (dados) => {
           this.follows = dados
-          // this.atualizarStatusAtrasados()
-          this.atualizarStatusAtrasado()
           this.filtrarCards()
           this.cdr.detectChanges()
         }
@@ -108,23 +106,27 @@ export class Followup implements OnInit {
 
   // Função para filtrar as filas de agendamento
   filtrarCards() {
-    console.log('FILTRANDO CARDS');
-    const hojeFormatado = this.formatarDataLocal(
-      new Date()
-    );
+    const hoje = new Date();
+    const hojeFormatado = this.formatarDataLocal(hoje);
+
+    const amanha = new Date(hoje);
+    amanha.setDate(amanha.getDate() + 1);
+    const amanhaFormatado = this.formatarDataLocal(amanha);
+
+    console.log('Hoje: ', hojeFormatado)
+    console.log('Amanhã: ', amanhaFormatado)
 
     this.followsHoje = this.follows.filter(
       follow =>
-        follow.data_agendamento === hojeFormatado && 
-        (follow.status === 'Em follow'
-        || 
-        follow.status === 'Não realizou o follow'
-        ),
+        follow.date_agenda.startsWith(hojeFormatado) && (
+          follow.status == 'Em follow' ||
+          follow.status == 'Não realizou o follow'
+        )
     );
 
     this.followsAtrasados = this.follows.filter(
       follow =>
-        follow.data_agendamento < hojeFormatado &&
+        follow.date_agenda < hojeFormatado &&
         (
           follow.status === 'Em follow'
           ||
@@ -134,7 +136,7 @@ export class Followup implements OnInit {
     
     this.followsnextday = this.follows.filter(
       follow =>
-        follow.data_agendamento > hojeFormatado+1 &&
+        follow.date_agenda.startsWith(amanhaFormatado) &&
         (
           follow.status === 'Em follow'
           ||
@@ -179,25 +181,25 @@ export class Followup implements OnInit {
       );
     });
 
-    this.followServices
-      .obterAtendimento(
-        follow.atendimento_id
-      )
-      .subscribe({
+    // this.followServices
+    //   .obterAtendimento(
+    //     follow.atendimento_id
+    //   )
+    //   .subscribe({
 
-        next: (dados) => {
-          this.dadosAtendimento = dados;
-        },
+    //     next: (dados) => {
+    //       this.dadosAtendimento = dados;
+    //     },
 
-        error: (erro) => {
+    //     error: (erro) => {
 
-          console.error(
-            'Erro ao carregar atendimento',
-            erro
-          );
+    //       console.error(
+    //         'Erro ao carregar atendimento',
+    //         erro
+    //       );
 
-        }
-      });
+    //     }
+    //   });
   }
 
   // Função para fechar modal
@@ -217,15 +219,15 @@ export class Followup implements OnInit {
     this.acaoSelecionada = 'reagendar';
     
     // Limpa formulário
-    this.respostasReagendamento = {
-      nivel_atendimento: '',
-      possibilidade: '',
-      estagio: '',
-      melhoria: '',
-      obs_follow: '',
-      estrategia: '',
-      prazo_final: ''
-    };
+    // this.respostasReagendamento = {
+    //   nivel_atendimento: '',
+    //   possibilidade: '',
+    //   estagio: '',
+    //   melhoria: '',
+    //   obs_follow: '',
+    //   estrategia: '',
+    //   prazo_final: ''
+    // };
   }
 
   // Função para finalizar follow
@@ -235,104 +237,104 @@ export class Followup implements OnInit {
   }
 
   // Função para reagendar follow
-  confirmaReagendamento() {
-    console.log('INICIO REAGENDAMENTO');
-    if (!this.followSelecionado) {
-      return;
-    }
-    const novoFollow = {
+  // confirmaReagendamento() {
+  //   console.log('INICIO REAGENDAMENTO');
+  //   if (!this.followSelecionado) {
+  //     return;
+  //   }
+  //   const novoFollow = {
 
-      cliente: this.followSelecionado?.cliente,
+  //     cliente: this.followSelecionado?.cliente,
 
-      telefone: this.followSelecionado?.telefone,
+  //     telefone: this.followSelecionado?.telefone,
 
-      email: this.followSelecionado?.email,
+  //     email: this.followSelecionado?.email,
 
-      loja_id: this.followSelecionado?.loja_id,
+  //     loja_id: this.followSelecionado?.loja_id,
 
-      vendedor_id: this.followSelecionado?.vendedor_id,
+  //     vendedor_id: this.followSelecionado?.vendedor_id,
 
-      arquiteto: this.followSelecionado?.arquiteto,
+  //     arquiteto: this.followSelecionado?.arquiteto,
 
-      produto: this.followSelecionado?.produto,
+  //     produto: this.followSelecionado?.produto,
 
-      data_agendamento: this.novaData,
+  //     date_agenda: this.novaData,
 
-      hora_agendamento: this.novaHora,
+  //     hora_agendamento: this.novaHora,
 
-      estagio: this.respostasReagendamento.estagio,
+  //     estagio: this.respostasReagendamento.estagio,
 
-      prioridade: this.followSelecionado?.prioridade,
+  //     prioridade: this.followSelecionado?.prioridade,
 
-      observacoes: this.followSelecionado?.observacoes,
+  //     observacoes: this.followSelecionado?.observacoes,
 
-      status: 'Em follow',
+  //     status: 'Em follow',
 
-      atendimento_id: this.followSelecionado?.atendimento_id,
+  //     atendimento_id: this.followSelecionado?.atendimento_id,
 
-      follow_parent_id: this.followSelecionado?.follow_parent_id,
+  //     follow_parent_id: this.followSelecionado?.follow_parent_id,
       
-      orcamento: this.followSelecionado?.orcamento,
+  //     orcamento: this.followSelecionado?.orcamento,
 
-      estrategia: this.respostasReagendamento.estrategia,
+  //     estrategia: this.respostasReagendamento.estrategia,
       
-      obs_follow: this.respostasReagendamento.obs_follow,
+  //     obs_follow: this.respostasReagendamento.obs_follow,
       
-      prazo_final: this.followSelecionado?.prazo_final,
+  //     prazo_final: this.followSelecionado?.prazo_final,
 
-      forma_contato: this.respostasReagendamento.forma_contato,
+  //     forma_contato: this.respostasReagendamento.forma_contato,
 
-      possibilidade: this.respostasReagendamento.possibilidade,
-    };
+  //     possibilidade: this.respostasReagendamento.possibilidade,
+  //   };
 
-    this.followServices
-      .atualizarFollow(
-        this.followSelecionado.id,
-        {
-          status: 'Reagendado'
-        }
-      )
+  //   this.followServices
+  //     .atualizarFollow(
+  //       this.followSelecionado.id,
+  //       {
+  //         status: 'Reagendado'
+  //       }
+  //     )
       
-      .subscribe({
-        next: () => {
-          console.log('Follow atualizado com sucesso');
+  //     .subscribe({
+  //       next: () => {
+  //         console.log('Follow atualizado com sucesso');
           
-          this.followServices
-            .criarFollow(novoFollow)
-            .subscribe({
+  //         this.followServices
+  //           .criarFollow(novoFollow)
+  //           .subscribe({
 
-              next: () => {
+  //             next: () => {
 
-                console.log('Novo follow criado');
+  //               console.log('Novo follow criado');
           
-                this.fecharModal();
+  //               this.fecharModal();
 
-                console.log('Follow Services rodou')
+  //               console.log('Follow Services rodou')
 
-                this.carregarFollows();
+  //               this.carregarFollows();
 
-                console.log('Página Atualizada')
-        },
+  //               console.log('Página Atualizada')
+  //       },
 
-        error: (erro) => {
+  //       error: (erro) => {
 
-          console.error(
-            'Erro ao criar novo follow',
+  //         console.error(
+  //           'Erro ao criar novo follow',
             
-          );
-          console.log(erro.error.detail);
-        }
-      });
-        },
+  //         );
+  //         console.log(erro.error.detail);
+  //       }
+  //     });
+  //       },
 
-        error: (erro) => {
-          console.error(
-            'Erro ao criar atendimento',
-            erro
-          );
-        }
-      });
-  };
+  //       error: (erro) => {
+  //         console.error(
+  //           'Erro ao criar atendimento',
+  //           erro
+  //         );
+  //       }
+  //     });
+  // };
 
   confirmaEncerramento() {
     console.log("CONFIRMANDO ENCERRAMENTO");
@@ -378,35 +380,59 @@ export class Followup implements OnInit {
   }
   
   atualizarStatusAtrasado() {
+    const hojeFormatado = this.formatarDataLocal(new Date());
 
-    console.log("Atualizando follows atrasados")
-    const hojeFormatado = this.formatarDataLocal(
-      new Date()
-    );
-    
     const idsParaAtualizar = this.follows
-      .filter(follow =>
-        follow.data_agendamento < hojeFormatado &&
-        follow.status === 'Em follow'
-      )
-      .map(follow => follow.id);
-    
-      if (idsParaAtualizar.length > 0) {
-        this.followServices.atualizarFollowsLote(
-          idsParaAtualizar,
+        .filter(follow =>
+            follow.date_agenda < hojeFormatado &&
+            follow.status === 'Em follow'
+        )
+        .map(follow => follow.id);
+        
+    if (idsParaAtualizar.length > 0){
+      this.followServices.atualizarFollowsLote(
+        idsParaAtualizar,
           'Não realizou o follow'
-        ).subscribe({
-          next: (res) => {
-                console.log(`${res.quantidade} follows atualizados`);
-                this.carregarFollows();
-            },
-          error: (erro) => {
-              console.error('Erro ao atualizar lote:', erro.error);
-              console.log(erro.error.detail)
-              // this.showToast('Erro ao atualizar follows atrasados', 'error')
-          }
-        });
-      }
+      ).subscribe({
+        next: (res) => {
+          console.log(`${res.quantidade} follows atualizados`);
+
+          this.filtrarCards();
+        },
+        error: (erro) => {
+          console.error('Erro ao atualizar lote:', erro.error);
+          console.log(erro.error.detail);
+        }
+      });
+    }
+
+    // const hojeFormatado = this.formatarDataLocal(
+    //   new Date()
+    // );
+    
+    // const idsParaAtualizar = this.follows
+    //   .filter(follow =>
+    //     follow.date_agenda < hojeFormatado &&
+    //     follow.status === 'Em follow'
+    //   )
+    //   .map(follow => follow.id);
+    
+    //   if (idsParaAtualizar.length > 0) {
+    //     this.followServices.atualizarFollowsLote(
+    //       idsParaAtualizar,
+    //       'Não realizou o follow'
+    //     ).subscribe({
+    //       next: (res) => {
+    //             console.log(`${res.quantidade} follows atualizados`);
+    //             this.filtrarCards();;
+    //         },
+    //       error: (erro) => {
+    //           console.error('Erro ao atualizar lote:', erro.error);
+    //           console.log(erro.error.detail)
+    //           // this.showToast('Erro ao atualizar follows atrasados', 'error')
+    //       }
+    //     });
+    //   }
   }
 
   contarEstagios(lista: FollowsModel[]) {

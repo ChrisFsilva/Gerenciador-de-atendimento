@@ -5,63 +5,25 @@ export interface AtualizacaoLoteResponse {
 
 export interface FollowsModel {
 
-    id: number;
+        id: number;
+        date_agenda: string;
+        estagio: string | null;
+        status: string | null;
+        prioridade: string | null;
+        situation: string | null;
+        contact_form: string;
+        final_date: string | null;
+        follow_parent_id: number | null;
+        
+        erp_order_id: string;
+        valor: number;
 
-    atendimento_id: number;
+        erp_profissional_id: number | null;
+        profissional_name: string | null;
+        profissional_mail: string | null;
 
-    cliente: string;
-
-    telefone: string;
-
-    email: string;
-
-    loja_id: string;
-
-    vendedor_id: number;
-
-    arquiteto: string;
-
-    produto: string;
-
-    data_agendamento: string;
-
-    hora_agendamento: string;
-
-    prioridade: string;
-
-    observacoes:  string;
-
-    follow_parent_id?: number;
-
-    prazo_final: string;
-    
-    estrategia?: string;
-
-    obs_follow?: string;
-
-    possibilidade?: string;
-
-    orcamento?: string;
-
-    forma_contato: string;
-
-    estagio: string;
-    // estagio:
-    //     'Sem necessidade de ajuste' |
-    //     'Ajuste de proposta'|
-    //     'Contornando objeções'|
-    //     'Aguardando decisão'|
-    //     'Momento de entender a preferencia'|
-    //     'Em negociação'|
-    //     'Negociação final'|
-    //     'Fechamento';
-    
-    status: string;
-    // status:
-    //     'Em follow'|
-    //     'Não realizou o follow'|
-    //     'Encerrado Brentwood'|
-    //     'Encerrado concorrência'|
-    //     'Reagendado' |
-    //     'Desistiu da compra';
+        erp_client_id: number;
+        client_name: string | null;
+        telefone: string | null;
+        email: string | null
 }

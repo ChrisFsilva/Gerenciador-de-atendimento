@@ -785,10 +785,13 @@ export class Gamificacao {
 
   // Finalizar atendimento
   finalizarAtendimentoFila() {
-    
-    // APRESENTAR VARIAVEIS NO CONSOLE
-    console.log(this.respostas);
 
+    if (this.emAndamento === false) {
+      return;
+    }
+
+    this.toastService.info('Salvando agendamento');
+    
     const atendimento = {
 
       score: this.score,
@@ -806,9 +809,33 @@ export class Gamificacao {
       respostas: this.respostas
     };
     console.log(atendimento);
+    
+    const follow = {
+      Date_Agenda: this.respostas[4],
+
+      Estagio: "Agendamento realizado",
+      
+      Status: "Em follow",
+      
+      Prioridade: "Média",
+      
+      Situation: "Ativo",
+      
+      Contact_Form: this.respostas[5],
+      
+      Final_Date: this.respostas[8]
+    };
+    
+    console.log(follow);
+
+    const dados = { 
+      atendimento: atendimento,
+      follow: follow
+    }
+    this.emAndamento = false;
 
     this.apiService
-      .criarAtendimento(atendimento)
+      .criarAtendimento(dados)
       .subscribe({
 
         next: (resposta: any) => {
@@ -820,11 +847,6 @@ export class Gamificacao {
           console.log(
             'Atendimento salvo',
             resposta
-          );
-
-          this.emAndamento = false;
-          this.router.navigate(
-            ['/home/fila']
           );
 
         },
@@ -842,6 +864,8 @@ export class Gamificacao {
 
         }
       });
+
+    this.router.navigate(['/home/fila']);
   }
 
   finalizarOrcamentoFuturo() {

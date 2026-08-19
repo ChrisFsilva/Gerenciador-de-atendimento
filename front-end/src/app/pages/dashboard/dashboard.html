@@ -1,79 +1,196 @@
-<!-- CARDS DE FOLLOWS POR DIA -->
-<div class="cards-container">
-    <div class="dashboard-card"
-        style="border-color: rgb(165, 157, 42);
-        box-shadow: 0 4px 12px rgba(165, 157, 42,0.5);">
-        <h3>Follows Hoje</h3>
-        <span>
-            {{ cards.hoje }}
+<!-- CARDS ATENDIMENTO X ORÇAMENTOS -->
+<div class="Cards-info">
+  <div class="atendimento-content atendimento-card atendimento-realizados">
+
+    <div class="card-header">
+      <span>Atendimentos Realizados </span>
+      <i class="fa-regular fa-clipboard"></i>
+    </div>
+    <div class="atendimento-row atendimento-realizados">
+      <div class="atendimento-title"> 
+        <span class="periodo">
+          Hoje
         </span>
+      </div>
+      <div>
+        <strong>
+          {{ cardsAtendimento.atendimentos_hoje }}
+        </strong>
+        <i class="fa-solid fa-calendar-check"></i>
+      </div>
     </div>
 
-    <div class="dashboard-card"
-        style="border-color: brown;
-        box-shadow: 0 4px 12px rgba(165,42,42,0.5);">
-        <h3>Total de follows neste mês</h3>
-        <span>
-            {{ cards.mes }}
+    <div class="atendimento-row atendimento-realizados">
+      <div class="atendimento-title"> 
+        <span class="periodo">
+          Mês
         </span>
+      </div>
+      <div>
+        <strong>
+          {{ cardsAtendimento.atendimentos_mes }}
+        </strong>
+        <i class="fa-solid fa-calendar-days"></i>
+      </div>
     </div>
 
-    <div class="dashboard-card"
-        style="border-color: rgb(42, 110, 165);
-        box-shadow: 0 4px 12px rgba(42, 110, 165,0.5);">
-        <h3>Follows nos últimos 15 dias</h3>
-        <span>
-        {{ cards.ultimos15dias }}
+    <div class="atendimento-row atendimento-realizados">
+      <div class="atendimento-title"> 
+        <span class="periodo">
+          <strong>
+            Total
+          </strong>
         </span>
+      </div>
+      <div>
+        <strong>
+          {{ cardsAtendimento.atendimentos }}
+        </strong>
+        <i class="fa-solid fa-crown"></i>
+      </div>
     </div>
+  </div>
+
+  <div class="orcamento-card title-orcamento">
+
+    <div class="card-header">
+      <span>Orçamentos Realizados </span>
+      <i class="fa-solid fa-user-tag"></i>
+    </div>
+    <div class="dashboard-subtitle">
+      <div class="title-orcamento">
+        Quantidade
+      </div>
+      <div class="title-orcamento">
+        Valor
+      </div>
+    </div>
+    <div class="orcamento-row title-orcamento">
+      <div class="atendimento-title"> 
+        <span class="periodo">
+          Hoje
+        </span>
+      </div>
+      <div class="orcamento-content">
+        <strong>
+         {{ cardsAtendimento.orcamentos }}
+        </strong>
+        <strong>
+          0
+        </strong>
+        <i class="fa-solid fa-calendar-check"></i>
+      </div>
+    </div>
+
+    <div class="orcamento-row title-orcamento">
+      <div class="atendimento-title"> 
+        <span class="periodo">
+          Mês
+        </span>
+      </div>
+      <div class="orcamento-content">
+        <strong>
+          {{ cardsAtendimento.atendimentos_mes }}
+        </strong>
+        <strong>
+          0
+        </strong>
+        <i class="fa-solid fa-calendar-days"></i>
+      </div>
+    </div>
+
+    <div class="orcamento-row title-orcamento">
+      <div class="atendimento-title"> 
+        <span class="periodo">
+          <strong>
+            Total
+          </strong>
+        </span>
+      </div>
+      <div class="orcamento-content">
+        <strong>
+          {{ cardsAtendimento.atendimentos }}
+        </strong>
+        <strong>
+          0
+        </strong>
+        <i class="fa-solid fa-crown"></i>
+      </div>
+    </div>
+  </div>
 </div>
 
-<!-- Cards de analise de atendimento -->
-<div class="cards-container">
+<!-- CARDS ATENDIMENTO X ORÇAMENTOS -->
+<div class="Cards-info">
+  <div class="conversao-content conversao-card conversao-realizados">
 
-  <div class="dashboard-card"
-    style="border-color: rgb(165, 157, 42);
-    box-shadow: 0 4px 12px rgba(165, 157, 42,0.5);">
-    <h3>Atendimentos realizados</h3>
-    <span>
-      {{ cardsAtendimento.atendimentos }}
-    </span>
-  </div>
-  <div class="dashboard-card"
-    style="border-color: brown;
-    box-shadow: 0 4px 12px rgba(165,42,42,0.5);">
-    <h3>Atendimentos Hoje</h3>
-    <span>
-      {{ cardsAtendimento.atendimentos_hoje }}
-    </span>
-  </div>
-  <div class="dashboard-card"
-    style="border-color: rgb(42, 110, 165);
-    box-shadow: 0 4px 12px rgba(42, 110, 165,0.5);">
-    <h3>Atendimentos no Mês</h3>
-    <span>
-      {{ cardsAtendimento.atendimentos_mes }}
-    </span>
-  </div>
-</div>
+    <div class="card-header">
+      <span>Taxa de conversão </span>
+      <i class="fa-solid fa-calculator"></i>
+    </div>
+    <div class="conversao-row conversao-realizados">
+      <div class="conversao-title"> 
+        <span class="periodo">
+          Atendimento x orçamento
+        </span>
+      </div>
+      <div>
+        <strong>
+          {{ cardsAtendimento.percentual }}%
+        </strong>
+        <i class="fa-solid fa-percent"></i>
+      </div>
+    </div>
 
-<div class="cards-container">
-  <div class="dashboard-card"
-    style="border-color: rgb(165, 157, 42);
-    box-shadow: 0 4px 12px rgba(165, 157, 42,0.5);">
-    <h3>Orçamentos</h3>
-    <span>
-      {{ cardsAtendimento.orcamentos }}
-    </span>
+    <div class="conversao-row conversao-realizados">
+      <div class="conversao-title"> 
+        <span class="periodo">
+          Orçamento x Venda
+        </span>
+      </div>
+      <div>
+        <strong>
+          {{ cardsAtendimento.orcamentos }}
+        </strong>
+        <i class="fa-solid fa-calendar-days"></i>
+      </div>
+    </div>
   </div>
-  <div class="dashboard-card"
-    style="border-color: rgb(42, 110, 165);
-    box-shadow: 0 4px 12px rgba(42, 110, 165,0.5);">
-    <h3>Taxa de conversão</h3>
-    <span>
-      {{ cardsAtendimento.percentual }}%
-    </span>
-  </div>  
+
+  <div class="follow-card title-follow">
+
+    <div class="card-header follow-realizados" >
+      <span>Histórico de Follows </span>
+      <i class="fa-solid fa-square-phone"></i>
+    </div>
+    <div class="follow-row follow-realizados">
+      <div class="follow-title"> 
+        <span class="periodo">
+          Nos próximos 7 dias
+        </span>
+      </div>
+      <div>
+        <strong>
+          {{ cardsAtendimento.percentual }}%
+        </strong>
+        <i class="fa-solid fa-user-clock"></i>
+      </div>
+    </div>
+
+    <div class="follow-row follow-realizados">
+      <div class="follow-title"> 
+        <span class="periodo">
+          Este mês
+        </span>
+      </div>
+      <div>
+        <strong>
+          {{ cardsAtendimento.orcamentos }}
+        </strong>
+        <i class="fa-solid fa-users-line"></i>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="dashboard-graph">

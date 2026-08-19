@@ -87,6 +87,7 @@ export class Fila implements OnInit, OnDestroy  {
       }
     })
   }
+  
   atualizarPosicao(){
     this.filaService
       .obterPosicao()

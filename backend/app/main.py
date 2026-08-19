@@ -40,6 +40,8 @@ from app import schemas, models
 
 from app.security import (gerar_hash,verificar_senha,criar_token)
 
+from app.heartbeat_state import heartbeats_locais
+
 # =========================
 # CRIAR TABELAS
 # =========================
@@ -867,7 +869,12 @@ def heartbeat(
     db: Session = Depends(get_db),
     usuario_logado = Depends(obter_usuario)
 ):
+    # ADICIONAR ACIONAMENTE DO HEARTBEAT EM VARIVEL LOCAL COMO DUPLO FATOR
+    agora = datetime.now()
+    usuario_id = usuario_logado["id"]
 
+    heartbeats_locais[usuario_id] = agora
+    
     registro = (
         db.query(FilaAtendimento)
         .filter(

@@ -1,8 +1,10 @@
 from apscheduler.schedulers.background import BackgroundScheduler
 from datetime import datetime, timedelta
 import requests
+
 from app.database import SessionLocal
 from app.models import FilaAtendimento
+from app.heartbeat_state import heartbeats_locais
 
 scheduler = BackgroundScheduler()
 
@@ -39,21 +41,44 @@ def remover_usuarios_inativos():
 
         for usuario in usuarios:
 
+            ultimo_heartbeat_local = heartbeats_locais.get(
+                usuario.usuario_id
+            )
+
             print(
                 "Usuário:", usuario.usuario_id,
                 "Login:", usuario.data_entrada,
-                "Última atividade:", usuario.ultima_atividade,
+                "Última atividade DB:", usuario.ultima_atividade,
+                "Último heartbeat local:", ultimo_heartbeat_local,
                 "Agora:", agora
             )
 
-            # Envia aviso após 8 minutos de inatividade
+            # Se nunca recebeu heartbeat local,
+            # mantém o comportamento baseado no banco.
+            if ultimo_heartbeat_local is None:
+                tempo_heartbeat_local = None
+            else:
+                tempo_heartbeat_local = (
+                    agora - ultimo_heartbeat_local
+                )
+
+            tempo_atividade_db = (
+                agora - usuario.ultima_atividade
+            )
+
+            # ==========================================
+            # ENVIO DA NOTIFICAÇÃO
+            # ==========================================
+
             resposta = requests.post(
                 POWER_AUTOMATE_URL,
                 json={
                     "usuario": usuario.usuario_id,
                     "loja": usuario.loja,
                     "email": usuario.email,
-                    "ultima_atividade": str(usuario.ultima_atividade)
+                    "ultima_atividade": str(
+                        usuario.ultima_atividade
+                    )
                 },
                 timeout=30
             )
@@ -64,12 +89,37 @@ def remover_usuarios_inativos():
                 resposta.text
             )
 
-            # Remove somente após 10 minutos
-            if usuario.ultima_atividade < limite_remocao:
+            # ==========================================
+            # REMOÇÃO
+            # ==========================================
 
-                print(f"Removendo usuário {usuario.usuario_id}")
+            banco_expirado = (
+                tempo_atividade_db > timedelta(minutes=20)
+            )
+
+            heartbeat_local_expirado = (
+                tempo_heartbeat_local is not None
+                and
+                tempo_heartbeat_local > timedelta(minutes=20)
+            )
+
+            if banco_expirado and heartbeat_local_expirado:
+
+                print(
+                    f"REMOVENDO usuário {usuario.usuario_id} | "
+                    f"DB={tempo_atividade_db} | "
+                    f"LOCAL={tempo_heartbeat_local}"
+                )
 
                 usuario.ativo = False
+
+            else:
+
+                print(
+                    f"MANTENDO usuário {usuario.usuario_id} | "
+                    f"DB={tempo_atividade_db} | "
+                    f"LOCAL={tempo_heartbeat_local}"
+                )
 
         db.commit()
 

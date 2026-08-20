@@ -80,11 +80,11 @@
             "production": {
               "buildTarget": "gerenciador-vendas:build:production"
             },
-            "development": {
-              "buildTarget": "gerenciador-vendas:build:development"
+            "developer": {
+              "buildTarget": "gerenciador-vendas:build:developer"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "developer"
         },
         "test": {
           "builder": "@angular/build:unit-test"

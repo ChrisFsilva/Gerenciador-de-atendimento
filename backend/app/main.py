@@ -53,7 +53,7 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI(
   root_path="/api"
   )
-scheduler.start()
+# scheduler.start()
 # =========================
 # CORS
 # =========================
@@ -237,8 +237,8 @@ def obter_usuario(
     response_model = list[AgendamentoResponse]
 )
 def listar_agendamentos(
-
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    Usuario_logado=Depends(obter_usuario)
 ):
 
     query = db.query(
@@ -259,6 +259,8 @@ def listar_agendamentos(
     ).join(
         models.Usuario,
         models.NewFollow.Vendor_ID == models.Usuario.id
+    ).filter(
+        models.NewFollow.Vendor_ID == Usuario_logado["id"]
     )
 
     resultado = query.all()

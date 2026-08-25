@@ -790,6 +790,7 @@ export class Gamificacao {
       return;
     }
 
+    console.log('Tipo de atendimento:',this.respostas[2])
     this.toastService.info('Salvando agendamento');
     
     const atendimento = {
@@ -830,7 +831,9 @@ export class Gamificacao {
 
     const dados = { 
       atendimento: atendimento,
-      follow: follow
+      follow: this.respostas[2] === 'Sim'
+        ? follow
+        : null
     }
     this.emAndamento = false;
 

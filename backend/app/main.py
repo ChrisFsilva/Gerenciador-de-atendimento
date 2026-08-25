@@ -366,7 +366,7 @@ def criar_atendimento(
                 status_code=400,
                 detail="Dados de follow são obrigatórios quando o atendimento gera orçamento"
             )
-        
+            
         registrar_follow(
             atendimento,
             follow,

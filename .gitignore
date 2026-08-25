@@ -12,4 +12,7 @@ __pycache__/
 
 backend/requirements.txt
 
+backend/backend.log
+
 **/.angular
+

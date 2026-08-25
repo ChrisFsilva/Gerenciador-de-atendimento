@@ -324,11 +324,64 @@ def criar_atendimento(
     dados: schemas.AtendimentoRequest,
     db: Session = Depends(get_db),
     usuario_logado: Usuario = Depends(obter_usuario)
-):
-    
+):   
     atendimento = dados.atendimento
+    
+    resposta_orcamento = atendimento.respostas.get("2")
 
     follow = dados.follow
+
+    novo_atendimento = models.Atendimento(
+        vendedor_id = usuario_logado["id"],
+        loja = usuario_logado["loja"],
+        score = atendimento.score,
+        ranking = atendimento.ranking,
+        orcamento = atendimento.orcamento,
+        concorrentes = atendimento.concorrentes,
+        gerou_follow = atendimento.gerou_follow,
+        data_follow = atendimento.data_follow
+    )
+
+    db.add(novo_atendimento)
+    db.commit()
+    db.refresh(novo_atendimento)
+
+    
+    for pergunta_id, resposta in atendimento.respostas.items():
+        nova_resposta = models.AnswerRecord(
+            atendimento_id=novo_atendimento.id,
+            pergunta_id=int(pergunta_id),
+            resposta=str(resposta)
+        )
+
+        db.add(nova_resposta)
+
+    db.commit()
+
+
+    # TRATAR RESPOSSTA DO ATENDIMENTO PARA ANALISAR ORÇAMENTOS
+    if resposta_orcamento == ["Não","Venda ato"]:
+       return novo_atendimento
+    
+    elif resposta_orcamento == "Sim":
+        registrar_follow(
+            atendimento,
+            follow,
+            db,
+            usuario_logado
+        )
+
+    return novo_atendimento
+# FUNÇÃO INTERNA PARA CRIAÇÃO DE VENDA ATO
+
+
+# FUNÇÃO INTERNA PARA REGISTRAR FOLLOW
+def registrar_follow(
+    atendimento,
+    follow,
+    db,
+    usuario_logado
+):
 
     dados_starsoft = enviar_orcamento(
         atendimento.orcamento
@@ -379,89 +432,6 @@ def criar_atendimento(
     db.commit()
     db.refresh(new_follow)
 
-    # return new_follow
-
-    novo_atendimento = models.Atendimento(
-        vendedor_id = usuario_logado["id"],
-        loja = usuario_logado["loja"],
-        score = atendimento.score,
-        ranking = atendimento.ranking,
-        orcamento = atendimento.orcamento,
-        concorrentes = atendimento.concorrentes,
-        gerou_follow = atendimento.gerou_follow,
-        data_follow = atendimento.data_follow
-    )
-
-    db.add(novo_atendimento)
-    db.commit()
-    db.refresh(novo_atendimento)
-
-    for pergunta_id, resposta in atendimento.respostas.items():
-        nova_resposta = models.AnswerRecord(
-            atendimento_id=novo_atendimento.id,
-            pergunta_id=int(pergunta_id),
-            resposta=str(resposta)
-        )
-
-        db.add(nova_resposta)
-
-    db.commit()
-
-    return novo_atendimento
-
-
-
-# =========================
-# CRIAR FOLLOW
-# =========================
-# @app.post("/follows")
-# def criar_follow(
-#     follow: schemas.AgendamentoCreate,
-#     db: Session = Depends(get_db),
-#     usuario_logado: Usuario = Depends(obter_usuario)
-# ):
-#     novo_follow = models.Agendamento(
-#         cliente=follow.cliente,
-#         telefone=follow.telefone,
-#         email=follow.email,
-
-#         loja_id=follow.loja_id,
-
-#         vendedor_id=usuario_logado["id"],
-
-#         arquiteto=follow.arquiteto,
-#         produto=follow.produto,
-
-#         data_agendamento=follow.data_agendamento,
-#         hora_agendamento=follow.hora_agendamento,
-
-#         estagio=follow.estagio,
-#         prioridade=follow.prioridade,
-#         observacoes=follow.observacoes,
-
-#         obs_follow=follow.obs_follow,
-#         estrategia=follow.estrategia,
-
-#         prazo_final=follow.prazo_final,
-#         possibilidade=follow.possibilidade,
-
-#         status=follow.status,
-
-#         atendimento_id=follow.atendimento_id,
-#         follow_parent_id=follow.follow_parent_id,
-
-#         forma_contato=follow.forma_contato
-#     )
-
-#     db.add(novo_follow)
-#     db.commit()
-#     db.refresh(novo_follow)
-
-#     return novo_follow
-
-# =========================
-# Registro de follow atrasado
-# =========================
 @app.put(
     "/follows/atualizar-lote",
     response_model=AtualizacaoLoteResponse

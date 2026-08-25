@@ -328,7 +328,7 @@ def criar_atendimento(
     atendimento = dados.atendimento
     
     resposta_orcamento = atendimento.respostas.get("2")
-
+    print(f"GEROU ORÇAMENTO: {resposta_orcamento}")
     follow = dados.follow
 
     novo_atendimento = models.Atendimento(

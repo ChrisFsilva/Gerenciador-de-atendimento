@@ -790,7 +790,6 @@ export class Gamificacao {
       return;
     }
 
-    console.log('Tipo de atendimento:',this.respostas[2])
     this.toastService.info('Salvando agendamento');
     
     const atendimento = {
@@ -803,7 +802,7 @@ export class Gamificacao {
 
       concorrentes: this.respostas[6] ?? 'Não mencionado',
 
-      gerou_follow: this.respostas[2] ?? 'False',
+      gerou_follow: this.respostas[2],
 
       data_follow: this.respostas[4] ?? null,
 
@@ -836,6 +835,8 @@ export class Gamificacao {
         : null
     }
     this.emAndamento = false;
+    console.log('Tipo de atendimento:', this.respostas[2]);
+    console.log('Dados enviados:', dados);
 
     this.apiService
       .criarAtendimento(dados)

@@ -359,11 +359,14 @@ def criar_atendimento(
     db.commit()
 
 
-    # TRATAR RESPOSSTA DO ATENDIMENTO PARA ANALISAR ORÇAMENTOS
-    if resposta_orcamento == ["Não","Venda ato"]:
-       return novo_atendimento
-    
-    elif resposta_orcamento == "Sim":
+    # TRATAR RESPOSTA DO ATENDIMENTO PARA CRIAR ORÇAMENTOS
+    if resposta_orcamento == "Sim":
+        if follow is None:
+            raise HTTPException(
+                status_code=400,
+                detail="Dados de follow são obrigatórios quando o atendimento gera orçamento"
+            )
+        
         registrar_follow(
             atendimento,
             follow,
@@ -372,8 +375,6 @@ def criar_atendimento(
         )
 
     return novo_atendimento
-# FUNÇÃO INTERNA PARA CRIAÇÃO DE VENDA ATO
-
 
 # FUNÇÃO INTERNA PARA REGISTRAR FOLLOW
 def registrar_follow(

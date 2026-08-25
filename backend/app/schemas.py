@@ -39,7 +39,7 @@ class AgendamentoBase(BaseModel):
     
 class AtendimentoRequest(BaseModel):
     atendimento: AtendimentoCreate
-    follow: AgendamentoBase
+    follow: Optional[AgendamentoBase] = None
 
 class AgendamentoCreate(AgendamentoBase):
     pass

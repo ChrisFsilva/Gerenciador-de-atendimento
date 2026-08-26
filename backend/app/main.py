@@ -358,8 +358,10 @@ def criar_atendimento(
 
     db.commit()
 
-
+    # =========================
     # TRATAR RESPOSTA DO ATENDIMENTO PARA CRIAR ORÇAMENTOS
+    # =========================
+    
     if resposta_orcamento == "Sim":
         if follow is None:
             raise HTTPException(
@@ -376,7 +378,10 @@ def criar_atendimento(
 
     return novo_atendimento
 
+# =========================
 # FUNÇÃO INTERNA PARA REGISTRAR FOLLOW
+# =========================
+
 def registrar_follow(
     atendimento,
     follow,
@@ -433,6 +438,10 @@ def registrar_follow(
     db.commit()
     db.refresh(new_follow)
 
+# =========================
+# MANUTENÇÃO AUTOMATICA DOS CARDS DE FOLLOWS, ALTERAR FOLLOWS PARA ATRASADO (ALTERAÇÃO EM LOTE)
+# =========================
+
 @app.put(
     "/follows/atualizar-lote",
     response_model=AtualizacaoLoteResponse
@@ -460,7 +469,7 @@ def atualizar_follow_lote(
     }
 
 # =========================
-# ATUALIZAR FOLLOW
+# ALTERAR INFORMAÇÕES DO FOLLOW
 # =========================
 @app.put("/follows/{id}")
 def atualizar_follow(
@@ -494,6 +503,49 @@ def atualizar_follow(
     db.refresh(follow)
 
     return follow
+
+# =========================
+# REAGENDAR FOLLOW
+# =========================
+
+@app.post("/follows")
+def criar_follow(
+    dados: schemas.NewFollow,
+    db: Session = Depends(get_db)
+):
+
+    new_follow = models.NewFollow(
+
+        Client_ID=dados.Client_ID,
+
+        Order_ID=dados.Order_ID,
+
+        Profissional_ID=dados.Profissional_ID,
+
+        Vendor_ID=dados.Vendor_ID,
+
+        Date_Agenda=dados.Date_Agenda,
+
+        Estagio=dados.Estagio,
+
+        Status=dados.Status,
+
+        Prioridade=dados.Prioridade,
+
+        Contact_Form=dados.Contact_Form,
+
+        Final_Date=dados.Final_Date,
+
+        Follow_Parent_ID=dados.Follow_Parent_ID
+    )
+
+    db.add(new_follow)
+
+    db.commit()
+
+    db.refresh(new_follow)
+
+    return new_follow
 
 # =========================
 # DASHBOARDS

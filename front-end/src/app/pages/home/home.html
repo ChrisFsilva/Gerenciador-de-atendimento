@@ -43,27 +43,22 @@
         flex flex-col
         ">
         <!-- MENU -->
-        <nav class="
-            menu
-            ">
+        <nav class="menu">
             <!-- BOTÃO FILA -->
             <button
                 routerLink="/home/fila"
                 routerLinkActive="menu-button-active"
-                class="
-                    menu-button">
+                class="menu-button">
                 <i class="fa-solid fa-users"></i>
+
                 FILA
 
             </button>
             <button
                 routerLink="/home/followup"
                 routerLinkActive="menu-button-active"
-                class="
-                    menu-button">
-
+                class="menu-button">
                 <i class="fa-solid fa-calendar-check"></i>
-
 
                 AGENDAMENTOS
 
@@ -72,54 +67,40 @@
             <button
                 routerLink="/home/historico"
                 routerLinkActive="menu-button-active"
-                class="
-                    menu-button">
+                class="menu-button">
 
                 <i class="fa-solid fa-chart-line"></i>
-
                 HISTÓRICO
 
             </button>
             <button
                 routerLink="/home/pendencias"
                 routerLinkActive="menu-button-active"
-                class="
-                    menu-button">
+                class="menu-button">
 
                 <i class="fa-solid fa-clock"></i>
-
                 PENDÊNCIAS
 
             </button>
-            <!-- <button
+            <button
                 routerLink="/home/futuro"
                 routerLinkActive="menu-button-active"
-                class="
-                    menu-button">
-
+                class="menu-button">
                 <i class="fa-solid fa-calendar-days"></i>
 
                 FUTUROS
 
-            </button> -->
+            </button>
             <button
                 routerLink="/home/dashboard"
                 routerLinkActive="menu-button-active"
-                class="
-                    menu-button">
-
+                class="menu-button">
                 <i class="fa-solid fa-chart-line"></i>
 
                 DESEMPENHO
 
             </button>
         </nav>
-
-        <!-- DESATIVADO POIS MIGREI O CÓDIGO PARA A METODOLOGIA ROUTER-OUTLET  -->
-        <!-- CARREGAR CONTEÚDO DAS PAGINAS DINAMICAMENTE -->
-        <!-- <app-fila *ngIf="activeTab === 'fila'"></app-fila>
-        <app-followup *ngIf="activeTab === 'followup'"></app-followup>
-        <app-dashboard *ngIf="activeTab === 'dashboard'"></app-dashboard> -->
         <router-outlet></router-outlet>
     </main>  
 </div>

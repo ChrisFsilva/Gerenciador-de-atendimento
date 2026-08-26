@@ -38,8 +38,6 @@ export class Followup implements OnInit {
     // Variavel para a nova data de reagendamento
   novaData: string = ''; 
 
-  // Variavel para nova hora do reagendamento
-  novaHora: string = '';
 
   // Variavel para coletar as informações do banco de dados
   follows: FollowsModel[] = [];
@@ -237,104 +235,75 @@ export class Followup implements OnInit {
   }
 
   // Função para reagendar follow
-  // confirmaReagendamento() {
-  //   console.log('INICIO REAGENDAMENTO');
-  //   if (!this.followSelecionado) {
-  //     return;
-  //   }
-  //   const novoFollow = {
+  confirmaReagendamento() {
+    console.log('INICIO REAGENDAMENTO');
+    if (!this.followSelecionado) {
+      return;
+    }
 
-  //     cliente: this.followSelecionado?.cliente,
+    const follow = this.followSelecionado;
 
-  //     telefone: this.followSelecionado?.telefone,
+    const novoFollow = {
+      date_agenda: this.novaData,
 
-  //     email: this.followSelecionado?.email,
+      estagio: follow.estagio,
 
-  //     loja_id: this.followSelecionado?.loja_id,
+      status: 'Em follow',
 
-  //     vendedor_id: this.followSelecionado?.vendedor_id,
+      prioridade: follow.prioridade,
 
-  //     arquiteto: this.followSelecionado?.arquiteto,
+      situation: follow.situation,
 
-  //     produto: this.followSelecionado?.produto,
+      contact_form: follow.contact_form,
 
-  //     date_agenda: this.novaData,
+      final_date: follow.final_date,
 
-  //     hora_agendamento: this.novaHora,
+      follow_parent_id: follow.follow_parent_id ?? follow.id,
 
-  //     estagio: this.respostasReagendamento.estagio,
+      erp_order_id: follow.erp_order_id,
 
-  //     prioridade: this.followSelecionado?.prioridade,
+      valor: follow.valor,
 
-  //     observacoes: this.followSelecionado?.observacoes,
+      erp_profissional_id: follow.erp_profissional_id,
 
-  //     status: 'Em follow',
+      profissional_name: follow.profissional_name,
 
-  //     atendimento_id: this.followSelecionado?.atendimento_id,
+      profissional_mail: follow.profissional_mail,
 
-  //     follow_parent_id: this.followSelecionado?.follow_parent_id,
+      erp_client_id: follow.erp_client_id,
+
+      client_name: follow.client_name,
+
+      telefone: follow.telefone,
+
+      email: follow.email
+    };
+
+    this.followServices
+      .atualizarFollow(
+        this.followSelecionado.id,
+        {
+          status: 'Reagendado'
+        }
+      )
       
-  //     orcamento: this.followSelecionado?.orcamento,
+    this.followServices
+      .criarFollow(novoFollow)
+      .subscribe({
+        next: () => {
+          console.log('Novo follow criado com sucesso');
 
-  //     estrategia: this.respostasReagendamento.estrategia,
-      
-  //     obs_follow: this.respostasReagendamento.obs_follow,
-      
-  //     prazo_final: this.followSelecionado?.prazo_final,
+          this.fecharModal();
+          this.carregarFollows();
+        },
 
-  //     forma_contato: this.respostasReagendamento.forma_contato,
-
-  //     possibilidade: this.respostasReagendamento.possibilidade,
-  //   };
-
-  //   this.followServices
-  //     .atualizarFollow(
-  //       this.followSelecionado.id,
-  //       {
-  //         status: 'Reagendado'
-  //       }
-  //     )
-      
-  //     .subscribe({
-  //       next: () => {
-  //         console.log('Follow atualizado com sucesso');
-          
-  //         this.followServices
-  //           .criarFollow(novoFollow)
-  //           .subscribe({
-
-  //             next: () => {
-
-  //               console.log('Novo follow criado');
-          
-  //               this.fecharModal();
-
-  //               console.log('Follow Services rodou')
-
-  //               this.carregarFollows();
-
-  //               console.log('Página Atualizada')
-  //       },
-
-  //       error: (erro) => {
-
-  //         console.error(
-  //           'Erro ao criar novo follow',
-            
-  //         );
-  //         console.log(erro.error.detail);
-  //       }
-  //     });
-  //       },
-
-  //       error: (erro) => {
-  //         console.error(
-  //           'Erro ao criar atendimento',
-  //           erro
-  //         );
-  //       }
-  //     });
-  // };
+        error: (erro: any) => {
+          console.error(
+            'Erro ao criar novo follow:', erro
+          );
+        }
+      });
+  };
 
   confirmaEncerramento() {
     console.log("CONFIRMANDO ENCERRAMENTO");

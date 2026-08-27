@@ -5,6 +5,7 @@ import { FollowsModel } from '../../models/follow.model';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../services/api/api';
 import { ChangeDetectorRef } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -217,15 +218,14 @@ export class Followup implements OnInit {
     this.acaoSelecionada = 'reagendar';
     
     // Limpa formulário
-    // this.respostasReagendamento = {
-    //   nivel_atendimento: '',
-    //   possibilidade: '',
-    //   estagio: '',
-    //   melhoria: '',
-    //   obs_follow: '',
-    //   estrategia: '',
-    //   prazo_final: ''
-    // };
+    this.respostasReagendamento = {
+    estagio: '',
+    prioridade: '',
+    situation: '',
+    contact_form: '',
+    final_date: '',
+    date_agenda: ''
+    };
   }
 
   // Função para finalizar follow
@@ -283,7 +283,7 @@ export class Followup implements OnInit {
       .atualizarFollow(
         this.followSelecionado.id,
         {
-          status: 'Reagendado'
+          Status: 'Reagendado'
         }
       )
       
@@ -308,25 +308,29 @@ export class Followup implements OnInit {
   confirmaEncerramento() {
     console.log("CONFIRMANDO ENCERRAMENTO");
     if (this.followSelecionado) {
+      
+      this.fecharModal();
 
       this.followSelecionado.status = this.statusEncerramento;
 
       this.filtrarCards();
 
-      this.fecharModal();
-
       this.followServices.atualizarFollow(
         this.followSelecionado.id,
         {
-          status: this.statusEncerramento
+          Status: this.statusEncerramento
         }
       )
       .subscribe({
         next: () => {
           console.log('Follow atualizado com sucesso');
         },
-        error: (erro) => {
-          console.error(`erro ao atualizar follow: ${erro}`);
+
+        error: (erro: HttpErrorResponse) => {
+          console.error(
+            'Erro ao atualizar follow:',
+            erro
+          );
         }
       })
     }
@@ -374,34 +378,6 @@ export class Followup implements OnInit {
         }
       });
     }
-
-    // const hojeFormatado = this.formatarDataLocal(
-    //   new Date()
-    // );
-    
-    // const idsParaAtualizar = this.follows
-    //   .filter(follow =>
-    //     follow.date_agenda < hojeFormatado &&
-    //     follow.status === 'Em follow'
-    //   )
-    //   .map(follow => follow.id);
-    
-    //   if (idsParaAtualizar.length > 0) {
-    //     this.followServices.atualizarFollowsLote(
-    //       idsParaAtualizar,
-    //       'Não realizou o follow'
-    //     ).subscribe({
-    //       next: (res) => {
-    //             console.log(`${res.quantidade} follows atualizados`);
-    //             this.filtrarCards();;
-    //         },
-    //       error: (erro) => {
-    //           console.error('Erro ao atualizar lote:', erro.error);
-    //           console.log(erro.error.detail)
-    //           // this.showToast('Erro ao atualizar follows atrasados', 'error')
-    //       }
-    //     });
-    //   }
   }
 
   contarEstagios(lista: FollowsModel[]) {

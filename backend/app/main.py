@@ -449,6 +449,8 @@ def registrar_follow(
 def atualizar_follow_lote(
     dados: AtualizacaoLoteRequest,
     db: Session = Depends(get_db)
+
+    
 ):
     quantidade = (
         db.query(Agendamento)
@@ -479,9 +481,9 @@ def atualizar_follow(
 ):
 
     follow = db.query(
-        models.Agendamento
+        models.NewFollow
     ).filter(
-        models.Agendamento.id == id
+        models.NewFollow.id == id
     ).first()
 
     if not follow:
@@ -510,33 +512,70 @@ def atualizar_follow(
 
 @app.post("/follows")
 def criar_follow(
-    dados: schemas.NewFollow,
-    db: Session = Depends(get_db)
+    dados: dict,
+    db: Session = Depends(get_db),
+    usuario_logado: Usuario = Depends(obter_usuario)
 ):
+
+    cliente = db.query(
+        models.AddClient
+    ).filter(
+        models.AddClient.ERP_Client_ID == dados["erp_client_id"]
+    ).first()
+
+    if not cliente:
+        return {
+            "erro": "Cliente não encontrado"
+        }
+
+    orcamento = db.query(
+        models.AddOrder
+    ).filter(
+        models.AddOrder.ERP_Order_ID == dados["erp_order_id"]
+    ).first()
+
+    if not orcamento:
+        return {
+            "erro": "Orçamento não encontrado"
+        }
+
+    profissional = db.query(
+        models.AddProfissional
+    ).filter(
+        models.AddProfissional.ERP_Profissional_ID
+        == dados["erp_profissional_id"]
+    ).first()
+
+    if not profissional:
+        return {
+            "erro": "Profissional não encontrado"
+        }
 
     new_follow = models.NewFollow(
 
-        Client_ID=dados.Client_ID,
+        Client_ID=cliente.id,
 
-        Order_ID=dados.Order_ID,
+        Order_ID=orcamento.id,
 
-        Profissional_ID=dados.Profissional_ID,
+        Profissional_ID=profissional.id,
 
-        Vendor_ID=dados.Vendor_ID,
+        Vendor_ID=usuario_logado["id"],
 
-        Date_Agenda=dados.Date_Agenda,
+        Date_Agenda=dados["date_agenda"],
 
-        Estagio=dados.Estagio,
+        Estagio=dados["estagio"],
 
-        Status=dados.Status,
+        Status=dados["status"],
 
-        Prioridade=dados.Prioridade,
+        Prioridade=dados["prioridade"],
 
-        Contact_Form=dados.Contact_Form,
+        Situation=dados["situation"],
 
-        Final_Date=dados.Final_Date,
+        Contact_Form=dados["contact_form"],
 
-        Follow_Parent_ID=dados.Follow_Parent_ID
+        Final_Date=dados["final_date"],
+
+        Follow_Parent_ID=dados["follow_parent_id"]
     )
 
     db.add(new_follow)

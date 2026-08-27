@@ -283,7 +283,7 @@ export class Followup implements OnInit {
       .atualizarFollow(
         this.followSelecionado.id,
         {
-          status: 'Reagendado'
+          Status: 'Reagendado'
         }
       )
       

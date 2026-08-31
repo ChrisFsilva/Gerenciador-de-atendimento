@@ -324,30 +324,66 @@ def criar_atendimento(
     dados: schemas.AtendimentoRequest,
     db: Session = Depends(get_db),
     usuario_logado: Usuario = Depends(obter_usuario)
-):   
+):
     atendimento = dados.atendimento
-    
+
     resposta_orcamento = atendimento.respostas.get("2")
     print(f"GEROU ORÇAMENTO: {resposta_orcamento}")
+
     follow = dados.follow
 
+    dados_starsoft = None
+
+    # =========================
+    # TRATAR RESPOSTA DO ATENDIMENTO PARA CRIAR ORÇAMENTOS
+    # =========================
+
+    if resposta_orcamento == "Sim":
+
+        dados_starsoft = enviar_orcamento(
+            atendimento.orcamento
+        )
+
+        vendedor = dados_starsoft["vendedor"]
+
+        if vendedor != usuario_logado["email"]:
+            raise HTTPException(
+                status_code=403,
+                detail="O orçamento pertence a outro vendedor",
+                
+            )
+
+        if follow is None:
+            raise HTTPException(
+                status_code=400,
+                detail="Dados de follow são obrigatórios quando o atendimento gera orçamento"
+            )
+
+    # =========================
+    # SALVAR ATENDIMENTO
+    # =========================
+
     novo_atendimento = models.Atendimento(
-        vendedor_id = usuario_logado["id"],
-        loja = usuario_logado["loja"],
-        score = atendimento.score,
-        ranking = atendimento.ranking,
-        orcamento = atendimento.orcamento,
-        concorrentes = atendimento.concorrentes,
-        gerou_follow = atendimento.gerou_follow,
-        data_follow = atendimento.data_follow
+        vendedor_id=usuario_logado["id"],
+        loja=usuario_logado["loja"],
+        score=atendimento.score,
+        ranking=atendimento.ranking,
+        orcamento=atendimento.orcamento,
+        concorrentes=atendimento.concorrentes,
+        gerou_follow=atendimento.gerou_follow,
+        data_follow=atendimento.data_follow
     )
 
     db.add(novo_atendimento)
     db.commit()
     db.refresh(novo_atendimento)
 
-    
+    # =========================
+    # SALVAR RESPOSTAS
+    # =========================
+
     for pergunta_id, resposta in atendimento.respostas.items():
+
         nova_resposta = models.AnswerRecord(
             atendimento_id=novo_atendimento.id,
             pergunta_id=int(pergunta_id),
@@ -359,24 +395,21 @@ def criar_atendimento(
     db.commit()
 
     # =========================
-    # TRATAR RESPOSTA DO ATENDIMENTO PARA CRIAR ORÇAMENTOS
+    # REGISTRAR FOLLOW
     # =========================
-    
+
     if resposta_orcamento == "Sim":
-        if follow is None:
-            raise HTTPException(
-                status_code=400,
-                detail="Dados de follow são obrigatórios quando o atendimento gera orçamento"
-            )
-            
+
         registrar_follow(
             atendimento,
             follow,
             db,
-            usuario_logado
+            usuario_logado,
+            dados_starsoft
         )
 
     return novo_atendimento
+
 
 # =========================
 # FUNÇÃO INTERNA PARA REGISTRAR FOLLOW
@@ -386,13 +419,10 @@ def registrar_follow(
     atendimento,
     follow,
     db,
-    usuario_logado
+    usuario_logado,
+    dados_starsoft
 ):
 
-    dados_starsoft = enviar_orcamento(
-        atendimento.orcamento
-    )
-    
     cliente = salvar_cliente(
         db,
         dados_starsoft
@@ -412,31 +442,33 @@ def registrar_follow(
 
     new_follow = models.NewFollow(
 
-        Client_ID = cliente.id,
+        Client_ID=cliente.id,
 
-        Order_ID = orcamento.id, 
+        Order_ID=orcamento.id,
 
-        Profissional_ID = profissional.id,
+        Profissional_ID=profissional.id,
 
-        Vendor_ID = usuario_logado["id"],
+        Vendor_ID=usuario_logado["id"],
 
-        Date_Agenda = follow.Date_Agenda,
+        Date_Agenda=follow.Date_Agenda,
 
-        Estagio = follow.Estagio,
+        Estagio=follow.Estagio,
 
-        Status = follow.Status,
+        Status=follow.Status,
 
-        Prioridade = follow.Prioridade,
+        Prioridade=follow.Prioridade,
 
-        Contact_Form = follow.Contact_Form,
+        Contact_Form=follow.Contact_Form,
 
-        Final_Date = follow.Final_Date
+        Final_Date=follow.Final_Date
 
     )
 
     db.add(new_follow)
     db.commit()
     db.refresh(new_follow)
+
+    return new_follow
 
 # =========================
 # MANUTENÇÃO AUTOMATICA DOS CARDS DE FOLLOWS, ALTERAR FOLLOWS PARA ATRASADO (ALTERAÇÃO EM LOTE)

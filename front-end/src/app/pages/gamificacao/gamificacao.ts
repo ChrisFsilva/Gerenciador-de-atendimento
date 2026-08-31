@@ -855,18 +855,13 @@ export class Gamificacao {
 
         },
 
-        error: (erro: any) => {
-
-          this.toastService.error(
-            'Erro no registro do atendimento, contate o seu TI',
-          );
-
-          console.error(
-            'Erro ao salvar',
-            erro.error
-          );
-
-        }
+        error: (erro: any) => { if (erro.status === 403) 
+          { this.toastService.error( 'O orçamento pertence a outro vendedor.' ); } 
+            else 
+              { this.toastService.error( 'Erro no registro do atendimento, contate o seu TI' ); } 
+              console.error
+                ( 'Erro ao salvar', erro.error ); 
+            }
       });
 
     this.router.navigate(['/home/fila']);

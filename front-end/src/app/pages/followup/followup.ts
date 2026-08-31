@@ -21,8 +21,16 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 export class Followup implements OnInit {
 
-  // Variavel para escolha de aba do card
-  abaSelecionada: 'detalhes' | 'perguntas' | 'followsHistorico' = 'detalhes';
+  // | ------------------------------------ |
+  // | - CRIAÇÃO DAS ABAS DENTRO DO MODAL - |
+  // | ------------------------------------ |
+  abaSelecionada: 
+    'detalhes' 
+    | 'perguntas' 
+    | 'followsHistorico' 
+    | 'infoProfissional' 
+    | 'orcamento'
+    = 'detalhes';
 
   // respostasAtendimento: any[] = [];
 
@@ -35,38 +43,60 @@ export class Followup implements OnInit {
 
   rankingReagendamento: string = '';
 
-  // Variavel de data e hora
-    // Variavel para a nova data de reagendamento
+  // | ------------------------------------ |
+  // | -- VAR PARA DATA DO REAGENDAMENTO -- |
+  // | ------------------------------------ |
   novaData: string = ''; 
-
-
-  // Variavel para coletar as informações do banco de dados
+  // | ------------------------------------ |
+  // | ----- COLETAR INFORMAÇÕES DO BD ---- |
+  // | ------------------------------------ |
   follows: FollowsModel[] = [];
 
-  // Variavel para filtrar a data de entrega (atrasados)
+  // | ------------------------------------ |
+  // | ----- CALCULAR DATA PARA ATRASO ---- |
+  // | ------------------------------------ |
   followsAtrasados: FollowsModel[] = [];
 
-  // Variavel para filtrar a data de entrega (hoje)
+  // | ------------------------------------ |
+  // | ----- CALCULAR DATA PARA HOJE ------ |
+  // | ------------------------------------ |
   followsHoje: FollowsModel[] = [];
 
+  // | ------------------------------------ |
+  // | ----- CALCULAR DATA PARA AMANHÃ ---- |
+  // | ------------------------------------ |
   followsnextday: FollowsModel[] = [];
 
-  // Varivael par identificar o card selecionado
+  // | ------------------------------------ |
+  // | --- IDENTIFICAR CARD SELECIONADO --- |
+  // | ------------------------------------ |
   followSelecionado: FollowsModel | null = null;
 
-  // Variavel para abrir o card selecionado
+  // | ------------------------------------ |
+  // | --- REGISTRAR O CARD COMO ABERTO --- |
+  // | ------------------------------------ |
   modalAberto: boolean = false;
 
-  // Variavel para identificar a ação selecionada no follow
+  // | ------------------------------------ |
+  // | ---- AÇÃO SELECIONADA NO FOLLOW ---- |
+  // | ------------------------------------ |
   acaoSelecionada: string = '';
-  // Consultar histórico de follows
+
+  // | ------------------------------------ |
+  // | -------- HISTÓRICO DO FOLLOW ------- |
+  // | ------------------------------------ |
   historicoFollows: FollowsModel[] = [];
 
+  // | ----------------------------------------- |
+  // | VAR QUE CONTA A QTN DE FOLLOWS POR COLUNA |
+  // | ----------------------------------------- |
   estagiosAtrasados: { [key: string]: number } = {};
   estagiosHoje: { [key: string]: number } = {};
   estagiosAmanha: { [key: string]: number } = {};
 
-  // Variavel para definir status do agendamento
+  // | ------------------------------------ |
+  // | -- OPÇÕES DE ESTAGIO DOS FOLLOWS --- |
+  // | ------------------------------------ |
   statusEncerramento:
     | 'Não realizou o follow'
     | 'Encerrado Brentwood'
@@ -90,7 +120,9 @@ export class Followup implements OnInit {
     this.cdr.detectChanges()
   }
 
-  // Função para carregar fila inicial
+  // | ------------------------------------ |
+  // | -- APRESENTAR OS FOLLOWS NA TELA --- |
+  // | ------------------------------------ |
   carregarFollows() {
     this.followServices
       .obterDados()
@@ -103,7 +135,9 @@ export class Followup implements OnInit {
     });
   }
 
-  // Função para filtrar as filas de agendamento
+  // | ------------------------------------ |
+  // | -------- FILTRO DAS COLUNAS -------- |
+  // | ------------------------------------ |
   filtrarCards() {
     const hoje = new Date();
     const hojeFormatado = this.formatarDataLocal(hoje);
@@ -150,7 +184,9 @@ export class Followup implements OnInit {
     this.estagiosAmanha = this.contarEstagios(this.followsnextday);
   }
 
-  // Função expandir o card selecionado
+  // | ------------------------------------ |
+  // | ---- EXPANDIR CARD SELECIONADO ----- |
+  // | ------------------------------------ |
   abrirModal(follow: FollowsModel) {
 
     this.followSelecionado = follow;
@@ -161,10 +197,14 @@ export class Followup implements OnInit {
 
     this.acaoSelecionada = '';
 
-    // Carrega histórico de follows
+  // | ------------------------------------------- |
+  // |  CARREGAR FOLLOWS COM PARENT_ID COMPATIVEIS |
+  // | ------------------------------------------- |
     this.historicoFollows = this.follows.filter(f => {
 
-      // Se o follow tiver parent_id
+  // | ------------------------------------ |
+  // | ---- COMPARAR PARENTS_ID ---- |
+  // | ------------------------------------ |
       if (follow.follow_parent_id) {
 
         return (
@@ -173,7 +213,9 @@ export class Followup implements OnInit {
         );
       }
 
-      // Se for o primeiro follow da cadeia
+  // | ---------------------------------------- |
+  // | IDENTIFICAR O PRIMEIRO FOLLOW DA CADEIRA |
+  // | ---------------------------------------- |
       return (
         f.id === follow.id
         || f.follow_parent_id === follow.id
@@ -201,7 +243,9 @@ export class Followup implements OnInit {
     //   });
   }
 
-  // Função para fechar modal
+  // | ------------------------------------ |
+  // | ---- AÇÃO DE FECHAR CARD ABERTO ---- |
+  // | ------------------------------------ |
   fecharModal() {
     console.log("FECHANDO MODAL");
     this.modalAberto = false;
@@ -212,12 +256,16 @@ export class Followup implements OnInit {
 
   }
 
-  // Função para reagendar o follow
+  // | ------------------------------------ |
+  // | - INICIAR REAGENDAMENTO DE FOLLOWS - |
+  // | ------------------------------------ |
   abrirReagendamento() {
     console.log("ABRINDO REAGENDAMENTO");
     this.acaoSelecionada = 'reagendar';
     
-    // Limpa formulário
+  // | ------------------------------------ |
+  // | ---- APRESENTAR FORMULARIO LIMPO --- |
+  // | ------------------------------------ |
     this.respostasReagendamento = {
     estagio: '',
     prioridade: '',
@@ -228,21 +276,31 @@ export class Followup implements OnInit {
     };
   }
 
-  // Função para finalizar follow
+  // | ------------------------------------ |
+  // | -------- ENCERRAR FOLLOW ----------- |
+  // | ------------------------------------ |
   abrirEncerramento() {
     console.log("ABRINDO ENCERRAMENTO");
     this.acaoSelecionada = 'finalizar';
   }
 
-  // Função para reagendar follow
+  // | ------------------------------------ |
+  // | --------- REAGENDAR FOLLOW --------- |
+  // | ------------------------------------ |
   confirmaReagendamento() {
     console.log('INICIO REAGENDAMENTO');
     if (!this.followSelecionado) {
       return;
     }
 
+  // | -------------------------------------------- |
+  // | ---- ARMAZENAR ID DO FOLLOW SELECIOANDO ---- |
+  // | -------------------------------------------- |
     const follow = this.followSelecionado;
 
+  // | ---------------------------------------- |
+  // | - ARMAZENAR INFORMAÇÕES DO NOVO FOLLOW - |
+  // | ---------------------------------------- |
     const novoFollow = {
       date_agenda: this.novaData,
 
@@ -278,7 +336,9 @@ export class Followup implements OnInit {
 
       email: follow.email
     };
-
+  // | ----------------------------------------- |
+  // | ---- FUNÇÃO PARA ALTERAR CARD ANTIGO ---- |
+  // | ----------------------------------------- |
     this.followServices
       .atualizarFollow(
         this.followSelecionado.id,
@@ -286,22 +346,48 @@ export class Followup implements OnInit {
           Status: 'Reagendado'
         }
       )
-      
-    this.followServices
-      .criarFollow(novoFollow)
       .subscribe({
-        next: () => {
-          console.log('Novo follow criado com sucesso');
 
+        next: () => {
+
+          console.log('Follow antigo atualizado com sucesso');
           this.fecharModal();
-          this.carregarFollows();
+
+          // | ------------------------------------- |
+          // | ---- FUNÇÃO PARA CRIAR NOVO CARD ---- |
+          // | ------------------------------------- |
+          this.followServices
+            .criarFollow(novoFollow)
+            .subscribe({
+
+              next: () => {
+                
+                this.carregarFollows();
+
+                console.log(
+                  'Novo follow criado com sucesso'
+                );
+              },
+
+              error: (erro: any) => {
+
+                console.error(
+                  'Erro ao criar novo follow:',
+                  erro
+                );
+              }
+            });
         },
 
-        error: (erro: any) => {
+        error: (erro: HttpErrorResponse) => {
+
           console.error(
-            'Erro ao criar novo follow:', erro
+            'Erro ao atualizar follow antigo:',
+            erro
           );
+
         }
+
       });
   };
 
@@ -336,7 +422,9 @@ export class Followup implements OnInit {
     }
   }
 
-  // Função para definir a data de hoje
+  // | ------------------------------------------ |
+  // | - FUNÇÃO PARA IDENTIFICAR A DATA DE HOJE - |
+  // | ------------------------------------------ |
   private formatarDataLocal(data: Date): string {
 
     const ano = data.getFullYear();
@@ -352,6 +440,9 @@ export class Followup implements OnInit {
     return `${ano}-${mes}-${dia}`;
   }
   
+// | ------------------------------------------------- |
+// | - FUNÇÃO PARA ALTERAR STATUS DE CARDS ATRASADOS - |
+// | ------------------------------------------------- |
   atualizarStatusAtrasado() {
     const hojeFormatado = this.formatarDataLocal(new Date());
 

@@ -33,8 +33,9 @@
         </div>
     </div>      
     <div class="board board-cards">
-
+        <!---------------------->
         <!-- Coluna Atrasados -->
+        <!---------------------->
         <div class="column">     
             <div
                 class="card"
@@ -109,7 +110,9 @@
             </div>
         </div>
 
+        <!----------------->
         <!-- Coluna Hoje -->
+        <!----------------->
         <div class="column">
             <div
                 class="card"
@@ -187,7 +190,9 @@
             </div>
         </div>
 
+        <!------------------->
         <!-- Coluna Amanhã -->
+        <!------------------->
         <div class="column">
             <div
                 class="card"
@@ -253,8 +258,9 @@
                         </span>
                     </div>
 
-
+                    <!------------------------>
                     <!-- Bloco de anotações -->
+                    <!------------------------>
                     <span class="badge badge-today badge-notes">
                         <p>📍 Estágio atual: {{ follow.estagio }}</p>
                         <!-- <p>💡 Estretégia: {{ follow.estrategia }}</p> -->
@@ -265,8 +271,9 @@
             </div>
         </div>
     </div>
-
-    <!-- MODAL -->
+    <!----------------->
+    <!----- MODAL ----->
+    <!----------------->
     <div
         *ngIf="modalAberto"
         class="
@@ -278,8 +285,9 @@
             justify-center
             z-50
         ">
-
-        <!-- CONTAINER -->
+        <!----------------->
+        <!--- CONTAINER --->
+        <!----------------->
         <div
             class="
                 bg-white
@@ -291,8 +299,9 @@
                 max-h-[90vh]
                 overflow-y-auto
             ">
-
-            <!-- HEADER -->
+            <!------------------>
+            <!----- HEADER ----->
+            <!------------------>
             <div class="flex justify-between items-center mb-6">
 
                 <h2 class="text-2xl font-bold">
@@ -306,8 +315,9 @@
                 </button>
 
             </div>
-
-            <!-- ABAS -->
+            <!------------------>
+            <!------ ABAS ------>
+            <!------------------>
             <div class="flex gap-4 border-b mb-6">
 
                 <button
@@ -323,6 +333,7 @@
                         ? 'border-blue-600 text-blue-600'
                         : 'border-transparent text-slate-500'
                     ">
+                    <i class="fa-duotone fa-solid fa-user-clock" style="color: red"></i>
                     Detalhes do follow
                 </button>
 
@@ -339,13 +350,12 @@
                         ? 'border-blue-600 text-blue-600'
                         : 'border-transparent text-slate-500'
                     ">
+                    <i class="fa-duotone  fa-clock-rotate-left" style="color:yellow"></i>
                     Follows anteriores
                 </button>
 
-
-                <!-- A VISUALIZAÇÃO DO HISTÓRICO DO ATENDIMENTO FOI MOMENTANEAMENTE DESATIVADA POIS OS CRITÉRIOS DE PONTUAÇÃO SERÃO REVISTOS -->
-                <!-- <button
-                    (click)="abaSelecionada = 'perguntas'"
+                <button
+                    (click)="abaSelecionada = 'infoProfissional'"
                     class="
                         px-4
                         py-3
@@ -353,20 +363,44 @@
                         border-b-2
                     "
                     [ngClass]="
-                        abaSelecionada === 'perguntas'
+                        abaSelecionada === 'infoProfissional'
                         ? 'border-blue-600 text-blue-600'
                         : 'border-transparent text-slate-500'
                     ">
-                    Histórico de atendimento
-                </button> -->
+                    <i class="fa-solid fa-users-line" style="color:aqua"></i>
+                    Profissionais envolvidos
+                </button>
+
+                <button
+                    (click)="abaSelecionada = 'orcamento'"
+                    class="
+                        px-4
+                        py-3
+                        font-semibold
+                        border-b-2
+                    "
+                    [ngClass]="
+                        abaSelecionada === 'orcamento'
+                        ? 'border-blue-600 text-blue-600'
+                        : 'border-transparent text-slate-500'
+                    ">
+                    <i class="fa-duotone fa-money-check-dollar" style="color:greenyellow"></i>
+                    Informações do orçamento
+                </button>
 
             </div>
-
-            <!-- ABA DETALHES -->
+            <!---------------------------->
+            <!-- ABA DETALHES DO FOLLOW -->
+            <!---------------------------->
             <div *ngIf="abaSelecionada === 'detalhes'">
-
-                <!-- INFORMAÇÕES -->
+                <!--------------------------->
+                <!-- INFORMAÇÕES DO FOLLOW -->
+                <!--------------------------->
                 <div class="space-y-4">
+                    <p>
+                        <strong>Número do orçamento:</strong>
+                        {{ followSelecionado?.erp_order_id }}
+                    </p>
 
                     <p>
                         <strong>Cliente:</strong>
@@ -374,30 +408,24 @@
 
                         <strong>| Arquiteto:</strong>
                         {{ followSelecionado?.profissional_name }}
-
-                        <strong>| Orçamento:</strong>
-                        {{ followSelecionado?.erp_order_id }}
                     </p>
 
                     <p>
                         <strong>Telefone:</strong>
                         {{ followSelecionado?.telefone }}
+                        <i class="fa-brands fa-whatsapp" style="color:greenyellow"></i>
+                    </p>
 
-                        <strong>| Email:</strong>
+                    <p>
+                        <strong>E-mail:</strong>
                         {{ followSelecionado?.email }}
+                        <i class="fa-graphite fa-envelope" style="color: aqua;"></i>
                     </p>
 
                     <p>
                         <strong>Data:</strong>
-                        {{ followSelecionado?.date_agenda | date:'dd/MM/yyyy' }}
-
-                        <strong>| Hora: </strong>
-                        {{ followSelecionado?.date_agenda | date:'HH:mm'  }}
-                    </p>
-
-                    <p>
-                        <strong>Produtos:</strong>
-                        <!-- {{ followSelecionado?.produto }} -->
+                        {{ followSelecionado?.date_agenda | date:'dd/MM/yyyy' }} as {{ followSelecionado?.date_agenda | date:'HH:mm'  }}
+                        
                     </p>
 
                     <p>
@@ -406,6 +434,7 @@
 
                         <strong> | Estágio:</strong>
                         {{ followSelecionado?.estagio }}
+
                     </p>
 
                     <p>
@@ -414,8 +443,9 @@
                     </p>
 
                 </div>
-
-                <!-- BOTÕES -->
+                <!------------------>
+                <!----- BOTÕES ----->
+                <!------------------>
                 <div class="flex gap-4 mt-8">
 
                     <button
@@ -443,8 +473,9 @@
                     </button>
 
                 </div>
-
+                <!------------------------>
                 <!-- FORM REAGENDAMENTO -->
+                <!------------------------>
                 <div
                     *ngIf="acaoSelecionada === 'reagendar'"
                     class="mt-8 space-y-6">
@@ -519,7 +550,9 @@
                             [(ngModel)]="respostasReagendamento.estrategia">
                         </textarea>
                     </div>
+                    <!--------------->
                     <!-- NOVA DATA -->
+                    <!--------------->
                     <div>
                         <label class="font-semibold block mb-2">
                             Data do novo agendamento
@@ -559,8 +592,9 @@
                     </button>
 
                 </div>
-
+                <!---------------------->
                 <!-- FORM FINALIZAÇÃO -->
+                <!---------------------->
                 <div
                     *ngIf="acaoSelecionada === 'finalizar'"
                     class="mt-8 space-y-6">
@@ -607,8 +641,9 @@
                 </div>
 
             </div>
-
+            <!------------------------->
             <!-- ABA DE ATENDIMENTOS -->
+            <!------------------------->
             <div
                 *ngIf="abaSelecionada === 'perguntas'"
                 class="space-y-4">
@@ -661,55 +696,115 @@
                 </div>
 
             </div>
-            <!-- ABA HISTÓRICO DE FOLLOWS -->
+
+            <!--------------------------------------->
+            <!-- ABA INFORMAÇÕES DOS PROFISSIONAIS -->
+            <!--------------------------------------->
             <div
-                *ngIf="abaSelecionada === 'followsHistorico'"
+                *ngIf="abaSelecionada === 'infoProfissional'"
                 class="space-y-4">
 
-                <div
-                    *ngFor="let historico of historicoFollows"
-                    class="border rounded-xl p-4">
+                <div class="border rounded-xl p-4">
+                    <div>
+                        <h3 class="text-xl font-bold mb-4">
+                            PROFISSIONAIS ENVOLVIDOS
+                        </h3>
+
+                        <!----------------------------------->
+                        <!----- INFORMAÇÕES DO VENDEDOR ----->
+                        <!----------------------------------->
+                        <div class="border rounded-xl p-4">
+                            <h3 class="text-xl font-bold mb-4">
+                                Responsável pela venda
+                            </h3>
+
+                            <p>
+                                <strong>Consultor de vendas:</strong>
+                                
+                            </p>
+
+                            <p>
+                                <strong>E-mail Brentwood:</strong>
+                                
+                            </p>
+
+                            <p>
+                                <strong>Loja de atuação:</strong>
+                                
+                            </p>
+
+                        </div>
+
+                        <!----------------------------------->
+                        <!---- INFORMAÇÕES DO ARQUITETO ----->
+                        <!----------------------------------->
+                        <div class="border rounded-xl p-4">
+                            <h3 class="text-xl font-bold mb-4">
+                                Responsável pelo projeto do cliente
+                            </h3>
+
+                            <p>
+                                <strong>Profissional contratado:</strong>
+                                {{ followSelecionado?.profissional_name }}
+                            </p>
+
+                            <p>
+                                <strong>Contato do profissional:</strong>
+                                {{ followSelecionado?.profissional_mail }}
+                            </p>
+
+                            <p>
+                                <strong>ID de cadastro:</strong>
+                                {{ followSelecionado?.erp_profissional_id }}
+                            </p>
+
+                        </div>
+
+                        <!----------------------------------->
+                        <!---- INFORMAÇÕES DO PROJETISTA ----->
+                        <!----------------------------------->
+                        <div class="border rounded-xl p-4">
+                            <h3 class="text-xl font-bold mb-4">
+                                Auxiliar de projeção
+                            </h3>
+
+                            <p>
+                                <strong>Projetista acionado:</strong>
+                                
+                            </p>
+
+                            <p>
+                                <strong>Loja de atuação:</strong>
+                                {{ followSelecionado?.profissional_mail }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!----------------------------------->
+            <!-- ABA INFORMAÇÕES DO ORÇAMENTO -->
+            <!----------------------------------->
+            <div
+                *ngIf="abaSelecionada === 'orcamento'"
+                class="space-y-4">
+
+                <div class="border rounded-xl p-4">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">
+                        Orçamento
+                    </h3>
 
                     <p>
-                        <strong>Data:</strong>
-                        {{ historico.date_agenda | date:'dd/MM/yyyy' }}
+                        <strong>Número do orçamento:</strong>
+                        {{ followSelecionado?.erp_order_id }}
                     </p>
 
                     <p>
-                        <strong>Hora: </strong>
-                        {{ historico.date_agenda | date:'HH:mm'  }}
+                        <strong>Valor do orçamento:</strong>
+                        {{ followSelecionado?.valor }}
                     </p>
-
-                    <p>
-                        <strong>Status:</strong>
-                        {{ historico.status }}
-                    </p>
-
-                    <p>
-                        <strong>Estágio:</strong>
-                        {{ historico.estagio }}
-                    </p>
-
-                    <p>
-                        <strong>Contato anterior:</strong>
-                        {{ historico.contact_form }}
-                    </p>
-
-                    <p>
-                        <strong>Estratégia:</strong>
-                        <!-- {{ historico.estrategia }} -->
-                    </p>
-
-                    <p>
-                        <strong>Observações:</strong>
-                        <!-- {{ historico.obs_follow }} -->
-                    </p>
-
-                    <p>
-                        <strong>Possibilidade:</strong>
-                        <!-- {{ historico.possibilidade }} -->
-                    </p>
-
                 </div>
             </div>
         </div>

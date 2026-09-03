@@ -5,6 +5,8 @@
   import { DashboardService } from '../../services/dashboard/dashboard.service';
   import { ChangeDetectorRef } from '@angular/core';
 
+  import { forkJoin } from 'rxjs';
+
   @Component({
     selector: 'app-dashboard',
     standalone: true,
@@ -53,6 +55,20 @@
       total: 0
     };
 
+    formatarValor(valor: number | string): string {
+      const numero = Number(valor);
+
+      if (isNaN(numero)) {
+        return 'R$ 0,00';
+      }
+
+      return 'R$ ' + numero
+        .toFixed(2)
+        .replace('.', ',')
+        .replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    }
+
+
     constructor(
       private dashboardService: DashboardService,
       private cdr: ChangeDetectorRef
@@ -60,23 +76,32 @@
 
     ngOnInit(): void {
 
-      // -----------------------------------
-      // CRIAÇÃO DO GRAFICO DE LINHA
-      //------------------------------------
-      this.dashboardService
-        .obterVendasMensais()
-        .subscribe({
-          next: (res) => {
-            console.log('INICIANDO CRIAÇÃO DOS DASHBOARDS');
-            console.log(res);
-            this.cards = res;
-            this.cdr.detectChanges();
-        this.chartOptions = {
+      forkJoin({
+        vendasMensais: this.dashboardService.obterVendasMensais(),
+        cards: this.dashboardService.obterCardsDashboard(),
+        atendimentos: this.dashboardService.obterCardsAtendimentos(),
+        valoresOrcamentos: this.dashboardService.obterValoresOrcamentos(),
+        gantt: this.dashboardService.obterGantt()
+      }).subscribe(res => {
 
+        // Atualiza tudo
+        this.cards = res.cards;
+
+        this.cardsAtendimento = res.atendimentos;
+
+        this.valoresOrcamentos = {
+          hoje: Number(res.valoresOrcamentos.hoje),
+          mes: Number(res.valoresOrcamentos.mes),
+          total: Number(res.valoresOrcamentos.total)
+        };
+
+        this.ganttData = res.gantt;
+
+        this.chartOptions = {
           series: [
             {
               name: 'Atendimentos',
-              data: res.valores
+              data: res.vendasMensais.valores
             }
           ],
 
@@ -104,7 +129,7 @@
           },
 
           xaxis: {
-            categories: res.meses,
+            categories: res.vendasMensais.meses,
             title: {
               text: 'Meses'
             }
@@ -116,52 +141,9 @@
             }
           }
         };
-      },
-          error: (err) => {
-            console.error('ERRO VENDAS MENSAIS', err);
-          }
-      });
-      
 
-      // -----------------------------------
-      // OBTER DO BACK A QTD DE FOLLOWS 
-      //------------------------------------
-      this.dashboardService
-        .obterCardsDashboard()
-        .subscribe(res => {
-          this.cdr.detectChanges();
-          this.cards = res;
-
-        });
-      
-      // -----------------------------------
-      // OBTER DO BACK A QTD DE ORÇAMENTOS 
-      //------------------------------------
-      this.dashboardService
-        .obterCardsAtendimentos()
-        .subscribe(res => {
-          this.cardsAtendimento = res;
-      });
-
-        // -----------------------------------
-      // OBTER DO BACK O VALOR DE ORÇAMENTOS 
-      //------------------------------------
-      this.dashboardService
-        .obterValoresOrcamentos()
-        .subscribe(res => {
-          this.valoresOrcamentos = res;
-      });
-
-      // -----------------------------------
-      // CRIAÇÃO DE GRÁFICO GANTT
-      //------------------------------------
-      this.dashboardService
-      .obterGantt()
-      .subscribe(res => {
+        // UMA ÚNICA atualização da tela
         this.cdr.detectChanges();
-        console.log('Gantt');
-        console.log(res);
-        this.ganttData = res;
       });
     }
     

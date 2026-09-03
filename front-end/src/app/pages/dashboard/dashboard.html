@@ -76,7 +76,7 @@
          {{ cardsAtendimento.orcamentos_hoje }}
         </strong>
         <strong>
-          R$ {{ valoresOrcamentos.hoje }}
+          {{ formatarValor(valoresOrcamentos.hoje) }}
         </strong>
         <i class="fa-solid fa-calendar-check"></i>
       </div>
@@ -93,7 +93,7 @@
           {{ cardsAtendimento.orcamentos_mes }}
         </strong>
         <strong>
-          R$ {{ valoresOrcamentos.mes }}
+          {{ formatarValor(valoresOrcamentos.mes) }}
         </strong>
         <i class="fa-solid fa-calendar-days"></i>
       </div>
@@ -112,7 +112,7 @@
           {{ cardsAtendimento.orcamentos }}
         </strong>
         <strong>
-          R$ {{ valoresOrcamentos.total }}
+          {{ formatarValor(valoresOrcamentos.total) }}
         </strong>
         <i class="fa-solid fa-crown"></i>
       </div>

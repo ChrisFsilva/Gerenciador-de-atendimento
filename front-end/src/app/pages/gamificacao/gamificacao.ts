@@ -798,7 +798,7 @@ export class Gamificacao {
 
       ranking: this.ranking,
 
-      orcamento: this.respostas[3] ?? 'Não gerou follow',
+      orcamento: this.respostas[3] ?? 'Não gerou orçamento',
 
       concorrentes: this.respostas[6] ?? 'Não mencionado',
 

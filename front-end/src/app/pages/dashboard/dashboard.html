@@ -73,10 +73,10 @@
       </div>
       <div class="orcamento-content">
         <strong>
-         {{ cardsAtendimento.orcamentos }}
+         {{ cardsAtendimento.orcamentos_hoje }}
         </strong>
         <strong>
-          0
+          R$ {{ valoresOrcamentos.hoje }}
         </strong>
         <i class="fa-solid fa-calendar-check"></i>
       </div>
@@ -90,10 +90,10 @@
       </div>
       <div class="orcamento-content">
         <strong>
-          {{ cardsAtendimento.atendimentos_mes }}
+          {{ cardsAtendimento.orcamentos_mes }}
         </strong>
         <strong>
-          0
+          R$ {{ valoresOrcamentos.mes }}
         </strong>
         <i class="fa-solid fa-calendar-days"></i>
       </div>
@@ -109,10 +109,10 @@
       </div>
       <div class="orcamento-content">
         <strong>
-          {{ cardsAtendimento.atendimentos }}
+          {{ cardsAtendimento.orcamentos }}
         </strong>
         <strong>
-          0
+          R$ {{ valoresOrcamentos.total }}
         </strong>
         <i class="fa-solid fa-crown"></i>
       </div>
@@ -136,7 +136,7 @@
       </div>
       <div>
         <strong>
-          {{ cardsAtendimento.percentual }}%
+          {{ cardsAtendimento.percentual }}
         </strong>
         <i class="fa-solid fa-percent"></i>
       </div>
@@ -153,6 +153,20 @@
           {{ cardsAtendimento.orcamentos }}
         </strong>
         <i class="fa-solid fa-calendar-days"></i>
+      </div>
+    </div>
+
+    <div class="conversao-row conversao-realizados">
+      <div class="conversao-title"> 
+        <span class="periodo">
+          Venda ato
+        </span>
+      </div>
+      <div>
+        <strong>
+          {{ cardsAtendimento.venda_ato }}
+        </strong>
+        <i class="fa-solid fa-handshake"></i>
       </div>
     </div>
   </div>

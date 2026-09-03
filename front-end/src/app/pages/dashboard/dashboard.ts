@@ -30,13 +30,27 @@
       mes: 0
     };
 
+    // -----------------------------------------------
+    // LISTA DE VÁRIAVEIS PARA O GRAFICO DE RENDIMENTO
+    // -----------------------------------------------
     cardsAtendimento = {
       atendimentos: 0,
-      orcamentos: 0,
-      percentual: 0,
       atendimentos_hoje: 0,
-      atendimentos_mes: 0
+      atendimentos_mes: 0,
+      orcamentos: 0,
+      orcamentos_hoje: 0,
+      orcamentos_mes: 0,
+      percentual: 0,
+      venda_ato: 0,
+    };
 
+    // -----------------------------------------------
+    // LISTA DE VÁRIAVEIS COM CALCULO DOS VALORES ORÇADOS
+    // -----------------------------------------------
+    valoresOrcamentos = {
+      hoje: 0,
+      mes: 0,
+      total: 0
     };
 
     constructor(
@@ -46,7 +60,9 @@
 
     ngOnInit(): void {
 
-      // Dashboard mensal
+      // -----------------------------------
+      // CRIAÇÃO DO GRAFICO DE LINHA
+      //------------------------------------
       this.dashboardService
         .obterVendasMensais()
         .subscribe({
@@ -54,6 +70,7 @@
             console.log('INICIANDO CRIAÇÃO DOS DASHBOARDS');
             console.log(res);
             this.cards = res;
+            this.cdr.detectChanges();
         this.chartOptions = {
 
           series: [
@@ -104,32 +121,47 @@
             console.error('ERRO VENDAS MENSAIS', err);
           }
       });
-      this.cdr.detectChanges();
+      
 
-      // Cards de quantidade de follows
+      // -----------------------------------
+      // OBTER DO BACK A QTD DE FOLLOWS 
+      //------------------------------------
       this.dashboardService
         .obterCardsDashboard()
         .subscribe(res => {
-
+          this.cdr.detectChanges();
           this.cards = res;
 
         });
       
-      // Cards de quantidade de atendimento
+      // -----------------------------------
+      // OBTER DO BACK A QTD DE ORÇAMENTOS 
+      //------------------------------------
       this.dashboardService
         .obterCardsAtendimentos()
         .subscribe(res => {
           this.cardsAtendimento = res;
       });
 
-      // Criação do grafico estilo Gantt
+        // -----------------------------------
+      // OBTER DO BACK O VALOR DE ORÇAMENTOS 
+      //------------------------------------
+      this.dashboardService
+        .obterValoresOrcamentos()
+        .subscribe(res => {
+          this.valoresOrcamentos = res;
+      });
+
+      // -----------------------------------
+      // CRIAÇÃO DE GRÁFICO GANTT
+      //------------------------------------
       this.dashboardService
       .obterGantt()
       .subscribe(res => {
+        this.cdr.detectChanges();
         console.log('Gantt');
         console.log(res);
         this.ganttData = res;
-        this.cdr.detectChanges();
       });
     }
     

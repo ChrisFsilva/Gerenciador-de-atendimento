@@ -21,6 +21,9 @@ export class DashboardService {
     private http: HttpClient
   ) {}
 
+    // -----------------------------------------------
+    // RETORNO DOS DADOS DE FOLLOW
+    // -----------------------------------------------
     obterVendasMensais() {
       return this.http.get<any>(
           `${this.api}/dashboard/follows-mensais`,
@@ -33,11 +36,17 @@ export class DashboardService {
       );
     }
 
+    // -----------------------------------------------
+    // RETORNO DOS DADOS DE ATENDIMENTO
+    // -----------------------------------------------
     obterCardsAtendimentos() {
       return this.http.get<any>(
         `${this.api}/dashboard/atendimentos`,
       );
     }
+    // -----------------------------------------------
+    // RETORNO DAS INFORMAÇÕES QUE ALIMENTARAM O GRAFICO GANTT
+    // -----------------------------------------------
     
     obterGantt() {
       return this.http.get<any>(
@@ -46,6 +55,16 @@ export class DashboardService {
 
     }
 
+    // -----------------------------------------------
+    // RETORNO DO CALCULO DOS VALORES DE ORÇAMENTO
+    // -----------------------------------------------
+    obterValoresOrcamentos() {
+      return this.http.get<any>('/dashboard/valores-orcamentos');
+    }
+
+    // -----------------------------------------------
+    // CRIAÇÃO DO GRAFICO GANTT
+    // -----------------------------------------------
     montarEstruturaGantt(dados: any[]) {
     const mapa = new Map();
 

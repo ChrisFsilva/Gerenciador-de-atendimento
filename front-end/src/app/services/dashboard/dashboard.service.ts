@@ -59,7 +59,9 @@ export class DashboardService {
     // RETORNO DO CALCULO DOS VALORES DE ORÇAMENTO
     // -----------------------------------------------
     obterValoresOrcamentos() {
-      return this.http.get<any>('/dashboard/valores-orcamentos');
+      return this.http.get<any>(
+        `${this.api}/dashboard/valores-orcamentos`
+      );
     }
 
     // -----------------------------------------------

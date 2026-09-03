@@ -350,7 +350,7 @@
                         ? 'border-blue-600 text-blue-600'
                         : 'border-transparent text-slate-500'
                     ">
-                    <i class="fa-duotone  fa-clock-rotate-left" style="color:yellow"></i>
+                    <i class="fa-duotone fa-solid fa-clock" style="color:rgb(161, 218, 77)"></i>
                     Follows anteriores
                 </button>
 
@@ -384,7 +384,7 @@
                         ? 'border-blue-600 text-blue-600'
                         : 'border-transparent text-slate-500'
                     ">
-                    <i class="fa-duotone fa-money-check-dollar" style="color:greenyellow"></i>
+                    <i class="fa-solid fa-money-check-dollar" style="color:rgb(219, 223, 28)"></i>
                     Informações do orçamento
                 </button>
 
@@ -411,15 +411,27 @@
                     </p>
 
                     <p>
-                        <strong>Telefone:</strong>
-                        {{ followSelecionado?.telefone }}
-                        <i class="fa-brands fa-whatsapp" style="color:greenyellow"></i>
+                        <a
+                            [href]="'https://wa.me/' + followSelecionado?.telefone"  
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="cursor-pointer">
+                                <strong>Telefone:</strong>
+                                {{ followSelecionado?.telefone }}
+                                <i class="fa-brands fa-whatsapp" style="color:greenyellow"></i>
+                        </a>
                     </p>
 
                     <p>
-                        <strong>E-mail:</strong>
-                        {{ followSelecionado?.email }}
-                        <i class="fa-graphite fa-envelope" style="color: aqua;"></i>
+                        <a
+                            [href]="'mailto:' + followSelecionado?.email"
+                            class="cursor-pointer">
+                            
+                            <strong>E-mail:</strong>
+                            {{ followSelecionado?.email }}
+                            <i class="fa-solid fa-at" style="color: aqua;"></i>
+                            
+                        </a>
                     </p>
 
                     <p>
@@ -431,16 +443,16 @@
                     <p>
                         <strong>Status:</strong>
                         {{ followSelecionado?.status }}
-
-                        <strong> | Estágio:</strong>
-                        {{ followSelecionado?.estagio }}
-
                     </p>
 
                     <p>
-                        <strong>Observações do orçamento:</strong>
-                        <!-- {{ followSelecionado?.observacoes }} -->
+                        <strong>Estágio:</strong>
+                        {{ followSelecionado?.estagio }}
                     </p>
+                    <!-- <p>
+                        <strong>Observações do orçamento:</strong>
+                        {{ followSelecionado?.observacoes }}
+                    </p> -->
 
                 </div>
                 <!------------------>
@@ -705,10 +717,7 @@
                 class="space-y-4">
 
                 <div class="border rounded-xl p-4">
-                    <div>
-                        <h3 class="text-xl font-bold mb-4">
-                            PROFISSIONAIS ENVOLVIDOS
-                        </h3>
+                    <div class="space-y-4">
 
                         <!----------------------------------->
                         <!----- INFORMAÇÕES DO VENDEDOR ----->
@@ -803,7 +812,7 @@
 
                     <p>
                         <strong>Valor do orçamento:</strong>
-                        {{ followSelecionado?.valor }}
+                        R$ {{ followSelecionado?.valor }}
                     </p>
                 </div>
             </div>

@@ -794,15 +794,15 @@ def dashboard_atendimentos(
     # CALCULO DE CONVERSÃO ATENDIMENTO X ORÇAMENTO
     # --------------------------------------------
 
-    if total_atendimentos > 0:
+        if total_atendimentos > 0:
 
-        percentual = round(
-            (total_orcamentos / total_atendimentos) * 100,
-            1
-        )
+            percentual = round(
+                (total_orcamentos / total_atendimentos) * 100,
+                1
+            )
 
-    if registro.gerou_follow == 'Venda ato':
-            venda_ato += 1
+        if registro.gerou_follow == 'Venda ato':
+                venda_ato += 1
 
     return {
 

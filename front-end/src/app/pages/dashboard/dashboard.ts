@@ -5,7 +5,10 @@
   import { DashboardService } from '../../services/dashboard/dashboard.service';
   import { ChangeDetectorRef } from '@angular/core';
 
-  import { forkJoin } from 'rxjs';
+  import { registerLocaleData } from '@angular/common';
+  import localePt from '@angular/common/locales/pt';
+
+  registerLocaleData(localePt, 'pt-BR');
 
   @Component({
     selector: 'app-dashboard',
@@ -68,7 +71,6 @@
         .replace(/\B(?=(\d{3})+(?!\d))/g, '.');
     }
 
-
     constructor(
       private dashboardService: DashboardService,
       private cdr: ChangeDetectorRef
@@ -76,73 +78,117 @@
 
     ngOnInit(): void {
 
-      forkJoin({
-        vendasMensais: this.dashboardService.obterVendasMensais(),
-        cards: this.dashboardService.obterCardsDashboard(),
-        atendimentos: this.dashboardService.obterCardsAtendimentos(),
-        valoresOrcamentos: this.dashboardService.obterValoresOrcamentos(),
-        gantt: this.dashboardService.obterGantt()
-      }).subscribe(res => {
+      // -----------------------------------
+      // CRIAÇÃO DO GRAFICO DE LINHA
+      //------------------------------------
+      this.dashboardService
+        .obterVendasMensais()
+        .subscribe({
+          next: (res) => {
+          console.log('INICIANDO CRIAÇÃO DOS DASHBOARDS');
+          console.log(res);
 
-        // Atualiza tudo
-        this.cards = res.cards;
+          this.cards = res;
 
-        this.cardsAtendimento = res.atendimentos;
+          this.chartOptions = {
+            series: [
+              {
+                name: 'Atendimentos',
+                data: res.valores
+              }
+            ],
 
-        this.valoresOrcamentos = {
-          hoje: Number(res.valoresOrcamentos.hoje),
-          mes: Number(res.valoresOrcamentos.mes),
-          total: Number(res.valoresOrcamentos.total)
-        };
+            chart: {
+              type: 'line',
+              height: 350,
+              toolbar: {
+                show: false
+              }
+            },
 
-        this.ganttData = res.gantt;
+            colors: ['#302f29ff'],
 
-        this.chartOptions = {
-          series: [
-            {
-              name: 'Atendimentos',
-              data: res.vendasMensais.valores
+            dataLabels: {
+              enabled: true
+            },
+
+            stroke: {
+              curve: 'smooth',
+              width: 4
+            },
+
+            markers: {
+              size: 5
+            },
+
+            xaxis: {
+              categories: res.meses,
+              title: {
+                text: 'Meses'
+              }
+            },
+
+            yaxis: {
+              title: {
+                text: 'Quantidade'
+              }
             }
-          ],
+          };
 
-          chart: {
-            type: 'line',
-            height: 350,
-            toolbar: {
-              show: false
-            }
-          },
-
-          colors: ['#302f29ff'],
-
-          dataLabels: {
-            enabled: true
-          },
-
-          stroke: {
-            curve: 'smooth',
-            width: 4
-          },
-
-          markers: {
-            size: 5
-          },
-
-          xaxis: {
-            categories: res.vendasMensais.meses,
-            title: {
-              text: 'Meses'
-            }
-          },
-
-          yaxis: {
-            title: {
-              text: 'Quantidade'
-            }
+          this.cdr.detectChanges();
+        },
+          error: (err) => {
+            console.error('ERRO VENDAS MENSAIS', err);
           }
-        };
+      });
+      
 
-        // UMA ÚNICA atualização da tela
+      // -----------------------------------
+      // OBTER DO BACK A QTD DE FOLLOWS 
+      //------------------------------------
+      this.dashboardService
+        .obterCardsDashboard()
+        .subscribe(res => {
+          this.cards = res;
+
+          this.cdr.detectChanges();
+        });
+              
+      // -----------------------------------
+      // OBTER DO BACK A QTD DE ORÇAMENTOS 
+      //------------------------------------
+      this.dashboardService
+        .obterCardsAtendimentos()
+        .subscribe(res => {
+          this.cardsAtendimento = res;
+      });
+
+      // -----------------------------------
+      // OBTER DO BACK O VALOR DE ORÇAMENTOS 
+      //------------------------------------
+      this.dashboardService
+        .obterValoresOrcamentos()
+        .subscribe(res => {
+          this.valoresOrcamentos = {
+            hoje: Number(res.hoje),
+            mes: Number(res.mes),
+            total: Number(res.total),
+          };
+
+          this.cdr.detectChanges();
+        });
+
+      // -----------------------------------
+      // CRIAÇÃO DE GRÁFICO GANTT
+      //------------------------------------
+      this.dashboardService
+      .obterGantt()
+      .subscribe(res => {
+        console.log('Gantt');
+        console.log(res);
+
+        this.ganttData = res;
+
         this.cdr.detectChanges();
       });
     }

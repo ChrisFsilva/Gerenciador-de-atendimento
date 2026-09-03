@@ -23,6 +23,7 @@ from app.models import (
     FilaAtendimento,
     UpdatePendencia,
     OrcamentoFuturo,
+    AddOrder,
 )
 
 from app.schemas import (AtualizacaoLoteRequest)
@@ -42,21 +43,21 @@ from app.security import (gerar_hash,verificar_senha,criar_token)
 
 from app.heartbeat_state import heartbeats_locais
 
-# =========================
+# ------------------------------------------
 # CRIAR TABELAS
-# =========================
+# ------------------------------------------
 Base.metadata.create_all(bind=engine)
 
-# =========================
+# ------------------------------------------
 # INSTÂNCIA API
-# =========================
+# ------------------------------------------
 app = FastAPI(
   root_path="/api"
   )
 # scheduler.start()
-# =========================
+# ------------------------------------------
 # CORS
-# =========================
+# ------------------------------------------
 app.add_middleware(
 
     CORSMiddleware,
@@ -77,9 +78,9 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
-# =========================
+# ------------------------------------------
 # DATABASE SESSION
-# =========================
+# ------------------------------------------
 def get_db():
 
     db = SessionLocal()
@@ -90,9 +91,9 @@ def get_db():
     finally:
         db.close()
 
-# =========================
+# ------------------------------------------
 # ROTA INICIAL
-# =========================
+# ------------------------------------------
 @app.get("/")
 def home():
 
@@ -100,13 +101,13 @@ def home():
         "mensagem": "API funcionando"
     }
 
-# =========================
+# ------------------------------------------
 # ENDPOINT PARA TRABALHAR COM USUARIOS
-# =========================
+# ------------------------------------------
 
-# =========================
+# ------------------------------------------
 # CRIAR USUÁRIO NOVO
-# =========================
+# ------------------------------------------
 @app.post("/novousuarios")
 def criar_usuario(usuario: UsuarioCreate):
 
@@ -138,9 +139,9 @@ def criar_usuario(usuario: UsuarioCreate):
         "id": novo_usuario.id
     }
 
-# =========================
+# ------------------------------------------
 # AUTENTICAÇÃO DE LOGIN 
-# =========================
+# ------------------------------------------
 @app.post("/login")
 def login(
     dados: schemas.LoginRequest,
@@ -194,9 +195,9 @@ def login(
         }
     }
 
-# =========================
+# ------------------------------------------
 # RECEBER INFORMAÇÕES DOS USUARIOS
-# =========================
+# ------------------------------------------
 security = HTTPBearer()
 def obter_usuario(
         credenciais: HTTPAuthorizationCredentials = Depends(security)
@@ -225,13 +226,13 @@ def obter_usuario(
             detail="Token Inválido",
         )
 
-# =========================
+# ------------------------------------------
 # ENDPOINT PARA OS FOLLOWS
-# =========================
+# ------------------------------------------
 
-# =========================
+# ------------------------------------------
 # LISTAR FOLLOWS
-# =========================
+# ------------------------------------------
 @app.get(
     "/follows",
     response_model = list[AgendamentoResponse]
@@ -299,9 +300,9 @@ def listar_agendamentos(
         )
     return respostas
 
-# =========================
+# ------------------------------------------
 # OBTER ATENDIMENTO
-# =========================
+# ------------------------------------------
 @app.get("/atendimento/{atendimento_id}")
 def obter_atendimento(
     atendimento_id: int,
@@ -316,9 +317,9 @@ def obter_atendimento(
 
     return atendimento
 
-# =========================
+# ------------------------------------------
 # CRIAR ATENDIMENTOS
-# =========================
+# ------------------------------------------
 @app.post("/atendimentos")
 def criar_atendimento(
     dados: schemas.AtendimentoRequest,
@@ -334,9 +335,9 @@ def criar_atendimento(
 
     dados_starsoft = None
 
-    # =========================
+    # ------------------------------------------
     # TRATAR RESPOSTA DO ATENDIMENTO PARA CRIAR ORÇAMENTOS
-    # =========================
+    # ------------------------------------------
 
     if resposta_orcamento == "Sim":
 
@@ -359,9 +360,9 @@ def criar_atendimento(
                 detail="Dados de follow são obrigatórios quando o atendimento gera orçamento"
             )
 
-    # =========================
+    # ------------------------------------------
     # SALVAR ATENDIMENTO
-    # =========================
+    # ------------------------------------------
 
     novo_atendimento = models.Atendimento(
         vendedor_id=usuario_logado["id"],
@@ -378,9 +379,9 @@ def criar_atendimento(
     db.commit()
     db.refresh(novo_atendimento)
 
-    # =========================
+    # ------------------------------------------
     # SALVAR RESPOSTAS
-    # =========================
+    # ------------------------------------------
 
     for pergunta_id, resposta in atendimento.respostas.items():
 
@@ -394,9 +395,9 @@ def criar_atendimento(
 
     db.commit()
 
-    # =========================
+    # ------------------------------------------
     # REGISTRAR FOLLOW
-    # =========================
+    # ------------------------------------------
 
     if resposta_orcamento == "Sim":
 
@@ -411,9 +412,9 @@ def criar_atendimento(
     return novo_atendimento
 
 
-# =========================
+# ------------------------------------------
 # FUNÇÃO INTERNA PARA REGISTRAR FOLLOW
-# =========================
+# ------------------------------------------
 
 def registrar_follow(
     atendimento,
@@ -470,9 +471,9 @@ def registrar_follow(
 
     return new_follow
 
-# =========================
+# ------------------------------------------
 # MANUTENÇÃO AUTOMATICA DOS CARDS DE FOLLOWS, ALTERAR FOLLOWS PARA ATRASADO (ALTERAÇÃO EM LOTE)
-# =========================
+# ------------------------------------------
 
 @app.put(
     "/follows/atualizar-lote",
@@ -502,9 +503,9 @@ def atualizar_follow_lote(
         "quantidade": quantidade
     }
 
-# =========================
+# ------------------------------------------
 # ALTERAR INFORMAÇÕES DO FOLLOW
-# =========================
+# ------------------------------------------
 @app.put("/follows/{id}")
 def atualizar_follow(
     id: int,
@@ -538,9 +539,9 @@ def atualizar_follow(
 
     return follow
 
-# =========================
+# ------------------------------------------
 # REAGENDAR FOLLOW
-# =========================
+# ------------------------------------------
 
 @app.post("/follows")
 def criar_follow(
@@ -618,11 +619,13 @@ def criar_follow(
 
     return new_follow
 
-# =========================
-# DASHBOARDS
-# =========================
+# ------------------------------------------
+# -------------- DASHBOARDS ----------------
+# ------------------------------------------
 
-# Cards diarios
+# ------------------------------------------
+# --------- REGRAS DOS DASHBOARD -----------
+# ------------------------------------------
 @app.get("/dashboard/cards")
 def dashboard_cards(
     db: Session = Depends(get_db),
@@ -673,9 +676,9 @@ def dashboard_cards(
         "mes": follows_mes
     }
 
-# =========================
-# Graficos de rendimento mês
-# =========================
+# ------------------------------------------
+# ----- CALCULO DE ATENDIMENTOS DO MÊS -----
+# ------------------------------------------
 @app.get("/dashboard/follows-mensais")
 def follows_mensais(
     db: Session = Depends(get_db),
@@ -711,9 +714,9 @@ def follows_mensais(
         "valores": valores
     }
 
-# =========================
-# Cards de atendimento e produtividade
-# =========================
+# -------------------------------------------
+#  -- CRIAÇÃO DO DASHBOARD DE ATENDIMENTOS --
+# -------------------------------------------
 @app.get("/dashboard/atendimentos")
 def dashboard_atendimentos(
     db: Session = Depends(get_db),
@@ -730,38 +733,66 @@ def dashboard_atendimentos(
     
     atendimentos = query.all()
 
-    total_atendimentos = len(atendimentos)
-
-    total_orcamentos = 0
-
     hoje = datetime.now().date()
 
+    total_atendimentos = len(atendimentos)
     atendimentos_hoje = 0
-
     atendimentos_mes = 0
 
-    for atendimento in atendimentos:
+    total_orcamentos = 0
+    orcamentos_hoje = 0
+    orcamentos_mes = 0
 
-        # orçamento
-        if (
-            atendimento.orcamento
-            and atendimento.orcamento.strip() != ""
-        ):
-            total_orcamentos += 1
+    venda_ato = 0
 
-        # atendimentos hoje
-        if atendimento.created_at:
+    percentual = 0
 
-            if atendimento.created_at.date() == hoje:
+    for registro in atendimentos:
+
+        # ------------------------------------------
+        # ------- CALCULO DE ATENDIMENTOS ----------
+        # ------------------------------------------
+        if registro.created_at:
+
+            # -------------------------------------------
+            # -- CALCULO DE ATENDIMENTOS DO DIA (HOJE) --
+            # -------------------------------------------
+            if registro.created_at.date() == hoje:
                 atendimentos_hoje += 1
 
+            # ------------------------------------------
+            # ----- CAUCULO DE ATENDIMENTOS DO MÊS -----
+            # ------------------------------------------
             if (
-                atendimento.created_at.month == hoje.month
-                and atendimento.created_at.year == hoje.year
+                registro.created_at.month == hoje.month
+                and registro.created_at.year == hoje.year
             ):
                 atendimentos_mes += 1
 
-    percentual = 0
+        # ------------------------------------------
+        # -------- CALCULO DE ORÇAMENTOS -----------
+        # ------------------------------------------
+        if registro.gerou_follow == 'Sim':
+            total_orcamentos += 1
+            
+            # -------------------------------------------
+            # -- CALCULO DE ORÇAMENTOS DO DIA (HOJE) --
+            # -------------------------------------------
+            if registro.created_at.date() == hoje:
+                orcamentos_hoje += 1
+
+            # ------------------------------------------
+            # ----- CAUCULO DE ORÇAMENTOS DO MÊS -----
+            # ------------------------------------------
+            if (
+                registro.created_at.month == hoje.month
+                and registro.created_at.year == hoje.year
+            ):
+                orcamentos_mes += 1
+
+    # --------------------------------------------
+    # CALCULO DE CONVERSÃO ATENDIMENTO X ORÇAMENTO
+    # --------------------------------------------
 
     if total_atendimentos > 0:
 
@@ -770,22 +801,82 @@ def dashboard_atendimentos(
             1
         )
 
+    if registro.gerou_follow == 'Venda ato':
+            venda_ato += 1
+
     return {
 
         "atendimentos": total_atendimentos,
-
-        "orcamentos": total_orcamentos,
-
-        "percentual": percentual,
-
         "atendimentos_hoje": atendimentos_hoje,
-
-        "atendimentos_mes": atendimentos_mes
+        "atendimentos_mes": atendimentos_mes,
+                
+        "orcamentos": total_orcamentos,
+        "orcamentos_hoje": orcamentos_hoje,
+        "orcamentos_mes": orcamentos_mes,
+        "percentual": percentual,
+        "venda_ato": venda_ato,
 
     }
-# =========================
+# ------------------------------------------
+# COLETAR E CALCULAR VALORES DE VENDA
+# ------------------------------------------
+@app.get("/dashboard/valores-orcamentos")
+def dashboard_valores_orcamentos(
+    db: Session = Depends(get_db),
+    usuario_logado: Usuario = Depends(obter_usuario)
+):
+    hoje = datetime.now().date()
+
+    pedidos = (
+        db.query(AddOrder)
+        .filter(AddOrder.Vendor_ID == usuario_logado["id"])
+        .all()
+    )
+
+    valor_hoje = 0
+    valor_mes = 0
+    valor_total = 0
+
+    for pedido in pedidos:
+
+        if not pedido.Valor:
+            continue
+
+        try:
+            valor = float(pedido.Valor)
+        except (ValueError, TypeError):
+            continue
+
+        # ------------------------------------------
+        # CALCULAR TOTAL
+        # ------------------------------------------
+        valor_total += valor
+
+        if pedido.CREATED_AT:
+
+            # ------------------------------------------
+            # CALCULAR VENDAS DE HOJE
+            # ------------------------------------------
+            if pedido.CREATED_AT.date() == hoje:
+                valor_hoje += valor
+
+            # ------------------------------------------
+            # CALCULAR VENDAS DO MÊS
+            # ------------------------------------------
+            if (
+                pedido.CREATED_AT.month == hoje.month
+                and pedido.CREATED_AT.year == hoje.year
+            ):
+                valor_mes += valor
+
+    return {
+        "hoje": round(valor_hoje, 2),
+        "mes": round(valor_mes, 2),
+        "total": round(valor_total, 2)
+    }
+# ------------------------------------------
 # Tabela Gantt
-# =========================
+# ------------------------------------------
 @app.get("/dashboard/gantt")
 def dashboard_gantt(
     db: Session = Depends(get_db),
@@ -832,13 +923,13 @@ def dashboard_gantt(
     return list(vendedores.values())
 
 
-# =========================
+# ------------------------------------------
 # ENDPOINT PARA ATUAÇÃO NAS FILAS
-# =========================
+# ------------------------------------------
 
-# =========================
+# ------------------------------------------
 # ENTRAR NA FILA
-# =========================
+# ------------------------------------------
 @app.post("/fila/entrar")
 def entrar_fila(
     db: Session  = Depends (get_db),
@@ -874,9 +965,9 @@ def entrar_fila(
         "mensagem":"Entrou na fila com sucesso"
     }
 
-# =========================
+# ------------------------------------------
 # RECEBER POSIÇÃO NA FILA
-# =========================
+# ------------------------------------------
 @app.get("/fila/minha-posicao")
 def minha_posicao(
     db: Session = Depends(get_db),
@@ -906,9 +997,9 @@ def minha_posicao(
         "posicao": pessoas_antes + 1
     }
 
-# =========================
+# ------------------------------------------
 # SAIR DA FILA
-# =========================
+# ------------------------------------------
 @app.post("/fila/sair")
 def sair_fila(
     db: Session = Depends(get_db),
@@ -932,9 +1023,9 @@ def sair_fila(
     return {
         "mensagem":"Saiu da fila com sucesso"
     }
-# =========================
+# ------------------------------------------
 # ATIVAÇÃO DO BOTÃO LOJA CHEIA
-# =========================
+# ------------------------------------------
 @app.post("/loja-cheia")
 def criar_pendencia(   
     payload: UpdatePendenciaCreate,
@@ -957,9 +1048,9 @@ def criar_pendencia(
         "id": nova.id
     }
 
-# =========================
+# ------------------------------------------
 # VERIFICAÇÃO SE USUARIOS AINDA ESTA ATIVO
-# =========================
+# ------------------------------------------
 @app.post("/fila/heartbeat")
 def heartbeat(
     db: Session = Depends(get_db),
@@ -988,9 +1079,9 @@ def heartbeat(
 
     return {"Atualização da ultima atividade": True}
 
-# =========================
+# ------------------------------------------
 # APRESENTAÇÃO EM LISTA DE USUARIO DA FILA
-# =========================
+# ------------------------------------------
 @app.get("/fila")
 def listar_fila(
     db: Session = Depends(get_db),
@@ -1022,9 +1113,9 @@ def listar_fila(
 
     # return fila
     
-# =========================
+# ------------------------------------------
 # TELA DE HISTÓRICO DA FILA
-# =========================
+# ------------------------------------------
 @app.get("/fila/historico")
 def ultimos_dia_anterior(
     db: Session = Depends(get_db),
@@ -1060,13 +1151,13 @@ def ultimos_dia_anterior(
         for fila, usuario in historicoFila
 
     ]
-# =========================
+# ------------------------------------------
 # ENDPOINT'S DA PAGINA DE PENDENCIA
-# =========================
+# ------------------------------------------
 
-# =========================
+# ------------------------------------------
 # COLETAR PENDENCIAS NO BANCO DE DADOS
-# =========================
+# ------------------------------------------
 @app.get("/pendencias")
 def listarpendencias( 
     db: Session = Depends(get_db),
@@ -1079,9 +1170,9 @@ def listarpendencias(
         .all()
     )
 
-# =========================
+# ------------------------------------------
 # INATIVAR PENDENCIAS
-# =========================
+# ------------------------------------------
 @app.put("/pendencias/{id}/inativar")
 def inativar_pendencia(
     id: int,
@@ -1106,13 +1197,13 @@ def inativar_pendencia(
     return {"mensage":"Pendência atualizada"}
 
 
-# =========================
+# ------------------------------------------
 # PAGINA DE ORÇAMENTO FUTURO
-# =========================
+# ------------------------------------------
 
-# =========================
+# ------------------------------------------
 # CRIAR ORÇAMENTO FUTURO
-# =========================
+# ------------------------------------------
 @app.post("/orcamento-futuro")
 def criar_orcamento_futuro(
     payload: schemas.OrcamentoFuturoCreate,
@@ -1154,9 +1245,9 @@ def criar_orcamento_futuro(
 
     return novo_registro
 
-# =========================
+# ------------------------------------------
 # CARREGAR ORÇAMENTOS FUTUROS
-# =========================
+# ------------------------------------------
 @app.get("/carregar-orcamento-futuro")
 def listarfuturos( 
     db: Session = Depends(get_db),

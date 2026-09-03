@@ -63,7 +63,6 @@ export class DashboardService {
         `${this.api}/dashboard/valores-orcamentos`
       );
     }
-
     // -----------------------------------------------
     // CRIAÇÃO DO GRAFICO GANTT
     // -----------------------------------------------

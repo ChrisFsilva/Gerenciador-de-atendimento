@@ -24,6 +24,7 @@ from app.models import (
     UpdatePendencia,
     OrcamentoFuturo,
     AddOrder,
+    NewFollow,
 )
 
 from app.schemas import (AtualizacaoLoteRequest)
@@ -789,6 +790,7 @@ def dashboard_atendimentos(
                 and registro.created_at.year == hoje.year
             ):
                 orcamentos_mes += 1
+                
 
     # --------------------------------------------
     # CALCULO DE CONVERSÃO ATENDIMENTO X ORÇAMENTO
@@ -817,6 +819,68 @@ def dashboard_atendimentos(
         "venda_ato": venda_ato,
 
     }
+
+@app.get("/dashboard/follows")
+def dashboard_follows(
+    db: Session = Depends(get_db),
+    usuario_logado: Usuario = Depends(obter_usuario)  
+):
+    # -------------------------------------------------
+    # -- BUSCA OS FOLLOWS E RELACIONA COM O VENDEDOR --
+    # -------------------------------------------------
+    query = (
+        db.query(NewFollow)
+        .join(
+            Usuario,
+            NewFollow.Vendor_ID == Usuario.id
+        )
+    )
+    # -------------------------------------------------
+    # --- VERIFICAR AUTORIZAÇÃO DE ACESSO DO USUARIO --
+    # -------------------------------------------------
+    query = filtro_permissao(
+        query,
+        usuario_logado,
+        Usuario.loja,
+        NewFollow.Vendor_ID
+    )
+    
+    follows = query.all()
+
+    # -------------------------------------------------
+    # ------------ CRIAÇÃO DE VARIAVEIS ---------------
+    # -------------------------------------------------
+    hoje = datetime.now().date()
+    follows_hoje = 0
+    follows_mes = 0
+
+    for follow in follows:
+
+        # ------------------------------------------
+        # ------- CALCULO DE ATENDIMENTOS ----------
+        # ------------------------------------------
+        if follow.Date_Agenda:
+
+            # -------------------------------------------
+            # -- CALCULO DE ATENDIMENTOS DO DIA (HOJE) --
+            # -------------------------------------------
+            if follow.Date_Agenda.date() == hoje:
+                follows_hoje += 1
+
+            # ------------------------------------------
+            # ----- CAUCULO DE ATENDIMENTOS DO MÊS -----
+            # ------------------------------------------
+            if (
+                follow.Date_Agenda.month == hoje.month
+                and follow.Date_Agenda.year == hoje.year
+            ):
+                follows_mes += 1
+    return {
+        "follows": follows,
+        "follows_hoje": follows_hoje,
+        "follows_mes": follows_mes,
+    }
+
 # ------------------------------------------
 # COLETAR E CALCULAR VALORES DE VENDA
 # ------------------------------------------

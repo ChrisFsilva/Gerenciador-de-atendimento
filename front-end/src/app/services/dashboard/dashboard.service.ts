@@ -63,6 +63,17 @@ export class DashboardService {
         `${this.api}/dashboard/valores-orcamentos`
       );
     }
+
+    
+    // -----------------------------------------------
+    // RETORNO DO CALCULO DE QUANTIDADE DOS FOLLOWS
+    // -----------------------------------------------
+    obterFollows() {
+      return this.http.get<any>
+        (`${this.api}/dashboard/follows`
+          
+        );
+    }
     // -----------------------------------------------
     // CRIAÇÃO DO GRAFICO GANTT
     // -----------------------------------------------

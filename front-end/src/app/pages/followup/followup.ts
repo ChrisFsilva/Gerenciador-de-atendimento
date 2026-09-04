@@ -183,7 +183,23 @@ export class Followup implements OnInit {
 
     this.estagiosAmanha = this.contarEstagios(this.followsnextday);
   }
+  // | ------------------------------------- |
+  // | - FUNÇÃO PARA MODELAR VALOR EM REAL - |
+  // | ------------------------------------- |
 
+  formatarValor(valor: number | string): string {
+    const numero = Number(valor);
+
+    if (isNaN(numero)) {
+      return 'R$ 0,00';
+    }
+
+    return 'R$ ' + numero
+      .toFixed(2)
+      .replace('.', ',')
+      .replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  }
+  
   // | ------------------------------------ |
   // | ---- EXPANDIR CARD SELECIONADO ----- |
   // | ------------------------------------ |

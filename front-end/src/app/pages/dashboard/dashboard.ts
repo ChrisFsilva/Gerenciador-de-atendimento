@@ -5,11 +5,6 @@
   import { DashboardService } from '../../services/dashboard/dashboard.service';
   import { ChangeDetectorRef } from '@angular/core';
 
-  import { registerLocaleData } from '@angular/common';
-  import localePt from '@angular/common/locales/pt';
-
-  registerLocaleData(localePt, 'pt-BR');
-
   @Component({
     selector: 'app-dashboard',
     standalone: true,

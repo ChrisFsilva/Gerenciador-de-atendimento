@@ -812,7 +812,7 @@
 
                     <p>
                         <strong>Valor do orçamento:</strong>
-                        R$ {{ followSelecionado?.valor }}
+                        {{ formatarValor(followSelecionado?.valor ?? 0) }}
                     </p>
                 </div>
             </div>

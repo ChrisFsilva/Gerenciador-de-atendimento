@@ -653,20 +653,20 @@ def dashboard_cards(
     follows_mes = 0
 
     for follow in follows:
+        if follow.Status == "Em follow":
+            if not follow.data_agendamento:
+                continue
 
-        if not follow.data_agendamento:
-            continue
+            data = follow.data_agendamento
 
-        data = follow.data_agendamento
+            if data == hoje:
+                follows_hoje += 1
 
-        if data == hoje:
-            follows_hoje += 1
+            if data >= ultimos_15_dias:
+                follows_15_dias += 1
 
-        if data >= ultimos_15_dias:
-            follows_15_dias += 1
-
-        if data >= inicio_mes:
-            follows_mes += 1
+            if data >= inicio_mes:
+                follows_mes += 1
 
     return {
 
@@ -850,9 +850,9 @@ def dashboard_follows(
     # -------------------------------------------------
     # ------------ CRIAÇÃO DE VARIAVEIS ---------------
     # -------------------------------------------------
-    hoje = datetime.now().date()
-    follows_hoje = 0
-    follows_mes = 0
+    data = datetime.now().date()
+    hoje = 0
+    mes = 0
 
     for follow in follows:
 
@@ -864,21 +864,21 @@ def dashboard_follows(
             # -------------------------------------------
             # -- CALCULO DE ATENDIMENTOS DO DIA (HOJE) --
             # -------------------------------------------
-            if follow.Date_Agenda.date() == hoje:
-                follows_hoje += 1
+            if follow.Date_Agenda.date() == data:
+                hoje += 1
 
             # ------------------------------------------
             # ----- CAUCULO DE ATENDIMENTOS DO MÊS -----
             # ------------------------------------------
             if (
-                follow.Date_Agenda.month == hoje.month
-                and follow.Date_Agenda.year == hoje.year
+                follow.Date_Agenda.month == data.month
+                and follow.Date_Agenda.year == data.year
             ):
-                follows_mes += 1
+                mes += 1
     return {
-        "follows": follows,
-        "follows_hoje": follows_hoje,
-        "follows_mes": follows_mes,
+        # "follows": follows,
+        "follows_hoje": hoje,
+        "follows_mes": mes,
     }
 
 # ------------------------------------------

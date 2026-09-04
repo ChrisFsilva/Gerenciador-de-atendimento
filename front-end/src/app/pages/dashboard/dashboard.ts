@@ -53,6 +53,12 @@
       total: 0
     };
 
+    follow = {
+        total: 0,
+        hoje: 0,
+        mes: 0
+      };
+
     formatarValor(valor: number | string): string {
       const numero = Number(valor);
 

@@ -853,6 +853,10 @@ def dashboard_follows(
     data = datetime.now().date()
     hoje = 0
     mes = 0
+    nao_realizado = 0
+    desistencia = 0
+    vendido = 0
+    concorrente = 0
 
     for follow in follows:
 
@@ -875,10 +879,26 @@ def dashboard_follows(
                 and follow.Date_Agenda.year == data.year
             ):
                 mes += 1
+        
+                if follow.Status == "Em follow":
+                    nao_realizado += 1
+
+                if follow.Status == "Desistiu da compra":
+                    desistencia += 1
+
+                if follow.Status == "Encerramento Brentwood":
+                    vendido += 1
+
+                if follow.Status == "Encerramento concorrente":
+                    concorrente += 1
     return {
-        # "follows": follows,
+
         "follows_hoje": hoje,
         "follows_mes": mes,
+        "naoRealizado": nao_realizado,
+        "desistencia": desistencia,
+        "vendido": vendido,
+        "concorrente": concorrente,
     }
 
 # ------------------------------------------

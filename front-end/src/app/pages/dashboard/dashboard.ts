@@ -54,9 +54,12 @@
     };
 
     follow = {
-        total: 0,
         hoje: 0,
-        mes: 0
+        mes: 0,
+        naoRealizado: 0,
+        desistencia: 0,
+        vendido: 0,
+        concorrente: 0,
       };
 
     formatarValor(valor: number | string): string {
@@ -175,6 +178,28 @@
             mes: Number(res.mes),
             total: Number(res.total),
           };
+
+          this.cdr.detectChanges();
+        });
+
+      // -----------------------------------
+      // OBTER QUANTIDADE DE FOLLOWS 
+      //------------------------------------
+      this.dashboardService
+        .obterFollows()
+        .subscribe(res => {
+
+          this.follow = {
+            hoje: Number(res.follows_hoje),
+            mes: Number(res.follows_mes),
+            naoRealizado: Number(res.follows_naoRealizado),
+            desistencia: Number(res.follows_desistencia),
+            vendido: Number(res.follows_vendido),
+            concorrente: Number(res.follow_concorrente),
+
+          };
+
+          console.log('FOLLOWS:', res);
 
           this.cdr.detectChanges();
         });

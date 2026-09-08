@@ -860,6 +860,8 @@ def dashboard_follows(
 
     for follow in follows:
 
+        print("STATUS DO FOLLOW:", repr(follow.Status))
+        
         # ------------------------------------------
         # ------- CALCULO DE ATENDIMENTOS ----------
         # ------------------------------------------
@@ -889,7 +891,7 @@ def dashboard_follows(
                 if follow.Status == "Encerramento Brentwood":
                     vendido += 1
 
-                if follow.Status == "Encerramento concorrente":
+                if follow.Status == "Encerramento concorrencia":
                     concorrente += 1
     return {
 

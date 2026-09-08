@@ -174,7 +174,7 @@
   <div class="follow-card title-follow">
 
     <div class="card-header follow-realizados" >
-      <span>Histórico de Follows </span>
+      <span>Histórico de Follows (Mês) </span>
       <i class="fa-solid fa-square-phone"></i>
     </div>
     <div class="follow-row follow-realizados">
@@ -194,7 +194,7 @@
     <div class="follow-row follow-realizados">
       <div class="follow-title"> 
         <span class="periodo">
-          Este mês
+          Total mês
         </span>
       </div>
       <div>
@@ -215,45 +215,50 @@
         <strong>
           {{ follow.naoRealizado }}
         </strong>
-        <i class="fa-solid fa-users-line"></i>
+        <i class="fa-solid fa-fire"></i>
       </div>
     </div>
 
     <div class="follow-row follow-realizados">
-      <div class="follow-row follow-realizados">
-        <div class="follow-title"> 
-          <span class="periodo">
-            Desistencias
-          </span>
-        </div>
-        <div>
-          <strong>
-            {{ follow.desistencia }}
-          </strong>
-        </div>
+      <div class="card-header follow-realizados" >
+        <span>Follows encerrado</span>
       </div>
-            <div class="follow-row follow-realizados">
-        <div class="follow-title"> 
-          <span class="periodo">
-            Vendidos
-          </span>
+      <div>
+        <div class="follow-row follow-realizados">
+          <div class="follow-title"> 
+            <span class="periodo">
+              Desistencias
+            </span>
+          </div>
+          <div>
+            <strong>
+              {{ follow.desistencia }}
+            </strong>
+          </div>
         </div>
-        <div>
-          <strong>
-            {{ follow.vendido }}
-          </strong>
+              <div class="follow-row follow-realizados">
+          <div class="follow-title"> 
+            <span class="periodo">
+              Vendidos
+            </span>
+          </div>
+          <div>
+            <strong>
+              {{ follow.vendido }}
+            </strong>
+          </div>
         </div>
-      </div>
-            <div class="follow-row follow-realizados">
-        <div class="follow-title"> 
-          <span class="periodo">
-            Concorrência
-          </span>
-        </div>
-        <div>
-          <strong>
-            {{ follow.concorrente }}
-          </strong>
+              <div class="follow-row follow-realizados">
+          <div class="follow-title"> 
+            <span class="periodo">
+              Concorrência
+            </span>
+          </div>
+          <div>
+            <strong>
+              {{ follow.concorrente }}
+            </strong>
+          </div>
         </div>
       </div>
     </div>

@@ -192,10 +192,10 @@
           this.follow = {
             hoje: Number(res.follows_hoje),
             mes: Number(res.follows_mes),
-            naoRealizado: Number(res.follows_naoRealizado),
-            desistencia: Number(res.follows_desistencia),
-            vendido: Number(res.follows_vendido),
-            concorrente: Number(res.follow_concorrente),
+            naoRealizado: Number(res.naoRealizado),
+            desistencia: Number(res.desistencia),
+            vendido: Number(res.vendido),
+            concorrente: Number(res.concorrente),
 
           };
 

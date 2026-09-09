@@ -29,7 +29,7 @@ export class Login {
     private toastService: ToastService) {}
 
   login() {
-    console.log(`Click Login: ${this.email} E-mail ${this.senha}`);
+    console.log(`Click Email: ${this.email} Senha: ${this.senha}`);
 
     this.authService.login(
       this.email,
@@ -47,13 +47,10 @@ export class Login {
           'usuario',
           JSON.stringify(res.usuario)
         );
-
-
-          console.log('INICIANDO TRANSFERENCIA PARA HOME');
           this.toastService.success('Login realizado com sucesso')
           this.router.navigate(['/home'])
             .then(resultado => {
-              console.log('NAVEGOU?', resultado);
+              console.log(resultado);
             })
             .catch(erro => {
               console.error('ERRO NAVEGAÇÃO', erro);

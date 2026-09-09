@@ -150,6 +150,12 @@ def login(
     db: Session = Depends(get_db)
     ):
 
+    print("========== LOGIN RECEBIDO ==========")
+    print(f"EMAIL: [{dados.email}]")
+    print(f"SENHA: [{dados.senha}]")
+    print("=====================================")
+
+
     usuario = db.query(
         models.Usuario
     ).filter(

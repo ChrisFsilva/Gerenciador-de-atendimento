@@ -40,7 +40,7 @@ def encerrar_fila_diariamente():
 scheduler.add_job(
     encerrar_fila_diariamente,
     CronTrigger(
-        hour=23,
+        hour=10,
         minute=0
     )
 )

@@ -55,7 +55,8 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI(
   root_path="/api"
   )
-# scheduler.start()
+
+scheduler.start()
 # ------------------------------------------
 # CORS
 # ------------------------------------------

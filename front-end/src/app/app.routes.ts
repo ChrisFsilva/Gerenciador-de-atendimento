@@ -11,6 +11,7 @@ import { Pendencias } from './pages/pendencias/pendencias';
 import { Futuro } from './pages/futuro/futuro';
 import { Historico } from './pages/historico/historico';
 import { AreaGerencial } from './pages/area-gerencial/area-gerencial';
+import { InicioGerencial } from './pages/area-gerencial/inicio-gerencial/inicio-gerencial';
 import { authGuard } from './guards/auth.guard';
 import { roleGuard } from './guards/role.guard';
 
@@ -88,6 +89,10 @@ export const routes: Routes = [
                 path: '',
                 redirectTo: 'inicio',
                 pathMatch: 'full'
+            },
+            {
+                path: 'inicio',
+                component: InicioGerencial
             }
         ]
     }

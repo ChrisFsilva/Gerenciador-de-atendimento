@@ -1,0 +1,27 @@
+<div class="infotable">
+    <table class="w-full">
+        <thead>
+            <tr>
+                <th>Entrada</th>
+                <th>Usuário</th>
+                <th>Última atividade</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let usuario of usuariosFila">
+                <td>
+                    {{ usuario.entrada | date:'dd/MM/yyyy HH:mm' }}
+                </td>
+
+                <td>
+                    {{ usuario.nome }}
+                </td>
+
+                <td>
+                    {{ usuario.ultima_atividade | date:'HH:mm' }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,44 @@
+<div class="app-container">
+
+    <aside class="sidebar-menu">
+
+        <a
+            routerLink="/gerencial/fila"
+            routerLinkActive="active"
+            class="menu-item">
+
+            <span class="menu-icon">👥</span>
+            <span>FILA</span>
+
+        </a>
+
+        <a
+            routerLink="/gerencial/follows"
+            routerLinkActive="active"
+            class="menu-item">
+
+            <span class="menu-icon">📋</span>
+            <span>FOLLOWS</span>
+
+        </a>
+
+        <a
+            routerLink="/gerencial/dashboards"
+            routerLinkActive="active"
+            class="menu-item">
+
+            <span class="menu-icon">📈</span>
+            <span>DASHBOARDS</span>
+
+        </a>
+
+    </aside>
+
+
+    <main class="main-content">
+
+        <router-outlet></router-outlet>
+
+    </main>
+
+</div>

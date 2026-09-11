@@ -1,4 +1,10 @@
 import { Routes } from '@angular/router';
+
+//--------------------------------------------------
+//------------ PÁGINAS IMPORTADAS ------------------
+//--------------------------------------------------
+//------------- AREA DO VENDEDOR -------------------
+//--------------------------------------------------
 import { Login } from './pages/login/login';
 import { Home } from './pages/home/home';
 import { Fila } from './pages/fila/fila';
@@ -10,8 +16,17 @@ import { LojaCheia } from './pages/lojaCheia/lojaCheia';
 import { Pendencias } from './pages/pendencias/pendencias';
 import { Futuro } from './pages/futuro/futuro';
 import { Historico } from './pages/historico/historico';
+
+//--------------------------------------------------
+//-------------- AREA GERENCIAL --------------------
+//--------------------------------------------------
+import { FilaGerencial } from './pages/area-gerencial/fila/fila';
 import { AreaGerencial } from './pages/area-gerencial/area-gerencial';
 import { InicioGerencial } from './pages/area-gerencial/inicio-gerencial/inicio-gerencial';
+
+//--------------------------------------------------
+//------------ MÓDULO DE SEGURANÇA -----------------
+//--------------------------------------------------
 import { authGuard } from './guards/auth.guard';
 import { roleGuard } from './guards/role.guard';
 
@@ -91,8 +106,8 @@ export const routes: Routes = [
                 pathMatch: 'full'
             },
             {
-                path: 'inicio',
-                component: InicioGerencial
+                path: 'fila',
+                component: FilaGerencial
             }
         ]
     }

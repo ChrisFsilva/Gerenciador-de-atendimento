@@ -26,6 +26,7 @@ export class FilaGerencial implements OnInit {
   carregarFila(): void {
     this.filaService.listarFila().subscribe({
       next:(res) => {
+        this.usuariosFila = res;
         this.cdr.detectChanges();
       },
       error: (erro) => {

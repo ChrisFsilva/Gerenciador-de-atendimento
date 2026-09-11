@@ -22,7 +22,6 @@ import { Historico } from './pages/historico/historico';
 //--------------------------------------------------
 import { FilaGerencial } from './pages/area-gerencial/fila/fila';
 import { AreaGerencial } from './pages/area-gerencial/area-gerencial';
-import { InicioGerencial } from './pages/area-gerencial/inicio-gerencial/inicio-gerencial';
 
 //--------------------------------------------------
 //------------ MÓDULO DE SEGURANÇA -----------------
@@ -43,6 +42,9 @@ export const routes: Routes = [
     {
         path: 'home',
         component: Home,
+        data: {
+            roles: ['vendedor']
+        },
         children: [
             {
                 path: '',
@@ -102,7 +104,7 @@ export const routes: Routes = [
         children: [
             {
                 path: '',
-                redirectTo: 'inicio',
+                redirectTo: 'fila',
                 pathMatch: 'full'
             },
             {

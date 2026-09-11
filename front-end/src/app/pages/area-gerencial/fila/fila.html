@@ -1,25 +1,19 @@
 <div class="infotable">
     <table class="w-full">
-        <thead>
-            <tr>
-                <th>Entrada</th>
-                <th>Usuário</th>
-                <th>Última atividade</th>
-            </tr>
-        </thead>
 
-        <tbody>
+        <tbody class="filaSequency">
             <tr *ngFor="let usuario of usuariosFila">
+                
                 <td>
-                    {{ usuario.entrada | date:'dd/MM/yyyy HH:mm' }}
+                    <b>Usuário:</b> {{ usuario.nome }}
                 </td>
 
                 <td>
-                    {{ usuario.nome }}
+                    <b>Entrada:</b> {{ usuario.entrada | date:'dd/MM/yyyy HH:mm' }}
                 </td>
 
                 <td>
-                    {{ usuario.ultima_atividade | date:'HH:mm' }}
+                    <b>Última atividade:</b> {{ usuario.ultima_atividade | date:'dd/MM/yyyy HH:mm' }}
                 </td>
             </tr>
         </tbody>

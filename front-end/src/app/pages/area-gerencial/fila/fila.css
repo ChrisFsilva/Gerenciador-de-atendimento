@@ -1,0 +1,28 @@
+.filaSequency{
+    display: flex;
+    flex-direction: column;
+}
+
+
+tr{
+    border-radius: 20px;
+    color: aliceblue;
+    background-color: brown ;
+    margin: 15px;
+    display: flex;
+    height: 100px;
+    width: 375px;
+    padding: 50px;
+    text-align: left;
+    justify-content: center;
+    box-shadow: 10px 10px 10px 0px rgba(17,17,17,0.5)
+}
+
+tbody tr {
+    display: flex;
+    flex-direction: column;
+}
+
+tbody td {
+    width: 100%;
+}

@@ -26,7 +26,10 @@ export class FilaGerencial implements OnInit {
   carregarFila(): void {
     this.filaService.listarFila().subscribe({
       next:(res) => {
-        this.usuariosFila = res;
+        this.usuariosFila = res.sort((a, b) => {
+            return new Date(a.entrada).getTime() - new Date(b.entrada).getTime();
+        });
+
         this.cdr.detectChanges();
       },
       error: (erro) => {

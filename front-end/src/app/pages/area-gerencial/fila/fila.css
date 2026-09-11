@@ -3,6 +3,17 @@
     flex-direction: column;
 }
 
+.infotable tbody {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.infotable tbody tr {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 tr{
     border-radius: 20px;

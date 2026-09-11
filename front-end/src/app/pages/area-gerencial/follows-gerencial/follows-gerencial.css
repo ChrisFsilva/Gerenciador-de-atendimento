@@ -1,0 +1,145 @@
+/* ---------------------------------------- */
+/* ------------ CONTAINER ----------------- */
+/* ---------------------------------------- */
+
+.follows-container {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+/* ---------------------------------------- */
+/* ------------- CABEÇALHO ---------------- */
+/* ---------------------------------------- */
+
+.page-header {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.page-header h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: #222;
+}
+
+
+/* ---------------------------------------- */
+/* ------------- CARDS -------------------- */
+/* ---------------------------------------- */
+
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.follow-card {
+    padding: 18px 12px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(42, 165, 114, 0.5);
+    text-align: center;
+    background: #ffffff;
+}
+
+.card-atraso {
+    border: 1px solid #e93f3f;
+
+}
+
+.card-hoje{
+    border: 1px solid rgb(42, 110, 165);
+}
+
+.card-mes{
+    border: 1px solid #e9bc3f;
+}
+
+.card-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.card-value {
+    font-size: 36px;
+    font-weight: 700;
+}
+
+
+/* ---------------------------------------- */
+/* -------- ÍNDICE DE VENDEDORES ---------- */
+/* ---------------------------------------- */
+
+.indice-card {
+    padding: 15px;
+    box-sizing: border-box;
+    border: 1px solid #3fe969;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(42, 165, 114, 0.5);
+    background: #ffffff;
+}
+
+.indice-header {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.indice-header h2 {
+    margin: 0;
+    font-size: 23px;
+    font-weight: 700;
+    
+}
+
+
+/* ---------------------------------------- */
+/* --------------- TABELA ----------------- */
+/* ---------------------------------------- */
+
+.indice-table {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.indice-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.indice-table th {
+    padding: 12px 10px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #333;
+    border-bottom: 2px solid #3fe969;
+    text-align: center;
+}
+
+.indice-table th:first-child {
+    text-align: left;
+}
+
+.indice-table td {
+    padding: 12px 10px;
+    font-size: 14px;
+    color: #333;
+    text-align: center;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.indice-table td:first-child {
+    text-align: left;
+    font-weight: 600;
+}
+
+.indice-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.indice-table tbody tr:hover {
+    background-color: #70cc78;
+}

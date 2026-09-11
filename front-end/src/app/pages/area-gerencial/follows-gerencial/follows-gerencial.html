@@ -1,0 +1,156 @@
+<div class="follows-container">
+
+    <!-- TÍTULO -->
+
+    <div class="page-header">
+        <h1>DESEMPENHO DA LOJA</h1>
+    </div>
+
+
+    <!-- CARDS -->
+
+    <div class="cards-container">
+
+        <!-- FOLLOWS EM ATRASO -->
+
+        <div class="follow-card card-atraso">
+
+            <div class="card-title">
+                Follows em atraso
+            </div>
+
+            <div class="card-value">
+                {{ followsAtrasados }}
+            </div>
+
+        </div>
+
+
+        <!-- FOLLOWS HOJE -->
+
+        <div class="follow-card card-hoje">
+
+            <div class="card-title">
+                Follows hoje
+            </div>
+
+            <div class="card-value">
+                {{ followsHoje }}
+            </div>
+
+        </div>
+
+
+        <!-- FOLLOWS ESTE MÊS -->
+
+        <div class="follow-card card-mes">
+
+            <div class="card-title">
+                Follows este mês
+            </div>
+
+            <div class="card-value">
+                {{ followsMes }}
+            </div>
+
+        </div>
+    
+    </div>
+
+
+    <!-- ÍNDICE DE VENDEDORES -->
+
+    <div class="indice-card">
+
+        <div class="indice-header">
+            <h2>Índice de vendedores</h2>
+        </div>
+
+
+        <div class="indice-table">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Vendedor</th>
+
+                        <th>Follows atrasados</th>
+
+                        <th>Follows hoje</th>
+
+                        <th>Follows este mês</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    <tr *ngFor="let vendedor of vendedores">
+
+                        <td>
+                            {{ vendedor.nome }}
+                        </td>
+
+                        <td>
+                            {{ vendedor.atrasados }}
+                        </td>
+
+                        <td>
+                            {{ vendedor.hoje }}
+                        </td>
+
+                        <td>
+                            {{ vendedor.mes }}
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <div class="cards-container">
+
+
+        <!-- PENDENCIAS -->
+
+        <div class="follow-card card-mes">
+
+            <div class="card-title">
+                Pendencias
+            </div>
+
+            <div class="card-value">
+                {{ followsMes }}
+            </div>
+
+        </div>
+
+    
+
+        <!-- PENDENCIAS -->
+
+        <div class="follow-card card-mes">
+
+            <div class="card-title">
+                Agendamentos futuro
+            </div>
+
+            <div class="card-value">
+                {{ followsMes }}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

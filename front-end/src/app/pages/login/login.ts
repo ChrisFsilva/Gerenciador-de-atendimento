@@ -48,14 +48,16 @@ export class Login {
           JSON.stringify(res.usuario)
         );
           this.toastService.success('Login realizado com sucesso')
-          this.router.navigate(['/home'])
-            .then(resultado => {
-              console.log(resultado);
-            })
-            .catch(erro => {
-              console.error('ERRO NAVEGAÇÃO', erro);
-            });
-
+          if (res.usuario.perfil === 'vendedor') {
+            this.router.navigate(['/home']);
+          } 
+          else if (
+            res.usuario.perfil === 'gerente' ||
+            res.usuario.perfil === 'admin' ||
+            res.usuario.perfil === 'diretoria'
+          ) {
+            this.router.navigate(['/gerencial']);
+          }
       },
 
       error: (erro) => {

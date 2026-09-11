@@ -42,6 +42,7 @@ export const routes: Routes = [
     {
         path: 'home',
         component: Home,
+        canActivate: [authGuard, roleGuard],
         data: {
             roles: ['vendedor']
         },

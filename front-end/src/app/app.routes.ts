@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { Login } from './pages/login/login'
+import { Login } from './pages/login/login';
 import { Home } from './pages/home/home';
 import { Fila } from './pages/fila/fila';
 import { Followup } from './pages/followup/followup';
@@ -10,74 +10,85 @@ import { LojaCheia } from './pages/lojaCheia/lojaCheia';
 import { Pendencias } from './pages/pendencias/pendencias';
 import { Futuro } from './pages/futuro/futuro';
 import { Historico } from './pages/historico/historico';
+import { AreaGerencial } from './pages/area-gerencial/area-gerencial';
 import { authGuard } from './guards/auth.guard';
+import { roleGuard } from './guards/role.guard';
 
 export const routes: Routes = [
-    /* Definir a página de login como inicial */
     {
-        path:'',
-        redirectTo:'login',
-        pathMatch:'full'
+        path: '',
+        redirectTo: 'login',
+        pathMatch: 'full'
     },
     {
-        path:'login',
+        path: 'login',
         component: Login
     },
     {
-        path:'home',
+        path: 'home',
         component: Home,
-        // Componentes da página home
         children: [
-            // Tela inicial ao ser carregada dentro do Home
             {
-                path:'',
-                redirectTo:'fila',
+                path: '',
+                redirectTo: 'fila',
                 pathMatch: 'full'
-                
             },
             {
-                path:'fila',
+                path: 'fila',
                 component: Fila,
                 canActivate: [authGuard]
             },
             {
-                path:'followup',
+                path: 'followup',
                 component: Followup,
-                canActivate: [authGuard]                
+                canActivate: [authGuard]
             },
             {
-                path:'dashboard',
+                path: 'dashboard',
                 component: Dashboard,
                 canActivate: [authGuard]
             },
             {
-                path:'gamificacao',
+                path: 'gamificacao',
                 component: Gamificacao,
                 canActivate: [authGuard],
                 canDeactivate: [GamificacaoGuard]
-                
             },
             {
-                path:'lojaCheia',
+                path: 'lojaCheia',
                 component: LojaCheia,
                 canActivate: [authGuard]
             },
             {
-                path:'pendencias',
+                path: 'pendencias',
                 component: Pendencias,
                 canActivate: [authGuard]
             },
             {
-                path:'futuro',
+                path: 'futuro',
                 component: Futuro,
                 canActivate: [authGuard]
             },
             {
-                path:'historico',
+                path: 'historico',
                 component: Historico,
                 canActivate: [authGuard]
             }
-                
+        ]
+    },
+    {
+        path: 'gerencial',
+        component: AreaGerencial,
+        canActivate: [authGuard, roleGuard],
+        data: {
+            roles: ['gerente', 'admin', 'diretoria']
+        },
+        children: [
+            {
+                path: '',
+                redirectTo: 'inicio',
+                pathMatch: 'full'
+            }
         ]
     }
 ];

@@ -1001,22 +1001,24 @@ def dashboard_gantt(
     resultados = query.all()
     vendedores = {}
 
-    for follow, vendedor in resultados:
+    for follow, vendedor, cliente in resultados:
         if vendedor.nome not in vendedores:
             vendedores[vendedor.nome] = {
                 "vendedor": vendedor.nome,
                 "clientes": {}
             }
-        cliente = follow.cliente
 
-        if cliente not in vendedores[vendedor.nome]["clientes"]:
-            vendedores[vendedor.nome]["clientes"][cliente] = []
-        vendedores[vendedor.nome]["clientes"][cliente].append({
-        "id":follow.id,
-        "data_agendamento": follow.data_agendamento,
-        "prazo_final": follow.prazo_final,
-        "status": follow.status,
-        "estagio": follow.estagio
+        nome_cliente = cliente.Name
+
+        if nome_cliente not in vendedores[vendedor.nome]["clientes"]:
+            vendedores[vendedor.nome]["clientes"][nome_cliente] = []
+
+        vendedores[vendedor.nome]["clientes"][nome_cliente].append({
+            "id": follow.id,
+            "data_agendamento": follow.Date_Agenda,
+            "prazo_final": follow.Final_Date,
+            "status": follow.Status,
+            "estagio": follow.Estagio
         })
 
     return list(vendedores.values())

@@ -207,16 +207,16 @@
       // -----------------------------------
       // CRIAÇÃO DE GRÁFICO GANTT
       //------------------------------------
-      this.dashboardService
-      .obterGantt()
-      .subscribe(res => {
-        console.log('Gantt');
-        console.log(res);
+      // this.dashboardService
+      // .obterGantt()
+      // .subscribe(res => {
+      //   console.log('Gantt');
+      //   console.log(res);
 
-        this.ganttData = res;
+      //   this.ganttData = res;
 
-        this.cdr.detectChanges();
-      });
+      //   this.cdr.detectChanges();
+      // });
     }
     
     calcularLarguraFollow(

@@ -48,12 +48,12 @@ export class DashboardService {
     // RETORNO DAS INFORMAÇÕES QUE ALIMENTARAM O GRAFICO GANTT
     // -----------------------------------------------
     
-    obterGantt() {
-      return this.http.get<any>(
-          `${this.api}/dashboard/gantt`,
-      );
+    // obterGantt() {
+    //   return this.http.get<any>(
+    //       `${this.api}/dashboard/gantt`,
+    //   );
 
-    }
+    // }
 
     // -----------------------------------------------
     // RETORNO DO CALCULO DOS VALORES DE ORÇAMENTO
@@ -77,38 +77,38 @@ export class DashboardService {
     // -----------------------------------------------
     // CRIAÇÃO DO GRAFICO GANTT
     // -----------------------------------------------
-    montarEstruturaGantt(dados: any[]) {
-    const mapa = new Map();
+    // montarEstruturaGantt(dados: any[]) {
+    // const mapa = new Map();
 
-    dados.forEach(({ vendedor, cliente, follow }) => {
-      if (!mapa.has(vendedor)) {
-        mapa.set(vendedor, {
-          id: vendedor,
-          name: vendedor,
-          children: new Map()
-        });
-      }
+    // dados.forEach(({ vendedor, cliente, follow }) => {
+    //   if (!mapa.has(vendedor)) {
+    //     mapa.set(vendedor, {
+    //       id: vendedor,
+    //       name: vendedor,
+    //       children: new Map()
+    //     });
+    //   }
 
-      const vendedorNode = mapa.get(vendedor);
+    //   const vendedorNode = mapa.get(vendedor);
 
-      if (!vendedorNode.children.has(cliente)) {
-        vendedorNode.children.set(cliente, {
-          id: `${vendedor}-${cliente}`,
-          name: cliente,
-          children: []
-        });
-      }
+    //   if (!vendedorNode.children.has(cliente)) {
+    //     vendedorNode.children.set(cliente, {
+    //       id: `${vendedor}-${cliente}`,
+    //       name: cliente,
+    //       children: []
+    //     });
+    //   }
 
-      const clienteNode = vendedorNode.children.get(cliente);
+    //   const clienteNode = vendedorNode.children.get(cliente);
 
-      clienteNode.children.push({
-        id: `${cliente}-follow-${follow}`,
-        name: `Follow ${follow}`
-      });
-    });
+    //   clienteNode.children.push({
+    //     id: `${cliente}-follow-${follow}`,
+    //     name: `Follow ${follow}`
+    //   });
+    // });
 
-    return Array.from(mapa.values()).map(v => 
-        ({...v,children: Array.from(v.children.values())
-        }));
-    }
+    // return Array.from(mapa.values()).map(v => 
+    //     ({...v,children: Array.from(v.children.values())
+    //     }));
+    // }
 }

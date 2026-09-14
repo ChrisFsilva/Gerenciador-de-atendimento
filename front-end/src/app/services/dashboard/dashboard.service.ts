@@ -30,11 +30,11 @@ export class DashboardService {
       );
     }
 
-    obterCardsDashboard() {
-      return this.http.get<any>(
-          `${this.api}/dashboard/cards`,
-      );
-    }
+    // obterCardsDashboard() {
+    //   return this.http.get<any>(
+    //       `${this.api}/dashboard/cards`,
+    //   );
+    // }
 
     // -----------------------------------------------
     // RETORNO DOS DADOS DE ATENDIMENTO

@@ -150,13 +150,13 @@
       // -----------------------------------
       // OBTER DO BACK A QTD DE FOLLOWS 
       //------------------------------------
-      this.dashboardService
-        .obterCardsDashboard()
-        .subscribe(res => {
-          this.cards = res;
+      // this.dashboardService
+      //   .obterCardsDashboard()
+      //   .subscribe(res => {
+      //     this.cards = res;
 
-          this.cdr.detectChanges();
-        });
+      //     this.cdr.detectChanges();
+      //   });
               
       // -----------------------------------
       // OBTER DO BACK A QTD DE ORÇAMENTOS 

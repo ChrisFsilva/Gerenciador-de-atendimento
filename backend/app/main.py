@@ -634,55 +634,55 @@ def criar_follow(
 # ------------------------------------------
 # --------- REGRAS DOS DASHBOARD -----------
 # ------------------------------------------
-@app.get("/dashboard/cards")
-def dashboard_cards(
-    db: Session = Depends(get_db),
-    usuario_logado: Usuario = Depends(obter_usuario)  
-):
-    query = db.query(Agendamento)
+# @app.get("/dashboard/cards")
+# def dashboard_cards(
+#     db: Session = Depends(get_db),
+#     usuario_logado: Usuario = Depends(obter_usuario)  
+# ):
+#     query = db.query(Agendamento)
 
-    query = filtro_permissao(
-        query,
-        usuario_logado,
-        Agendamento.loja_id,
-        Agendamento.vendedor_id
-    )
+#     query = filtro_permissao(
+#         query,
+#         usuario_logado,
+#         Agendamento.loja_id,
+#         Agendamento.vendedor_id
+#     )
 
-    hoje = datetime.now().date()
+#     hoje = datetime.now().date()
 
-    inicio_mes = hoje.replace(day=1)
+#     inicio_mes = hoje.replace(day=1)
 
-    ultimos_15_dias = hoje - timedelta(days=15)
+#     ultimos_15_dias = hoje - timedelta(days=15)
 
-    follows = query.all()
-    follows_hoje = 0
-    follows_15_dias = 0
-    follows_mes = 0
+#     follows = query.all()
+#     follows_hoje = 0
+#     follows_15_dias = 0
+#     follows_mes = 0
 
-    for follow in follows:
-        if follow.Status == "Em follow":
-            if not follow.data_agendamento:
-                continue
+#     for follow in follows:
+#         if follow.Status == "Em follow":
+#             if not follow.data_agendamento:
+#                 continue
 
-            data = follow.data_agendamento
+#             data = follow.data_agendamento
 
-            if data == hoje:
-                follows_hoje += 1
+#             if data == hoje:
+#                 follows_hoje += 1
 
-            if data >= ultimos_15_dias:
-                follows_15_dias += 1
+#             if data >= ultimos_15_dias:
+#                 follows_15_dias += 1
 
-            if data >= inicio_mes:
-                follows_mes += 1
+#             if data >= inicio_mes:
+#                 follows_mes += 1
 
-    return {
+#     return {
 
-        "hoje": follows_hoje,
+#         "hoje": follows_hoje,
 
-        "ultimos15dias": follows_15_dias,
+#         "ultimos15dias": follows_15_dias,
 
-        "mes": follows_mes
-    }
+#         "mes": follows_mes
+#     }
 
 # ------------------------------------------
 # ----- CALCULO DE ATENDIMENTOS DO MÊS -----

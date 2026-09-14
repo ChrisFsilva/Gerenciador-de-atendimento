@@ -102,60 +102,60 @@ class AnswerRecord(Base):
     resposta = Column(String(255))
 
 # # ANTIGO MODELO DE COMUNICAÇÃO COM A TABELA FOLLOWS
-class Agendamento(Base):
+# class Agendamento(Base):
 
-    __tablename__ = "follows"
+#     __tablename__ = "follows"
 
-    id = Column(Integer, primary_key=True, index=True)
+#     id = Column(Integer, primary_key=True, index=True)
 
-    cliente = Column(String(150), nullable=False)
+#     cliente = Column(String(150), nullable=False)
 
-    telefone = Column(String(30))
+#     telefone = Column(String(30))
 
-    email = Column(String(150))
+#     email = Column(String(150))
 
-    loja_id = Column(String(20), nullable=False)
+#     loja_id = Column(String(20), nullable=False)
 
-    vendedor_id = Column(Integer, ForeignKey("users.id"))
+#     vendedor_id = Column(Integer, ForeignKey("users.id"))
 
-    orcamento = Column(String(255))
+#     orcamento = Column(String(255))
 
-    arquiteto = Column(String(150))
+#     arquiteto = Column(String(150))
 
-    produto = Column(String(100))
+#     produto = Column(String(100))
 
-    data_agendamento = Column(Date)
+#     data_agendamento = Column(Date)
 
-    hora_agendamento = Column(Time)
+#     hora_agendamento = Column(Time)
 
-    estagio = Column(String(100))
+#     estagio = Column(String(100))
 
-    prioridade = Column(String(20))
+#     prioridade = Column(String(20))
 
-    observacoes = Column(String(150))
+#     observacoes = Column(String(150))
 
-    status = Column(String(50))
+#     status = Column(String(50))
 
-    atendimento_id = Column(Integer, ForeignKey("services_records.id"))
+#     atendimento_id = Column(Integer, ForeignKey("services_records.id"))
     
-    follow_parent_id = Column(
-        Integer,
-        ForeignKey("follows.id"),
-        nullable=True
-    )
+#     follow_parent_id = Column(
+#         Integer,
+#         ForeignKey("follows.id"),
+#         nullable=True
+#     )
     
-    criado_em = Column(DateTime,
-        default=datetime.now
-    )
-    estrategia = Column(String)
+#     criado_em = Column(DateTime,
+#         default=datetime.now
+#     )
+#     estrategia = Column(String)
     
-    obs_follow = Column(String)
+#     obs_follow = Column(String)
     
-    prazo_final = Column(Date)
+#     prazo_final = Column(Date)
 
-    possibilidade = Column(String)
+#     possibilidade = Column(String)
     
-    forma_contato = Column(String)
+#     forma_contato = Column(String)
 
 class FilaAtendimento(Base):
     __tablename__ = "fila_atendimento"

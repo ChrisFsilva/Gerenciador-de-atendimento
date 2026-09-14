@@ -19,11 +19,11 @@ from app.models import (
     Usuario,
     Atendimento,
     AnswerRecord,
-    Agendamento,
     FilaAtendimento,
     UpdatePendencia,
     OrcamentoFuturo,
     AddOrder,
+    AddClient,
     NewFollow,
 )
 
@@ -494,12 +494,12 @@ def atualizar_follow_lote(
     
 ):
     quantidade = (
-        db.query(Agendamento)
+        db.query(NewFollow)
         .filter(
-            Agendamento.id.in_(dados.follow_ids)
+            NewFollow.id.in_(dados.follow_ids)
         )
         .update(
-            {"status": dados.status},
+            {"Status": dados.status},
             synchronize_session=False
         )
     )
@@ -977,21 +977,27 @@ def dashboard_gantt(
 ):
     query = (
         db.query(
-            Agendamento,
-            Usuario
+            NewFollow,
+            Usuario,
+            AddClient
         )
         .join(
             Usuario,
-            Usuario.id == Agendamento.vendedor_id
+            Usuario.id == NewFollow.Vendor_ID
+        )
+        .join(
+            AddClient,
+            AddClient.id == NewFollow.Client_ID
         )
     )
 
     query = filtro_permissao(
         query,
         usuario_logado,
-        Agendamento.loja_id,
-        Agendamento.vendedor_id
+        Usuario.loja,
+        NewFollow.Vendor_ID
     )
+
     resultados = query.all()
     vendedores = {}
 

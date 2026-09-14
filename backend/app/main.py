@@ -23,7 +23,7 @@ from app.models import (
     UpdatePendencia,
     OrcamentoFuturo,
     AddOrder,
-    AddClient,
+    # AddClient,
     NewFollow,
 )
 
@@ -979,15 +979,15 @@ def dashboard_gantt(
         db.query(
             NewFollow,
             Usuario,
-            AddClient
+            models.AddClient
         )
         .join(
             Usuario,
             Usuario.id == NewFollow.Vendor_ID
         )
         .join(
-            AddClient,
-            AddClient.id == NewFollow.Client_ID
+            models.AddClient,
+            models.AddClient.id == NewFollow.Client_ID
         )
     )
 

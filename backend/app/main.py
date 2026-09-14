@@ -970,58 +970,58 @@ def dashboard_valores_orcamentos(
 # ------------------------------------------
 # Tabela Gantt
 # ------------------------------------------
-@app.get("/dashboard/gantt")
-def dashboard_gantt(
-    db: Session = Depends(get_db),
-    usuario_logado: Usuario = Depends(obter_usuario)
-):
-    query = (
-        db.query(
-            NewFollow,
-            Usuario,
-            models.AddClient
-        )
-        .join(
-            Usuario,
-            Usuario.id == NewFollow.Vendor_ID
-        )
-        .join(
-            models.AddClient,
-            models.AddClient.id == NewFollow.Client_ID
-        )
-    )
+# @app.get("/dashboard/gantt")
+# def dashboard_gantt(
+#     db: Session = Depends(get_db),
+#     usuario_logado: Usuario = Depends(obter_usuario)
+# ):
+#     query = (
+#         db.query(
+#             NewFollow,
+#             Usuario,
+#             models.AddClient
+#         )
+#         .join(
+#             Usuario,
+#             Usuario.id == NewFollow.Vendor_ID
+#         )
+#         .join(
+#             models.AddClient,
+#             models.AddClient.id == NewFollow.Client_ID
+#         )
+#     )
 
-    query = filtro_permissao(
-        query,
-        usuario_logado,
-        Usuario.loja,
-        NewFollow.Vendor_ID
-    )
+#     query = filtro_permissao(
+#         query,
+#         usuario_logado,
+#         Usuario.loja,
+#         NewFollow.Vendor_ID
+#     )
 
-    resultados = query.all()
-    vendedores = {}
+#     resultados = query.all()
+#     vendedores = {}
 
-    for follow, vendedor, cliente in resultados:
-        if vendedor.nome not in vendedores:
-            vendedores[vendedor.nome] = {
-                "vendedor": vendedor.nome,
-                "clientes": {}
-            }
+#     for follow, vendedor, cliente in resultados:
+#         if vendedor.nome not in vendedores:
+#             vendedores[vendedor.nome] = {
+#                 "vendedor": vendedor.nome,
+#                 "clientes": {}
+#             }
 
-        nome_cliente = cliente.Name
+#         nome_cliente = cliente.Name
 
-        if nome_cliente not in vendedores[vendedor.nome]["clientes"]:
-            vendedores[vendedor.nome]["clientes"][nome_cliente] = []
+#         if nome_cliente not in vendedores[vendedor.nome]["clientes"]:
+#             vendedores[vendedor.nome]["clientes"][nome_cliente] = []
 
-        vendedores[vendedor.nome]["clientes"][nome_cliente].append({
-            "id": follow.id,
-            "data_agendamento": follow.Date_Agenda,
-            "prazo_final": follow.Final_Date,
-            "status": follow.Status,
-            "estagio": follow.Estagio
-        })
+#         vendedores[vendedor.nome]["clientes"][nome_cliente].append({
+#             "id": follow.id,
+#             "data_agendamento": follow.Date_Agenda,
+#             "prazo_final": follow.Final_Date,
+#             "status": follow.Status,
+#             "estagio": follow.Estagio
+#         })
 
-    return list(vendedores.values())
+#     return list(vendedores.values())
 
 
 # ------------------------------------------

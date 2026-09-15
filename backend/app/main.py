@@ -833,7 +833,7 @@ def dashboard_follows(
                     concorrente += 1
                 
                 if (follow.Status == "Em follow"
-                and follow.Date_Agenda.date() < hoje):
+                and follow.Date_Agenda < hoje):
                     atrasado += 1
     return {
 

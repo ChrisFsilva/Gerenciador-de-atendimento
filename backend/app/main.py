@@ -773,6 +773,10 @@ def dashboard_follows(
             Usuario,
             NewFollow.Vendor_ID == Usuario.id
         )
+        .join(
+            AddOrder,
+            NewFollow.Order_ID == AddOrder.id
+        )
     )
     # -------------------------------------------------
     # --- VERIFICAR AUTORIZAÇÃO DE ACESSO DO USUARIO --
@@ -800,7 +804,8 @@ def dashboard_follows(
     concorrente = 0
     atrasado = 0
 
-    for follow, vendedor in follows:
+
+    for follow, vendedor, order in follows:
 
         if vendedor.id not in vendedores:
 
@@ -816,29 +821,40 @@ def dashboard_follows(
 
             data_follow = follow.Date_Agenda.date()
 
-            # FOLLOWS ATRASADOS
+            # ------------------------------------------
+            # ------ CALCULAR FOLLOWS ATRASADOS --------
+            # ------------------------------------------
             if (
                 data_follow < data
                 and follow.Status == "Em follow"
             ):
                 vendedores[vendedor.id]["atrasados"] += 1
 
-            # FOLLOWS HOJE
+            # ------------------------------------------
+            # ------ CALCULAR FOLLOWS DE HOJE ----------
+            # ------------------------------------------
             if data_follow == data:
                 vendedores[vendedor.id]["hoje"] += 1
 
-            # FOLLOWS DO MÊS
+            # ------------------------------------------
+            # ------- CALCULAR FOLLOWS DO MÊS ----------
+            # ------------------------------------------
             if (
                 follow.Date_Agenda.month == data.month
                 and follow.Date_Agenda.year == data.year
             ):
                 vendedores[vendedor.id]["mes"] += 1
 
+                if order.Valor:
+                    vendedores[vendedor.id]["valor_mes"] += float(
+                        str(order.Valor).replace(",", ".")
+                    )
+
     indice_vendedores = list(vendedores.values())
 
-    for follow in follows:
+    for follow, vendedor, order in follows:
 
-        print("STATUS DO FOLLOW:", repr(follow.Status))
+        # print("STATUS DO FOLLOW:", repr(follow.Status))
         
         # ------------------------------------------
         # ------- CALCULO DE ATENDIMENTOS ----------

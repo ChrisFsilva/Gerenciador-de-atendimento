@@ -766,7 +766,9 @@ def dashboard_follows(
     # -- BUSCA OS FOLLOWS E RELACIONA COM O VENDEDOR --
     # -------------------------------------------------
     query = (
-        db.query(NewFollow)
+        db.query(
+            NewFollow,
+            Usuario)
         .join(
             Usuario,
             NewFollow.Vendor_ID == Usuario.id
@@ -784,6 +786,8 @@ def dashboard_follows(
     
     follows = query.all()
 
+    vendedores = {}
+
     # -------------------------------------------------
     # ------------ CRIAÇÃO DE VARIAVEIS ---------------
     # -------------------------------------------------
@@ -795,6 +799,42 @@ def dashboard_follows(
     vendido = 0
     concorrente = 0
     atrasado = 0
+
+    for follow, vendedor in follows:
+
+        if vendedor.id not in vendedores:
+
+            vendedores[vendedor.id] = {
+                "id": vendedor.id,
+                "nome": vendedor.nome,
+                "atrasados": 0,
+                "hoje": 0,
+                "mes": 0
+            }
+
+        if follow.Date_Agenda:
+
+            data_follow = follow.Date_Agenda.date()
+
+            # FOLLOWS ATRASADOS
+            if (
+                data_follow < data
+                and follow.Status == "Em follow"
+            ):
+                vendedores[vendedor.id]["atrasados"] += 1
+
+            # FOLLOWS HOJE
+            if data_follow == data:
+                vendedores[vendedor.id]["hoje"] += 1
+
+            # FOLLOWS DO MÊS
+            if (
+                follow.Date_Agenda.month == data.month
+                and follow.Date_Agenda.year == data.year
+            ):
+                vendedores[vendedor.id]["mes"] += 1
+
+    indice_vendedores = list(vendedores.values())
 
     for follow in follows:
 
@@ -844,6 +884,7 @@ def dashboard_follows(
         "vendido": vendido,
         "concorrente": concorrente,
         "atrasado": atrasado,
+        "vendedores": indice_vendedores
     }
 
 # ------------------------------------------

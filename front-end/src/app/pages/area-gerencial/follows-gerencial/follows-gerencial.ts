@@ -54,6 +54,8 @@ export class FollowsGerencial {
       concorrente: 0,
       atrasado: 0
     };
+
+    vendedores: any[] = [];
   
   ngOnInit(): void {
     // -----------------------------------
@@ -96,6 +98,8 @@ export class FollowsGerencial {
           concorrente: Number(res.concorrente),
           atrasado: Number(res.atrasado),
         };
+
+        this.vendedores = res.vendedores;
 
         console.log('FOLLOWS:', res);
 

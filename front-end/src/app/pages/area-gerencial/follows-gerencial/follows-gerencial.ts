@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { DashboardService } from '../../../services/dashboard/dashboard.service';
+import { ChangeDetectorRef } from '@angular/core';
+
 interface VendedorFollow {
   nome: string;
   atrasados: number;
@@ -17,35 +20,86 @@ interface VendedorFollow {
 })
 export class FollowsGerencial {
 
-  followsAtrasados = 12;
-  followsHoje = 8;
-  followsMes = 47;
+  constructor(
+    private dashboardService: DashboardService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
-  vendedores: VendedorFollow[] = [
-    {
-      nome: 'João',
-      atrasados: 3,
-      hoje: 2,
-      mes: 12
-    },
-    {
-      nome: 'Maria',
-      atrasados: 1,
-      hoje: 4,
-      mes: 15
-    },
-    {
-      nome: 'Carlos',
-      atrasados: 5,
-      hoje: 1,
-      mes: 10
-    },
-    {
-      nome: 'Ana',
-      atrasados: 2,
-      hoje: 3,
-      mes: 8
-    }
-  ];
+  // -----------------------------------------------
+  // LISTA DE VÁRIAVEIS PARA O GRAFICO DE RENDIMENTO
+  // -----------------------------------------------
+  cardsAtendimento = {
+    atendimentos: 0,
+    atendimentos_hoje: 0,
+    atendimentos_mes: 0,
+    orcamentos: 0,
+    orcamentos_hoje: 0,
+    orcamentos_mes: 0,
+    percentual: 0,
+    venda_ato: 0,
+  };
+
+  valoresOrcamentos = {
+    hoje: 0,
+    mes: 0,
+    total: 0
+  };
+
+  follow = {
+      hoje: 0,
+      mes: 0,
+      naoRealizado: 0,
+      desistencia: 0,
+      vendido: 0,
+      concorrente: 0,
+    };
+  
+  ngOnInit(): void {
+    // -----------------------------------
+    // OBTER DO BACK A QTD DE ORÇAMENTOS 
+    //------------------------------------
+    this.dashboardService
+      .obterCardsAtendimentos()
+      .subscribe(res => {
+        this.cardsAtendimento = res;
+    });
+
+    // -----------------------------------
+    // OBTER DO BACK O VALOR DE ORÇAMENTOS 
+    //------------------------------------
+    this.dashboardService
+      .obterValoresOrcamentos()
+      .subscribe(res => {
+        this.valoresOrcamentos = {
+          hoje: Number(res.hoje),
+          mes: Number(res.mes),
+          total: Number(res.total),
+        };
+
+        this.cdr.detectChanges();
+      });
+
+    // -----------------------------------
+    // OBTER QUANTIDADE DE FOLLOWS 
+    //------------------------------------
+    this.dashboardService
+      .obterFollows()
+      .subscribe(res => {
+
+        this.follow = {
+          hoje: Number(res.follows_hoje),
+          mes: Number(res.follows_mes),
+          naoRealizado: Number(res.naoRealizado),
+          desistencia: Number(res.desistencia),
+          vendido: Number(res.vendido),
+          concorrente: Number(res.concorrente),
+
+        };
+
+        console.log('FOLLOWS:', res);
+
+        this.cdr.detectChanges();
+      });
+  }
 
 }

@@ -675,17 +675,23 @@ def follows_mensais(
 @app.get("/dashboard/atendimentos")
 def dashboard_atendimentos(
     db: Session = Depends(get_db),
-    usuario_logado: Usuario = Depends(obter_usuario)  
+    usuario_logado: Usuario = Depends(obter_usuario)
 ):
-    query = db.query(Atendimento)
+    query = (
+        db.query(Atendimento)
+        .join(
+            Usuario,
+            Atendimento.vendedor_id == Usuario.id
+        )
+    )
 
     query = filtro_permissao(
         query,
         usuario_logado,
-        Atendimento.loja,
+        Usuario.loja,
         Atendimento.vendedor_id
     )
-    
+
     atendimentos = query.all()
 
     hoje = datetime.now().date()
@@ -700,78 +706,55 @@ def dashboard_atendimentos(
 
     venda_ato = 0
 
-    percentual = 0
-
     for registro in atendimentos:
 
-        # ------------------------------------------
-        # ------- CALCULO DE ATENDIMENTOS ----------
-        # ------------------------------------------
         if registro.created_at:
 
-            # -------------------------------------------
-            # -- CALCULO DE ATENDIMENTOS DO DIA (HOJE) --
-            # -------------------------------------------
             if registro.created_at.date() == hoje:
                 atendimentos_hoje += 1
 
-            # ------------------------------------------
-            # ----- CAUCULO DE ATENDIMENTOS DO MÊS -----
-            # ------------------------------------------
             if (
                 registro.created_at.month == hoje.month
                 and registro.created_at.year == hoje.year
             ):
                 atendimentos_mes += 1
 
-        # ------------------------------------------
-        # -------- CALCULO DE ORÇAMENTOS -----------
-        # ------------------------------------------
-        if registro.gerou_follow == 'Sim':
+        if registro.gerou_follow == "Sim":
+
             total_orcamentos += 1
-            
-            # -------------------------------------------
-            # -- CALCULO DE ORÇAMENTOS DO DIA (HOJE) --
-            # -------------------------------------------
-            if registro.created_at.date() == hoje:
+
+            if registro.created_at and registro.created_at.date() == hoje:
                 orcamentos_hoje += 1
 
-            # ------------------------------------------
-            # ----- CAUCULO DE ORÇAMENTOS DO MÊS -----
-            # ------------------------------------------
             if (
-                registro.created_at.month == hoje.month
+                registro.created_at
+                and registro.created_at.month == hoje.month
                 and registro.created_at.year == hoje.year
             ):
                 orcamentos_mes += 1
-                
 
-    # --------------------------------------------
-    # CALCULO DE CONVERSÃO ATENDIMENTO X ORÇAMENTO
-    # --------------------------------------------
+        if registro.gerou_follow == "Venda ato":
+            venda_ato += 1
 
-        if total_atendimentos > 0:
+    percentual = 0
 
-            percentual = round(
-                (total_orcamentos / total_atendimentos) * 100,
-                1
-            )
-
-        if registro.gerou_follow == 'Venda ato':
-                venda_ato += 1
+    if total_atendimentos > 0:
+        percentual = round(
+            (total_orcamentos / total_atendimentos) * 100,
+            1
+        )
 
     return {
-
         "atendimentos": total_atendimentos,
         "atendimentos_hoje": atendimentos_hoje,
         "atendimentos_mes": atendimentos_mes,
-                
+
         "orcamentos": total_orcamentos,
         "orcamentos_hoje": orcamentos_hoje,
         "orcamentos_mes": orcamentos_mes,
+
         "percentual": percentual,
         "venda_ato": venda_ato,
-
     }
 
 @app.get("/dashboard/follows")

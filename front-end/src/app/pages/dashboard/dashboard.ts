@@ -145,18 +145,6 @@
             console.error('ERRO VENDAS MENSAIS', err);
           }
       });
-      
-
-      // -----------------------------------
-      // OBTER DO BACK A QTD DE FOLLOWS 
-      //------------------------------------
-      // this.dashboardService
-      //   .obterCardsDashboard()
-      //   .subscribe(res => {
-      //     this.cards = res;
-
-      //     this.cdr.detectChanges();
-      //   });
               
       // -----------------------------------
       // OBTER DO BACK A QTD DE ORÇAMENTOS 
@@ -204,19 +192,6 @@
           this.cdr.detectChanges();
         });
 
-      // -----------------------------------
-      // CRIAÇÃO DE GRÁFICO GANTT
-      //------------------------------------
-      // this.dashboardService
-      // .obterGantt()
-      // .subscribe(res => {
-      //   console.log('Gantt');
-      //   console.log(res);
-
-      //   this.ganttData = res;
-
-      //   this.cdr.detectChanges();
-      // });
     }
     
     calcularLarguraFollow(

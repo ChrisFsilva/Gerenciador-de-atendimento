@@ -768,7 +768,9 @@ def dashboard_follows(
     query = (
         db.query(
             NewFollow,
-            Usuario)
+            Usuario,
+            AddOrder
+            )
         .join(
             Usuario,
             NewFollow.Vendor_ID == Usuario.id
@@ -785,7 +787,7 @@ def dashboard_follows(
         query,
         usuario_logado,
         Usuario.loja,
-        NewFollow.Vendor_ID
+        NewFollow.Vendor_ID,
     )
     
     follows = query.all()

@@ -814,7 +814,8 @@ def dashboard_follows(
                 "nome": vendedor.nome,
                 "atrasados": 0,
                 "hoje": 0,
-                "mes": 0
+                "mes": 0,
+                "valor_mes": 0
             }
 
         if follow.Date_Agenda:

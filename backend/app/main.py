@@ -794,6 +794,7 @@ def dashboard_follows(
     desistencia = 0
     vendido = 0
     concorrente = 0
+    atrasado = 0
 
     for follow in follows:
 
@@ -830,6 +831,10 @@ def dashboard_follows(
 
                 if follow.Status == "Encerramento concorrencia":
                     concorrente += 1
+                
+                if (follow.Status == "Em follow"
+                and follow.Date_Agenda.date() < hoje):
+                    atrasado += 1
     return {
 
         "follows_hoje": hoje,
@@ -838,6 +843,7 @@ def dashboard_follows(
         "desistencia": desistencia,
         "vendido": vendido,
         "concorrente": concorrente,
+        "atrasado": atrasado,
     }
 
 # ------------------------------------------

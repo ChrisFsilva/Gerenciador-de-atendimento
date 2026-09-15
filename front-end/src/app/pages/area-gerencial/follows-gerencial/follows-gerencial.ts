@@ -52,6 +52,7 @@ export class FollowsGerencial {
       desistencia: 0,
       vendido: 0,
       concorrente: 0,
+      atrasado: 0
     };
   
   ngOnInit(): void {
@@ -93,7 +94,7 @@ export class FollowsGerencial {
           desistencia: Number(res.desistencia),
           vendido: Number(res.vendido),
           concorrente: Number(res.concorrente),
-
+          atrasado: Number(res.atrasado),
         };
 
         console.log('FOLLOWS:', res);

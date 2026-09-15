@@ -1,0 +1,127 @@
+import { Component, OnInit } from '@angular/core';
+import { DashboardService } from '../../../services/dashboard/dashboard.service';
+import { ChangeDetectorRef } from '@angular/core';
+
+@Component({
+  selector: 'app-dashboard-gerencial',
+  imports: [],
+  templateUrl: './dashboard-gerencial.html',
+  styleUrl: './dashboard-gerencial.css',
+})
+
+export class DashboardGerencial implements OnInit {
+
+    ganttData: any[] = [];
+
+    public chartOptions: any = {};
+
+    cards = {
+      hoje: 0,
+      ultimos15dias: 0,
+      mes: 0
+    };
+
+    // -----------------------------------------------
+    // LISTA DE VÁRIAVEIS PARA O GRAFICO DE RENDIMENTO
+    // -----------------------------------------------
+    cardsAtendimento = {
+      atendimentos: 0,
+      atendimentos_hoje: 0,
+      atendimentos_mes: 0,
+      orcamentos: 0,
+      orcamentos_hoje: 0,
+      orcamentos_mes: 0,
+      percentual: 0,
+      venda_ato: 0,
+    };
+
+    // -----------------------------------------------
+    // LISTA DE VÁRIAVEIS COM CALCULO DOS VALORES ORÇADOS
+    // -----------------------------------------------
+    valoresOrcamentos = {
+      hoje: 0,
+      mes: 0,
+      total: 0
+    };
+
+    follow = {
+        hoje: 0,
+        mes: 0,
+        naoRealizado: 0,
+        desistencia: 0,
+        vendido: 0,
+        concorrente: 0,
+      };
+
+    vendedores: any[] = [];
+
+    formatarValor(valor: number | string): string {
+      const numero = Number(valor);
+
+      if (isNaN(numero)) {
+        return 'R$ 0,00';
+      }
+
+      return 'R$ ' + numero
+        .toFixed(2)
+        .replace('.', ',')
+        .replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    }
+
+    constructor(
+      private dashboardService: DashboardService,
+      private cdr: ChangeDetectorRef
+    ) {}
+
+    ngOnInit(): void {
+      // -----------------------------------
+      // OBTER DO BACK A QTD DE ORÇAMENTOS 
+      //------------------------------------
+      this.dashboardService
+        .obterCardsAtendimentos()
+        .subscribe(res => {
+          this.cardsAtendimento = res;
+      });
+
+      // -----------------------------------
+      // OBTER DO BACK O VALOR DE ORÇAMENTOS 
+      //------------------------------------
+      this.dashboardService
+        .obterValoresOrcamentos()
+        .subscribe(res => {
+          this.valoresOrcamentos = {
+            hoje: Number(res.hoje),
+            mes: Number(res.mes),
+            total: Number(res.total),
+          };
+
+          this.cdr.detectChanges();
+        });
+
+      // -----------------------------------
+      // OBTER QUANTIDADE DE FOLLOWS 
+      //------------------------------------
+      this.dashboardService
+        .obterFollows()
+        .subscribe(res => {
+
+          this.follow = {
+            hoje: Number(res.follows_hoje),
+            mes: Number(res.follows_mes),
+            naoRealizado: Number(res.naoRealizado),
+            desistencia: Number(res.desistencia),
+            vendido: Number(res.vendido),
+            concorrente: Number(res.concorrente),
+
+          };
+
+          this.vendedores = res.vendedores;
+
+          console.log('FOLLOWS:', res);
+
+          this.cdr.detectChanges();
+        });
+
+    }
+    
+  }

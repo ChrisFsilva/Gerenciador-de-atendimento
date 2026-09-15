@@ -23,6 +23,7 @@ import { Historico } from './pages/historico/historico';
 import { FilaGerencial } from './pages/area-gerencial/fila/fila';
 import { AreaGerencial } from './pages/area-gerencial/area-gerencial';
 import { FollowsGerencial } from './pages/area-gerencial/follows-gerencial/follows-gerencial';
+import { DashboardGerencial } from './pages/area-gerencial/dashboard-gerencial/dashboard-gerencial';
 //--------------------------------------------------
 //------------ MÓDULO DE SEGURANÇA -----------------
 //--------------------------------------------------
@@ -115,6 +116,10 @@ export const routes: Routes = [
             {
                 path: 'follows',
                 component: FollowsGerencial
+            },
+            {
+                path: 'dashboardgerencial',
+                component: DashboardGerencial
             }
         ]
     }

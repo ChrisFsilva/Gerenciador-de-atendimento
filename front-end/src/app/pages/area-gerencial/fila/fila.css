@@ -3,6 +3,12 @@
     flex-direction: column;
 }
 
+.filaSequency .hover{
+    height: 200px;
+    width: 505px;
+    font-size: 200px;
+}
+
 .infotable tbody {
     display: flex;
     flex-direction: column;
@@ -36,4 +42,10 @@ tbody tr {
 
 tbody td {
     width: 100%;
+}
+
+h1{
+    font-size: large;
+    text-align: center;
+    margin: 10px;
 }

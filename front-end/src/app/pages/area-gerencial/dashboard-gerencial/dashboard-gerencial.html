@@ -80,7 +80,6 @@
             </tbody>
         </table>
     </div>
-
 </div>
 
 <!-- CARDS ORÇAMENTOS -->
@@ -111,7 +110,7 @@
             <div class="orcamento-content">
 
                 <strong>
-                    {{ cardsAtendimento.orcamentos_hoje }}
+                    {{ somarOrcamentosHoje() }}
                 </strong>
 
                 <strong>
@@ -133,7 +132,7 @@
             <div class="orcamento-content">
 
                 <strong>
-                    {{ cardsAtendimento.orcamentos_mes }}
+                    {{ somarOrcamentosMes() }}
                 </strong>
 
                 <strong>
@@ -157,7 +156,7 @@
             <div class="orcamento-content">
 
                 <strong>
-                    {{ cardsAtendimento.orcamentos }}
+                    {{ somarOrcamentosTotal() }}
                 </strong>
 
                 <strong>

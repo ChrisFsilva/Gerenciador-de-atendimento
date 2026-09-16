@@ -713,16 +713,15 @@ def dashboard_atendimentos(
 
     for registro, vendedor in atendimentos:
 
+        if registro.vendedor_id not in metricaVendas:
+            metricaVendas[registro.vendedor_id] = {
+                "id": registro.vendedor_id,
+                "nome": vendedor.nome,
+                "atendimentos_hoje": 0,
+                "atendimentos_mes": 0
+            }
+
         if registro.created_at:
-
-            if registro.created_at.date() == hoje:
-                atendimentos_hoje += 1
-
-            if (
-                registro.created_at.month == hoje.month
-                and registro.created_at.year == hoje.year
-            ):
-                atendimentos_mes += 1
 
             if registro.created_at.date() == hoje:
                 atendimentos_hoje += 1
@@ -751,14 +750,7 @@ def dashboard_atendimentos(
 
         if registro.gerou_follow == "Venda ato":
             venda_ato += 1
-
-        if registro.vendedor_id not in metricaVendas:
-            metricaVendas[registro.vendedor_id] = {
-                "id": registro.vendedor_id,
-                "atendimentos_hoje": 0,
-                "atendimentos_mes":0
-            }
-
+            
     percentual = 0
 
     if total_atendimentos > 0:

@@ -33,6 +33,7 @@ export class DashboardGerencial implements OnInit {
       orcamentos_mes: 0,
       percentual: 0,
       venda_ato: 0,
+      
     };
 
     // -----------------------------------------------
@@ -86,6 +87,7 @@ export class DashboardGerencial implements OnInit {
             total: Number(res.total),
           };
 
+          this.vendedores = res.vendedores;
           this.cdr.detectChanges();
         });
 

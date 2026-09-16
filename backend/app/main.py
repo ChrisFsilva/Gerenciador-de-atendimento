@@ -738,43 +738,31 @@ def dashboard_atendimentos(
                 atendimentos_mes += 1
                 metricaVendas[registro.vendedor_id]["atendimentos_mes"] += 1
 
-    if registro.gerou_follow == "Sim":
+        if registro.gerou_follow == "Sim":
 
-        total_orcamentos += 1
+            total_orcamentos += 1
 
-        valor_orcamento = 0
+            if registro.created_at and registro.created_at.date() == hoje:
+                orcamentos_hoje += 1
+                metricaVendas[registro.vendedor_id]["orcamentos_hoje"] += 1
 
-        if registro.orcamento:
-            valor_orcamento = float(
-                str(registro.orcamento)
-                .replace("R$", "")
-                .replace(".", "")
-                .replace(",", ".")
-                .strip()
-            )
+                if registro.orcamento:
+                    metricaVendas[registro.vendedor_id]["valor_orcamentos_hoje"] += float(
+                        registro.orcamento
+                    )
 
-        if registro.created_at and registro.created_at.date() == hoje:
+            if (
+                registro.created_at
+                and registro.created_at.month == hoje.month
+                and registro.created_at.year == hoje.year
+            ):
+                orcamentos_mes += 1
+                metricaVendas[registro.vendedor_id]["orcamentos_mes"] += 1
 
-            orcamentos_hoje += 1
-
-            metricaVendas[registro.vendedor_id]["orcamentos_hoje"] += 1
-
-            metricaVendas[registro.vendedor_id]["valor_orcamentos_hoje"] += valor_orcamento
-
-        if (
-            registro.created_at
-            and registro.created_at.month == hoje.month
-            and registro.created_at.year == hoje.year
-        ):
-
-            orcamentos_mes += 1
-
-            metricaVendas[registro.vendedor_id]["orcamentos_mes"] += 1
-
-            metricaVendas[registro.vendedor_id]["valor_orcamentos_mes"] += valor_orcamento
-
-            if registro.gerou_follow == "Venda ato":
-                venda_ato += 1
+                if registro.orcamento:
+                    metricaVendas[registro.vendedor_id]["valor_orcamentos_mes"] += float(
+                        registro.orcamento
+                    )
 
     percentual = 0
 
@@ -792,6 +780,8 @@ def dashboard_atendimentos(
         "orcamentos": total_orcamentos,
         "orcamentos_hoje": orcamentos_hoje,
         "orcamentos_mes": orcamentos_mes,
+        "valor_orcamentos_hoje": 0,
+        "valor_orcamentos_mes": 0,
 
         "percentual": percentual,
         "venda_ato": venda_ato,

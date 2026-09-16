@@ -678,7 +678,10 @@ def dashboard_atendimentos(
     usuario_logado: Usuario = Depends(obter_usuario)
 ):
     query = (
-        db.query(Atendimento)
+        db.query(
+            Atendimento,
+            Usuario
+        )
         .join(
             Usuario,
             Atendimento.vendedor_id == Usuario.id
@@ -706,7 +709,9 @@ def dashboard_atendimentos(
 
     venda_ato = 0
 
-    for registro in atendimentos:
+    metricaVendas = {}
+
+    for registro, vendedor in atendimentos:
 
         if registro.created_at:
 
@@ -718,6 +723,17 @@ def dashboard_atendimentos(
                 and registro.created_at.year == hoje.year
             ):
                 atendimentos_mes += 1
+
+            if registro.created_at.date() == hoje:
+                atendimentos_hoje += 1
+                metricaVendas[registro.vendedor_id]["atendimentos_hoje"] += 1
+
+            if (
+                registro.created_at.month == hoje.month
+                and registro.created_at.year == hoje.year
+            ):
+                atendimentos_mes += 1
+                metricaVendas[registro.vendedor_id]["atendimentos_mes"] += 1
 
         if registro.gerou_follow == "Sim":
 
@@ -735,6 +751,13 @@ def dashboard_atendimentos(
 
         if registro.gerou_follow == "Venda ato":
             venda_ato += 1
+
+        if registro.vendedor_id not in metricaVendas:
+            metricaVendas[registro.vendedor_id] = {
+                "id": registro.vendedor_id,
+                "atendimentos_hoje": 0,
+                "atendimentos_mes":0
+            }
 
     percentual = 0
 
@@ -755,6 +778,8 @@ def dashboard_atendimentos(
 
         "percentual": percentual,
         "venda_ato": venda_ato,
+
+        "vendedores": list(metricaVendas.values())
     }
 
 @app.get("/dashboard/follows")

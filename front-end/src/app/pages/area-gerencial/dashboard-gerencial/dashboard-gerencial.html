@@ -1,286 +1,334 @@
 <!-- CARDS ATENDIMENTO X ORÇAMENTOS -->
+
 <div class="Cards-info">
     <div class="card-content atendimento-card atendimento-realizados">
 
-        <div class="card-header">
-            <span>Atendimentos Realizados </span>
-            <i class="fa-regular fa-clipboard"></i>
+    <div class="card-header">
+        <span>Atendimentos Realizados</span>
+        <i class="fa-regular fa-clipboard"></i>
+    </div>
+
+    <div class="atendimento-row atendimento-realizados">
+        <div class="atendimento-title">
+            <span class="periodo">Hoje</span>
         </div>
-        <div class="atendimento-row atendimento-realizados">
-            <div class="atendimento-title"> 
-            <span class="periodo">
-                Hoje
-            </span>
-            </div>
-            <div>
+
+        <div>
             <strong>
                 {{ cardsAtendimento.atendimentos_hoje }}
             </strong>
             <i class="fa-solid fa-calendar-check"></i>
-            </div>
+        </div>
+    </div>
+
+    <div class="atendimento-row atendimento-realizados">
+        <div class="atendimento-title">
+            <span class="periodo">Mês</span>
         </div>
 
-        <div class="atendimento-row atendimento-realizados">
-            <div class="atendimento-title"> 
-            <span class="periodo">
-                Mês
-            </span>
-            </div>
-            <div>
+        <div>
             <strong>
                 {{ cardsAtendimento.atendimentos_mes }}
             </strong>
             <i class="fa-solid fa-calendar-days"></i>
-            </div>
+        </div>
+    </div>
+
+    <div class="atendimento-row atendimento-realizados">
+        <div class="atendimento-title">
+            <span class="periodo">
+                <strong>Total</strong>
+            </span>
         </div>
 
-        <div class="atendimento-row atendimento-realizados">
-            <div class="atendimento-title"> 
-            <span class="periodo">
-                <strong>
-                Total
-                </strong>
-            </span>
-            </div>
-            <div>
+        <div>
             <strong>
                 {{ cardsAtendimento.atendimentos }}
             </strong>
             <i class="fa-solid fa-crown"></i>
-            </div>
-        </div>
-
-        <div class="indice-table indice-atendimento">
-            <table>
-                <thead>
-                    <tr>
-
-                        <th>Vendedor</th>
-
-                        <th>Atendimentos hoje</th>
-
-                        <th>Atendimentos este mês</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let vendedor of vendedores">
-
-                        <td>
-                            {{ vendedor.nome }}
-                        </td>
-
-                        <td>
-                            {{ vendedor.atrasados }}
-                        </td>
-
-                        <td>
-                            {{ vendedor.hoje }}
-                        </td>
-
-                        <td>
-                            {{ vendedor.mes }}
-                        </td>
-
-                        <td>
-                            {{ formatarValor(vendedor.valor_mes) }}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
     </div>
+
+
+    <!-- ÍNDICE DE ATENDIMENTOS POR VENDEDOR -->
+    <div class="indice-table indice-atendimento">
+        <table>
+            <thead>
+                <tr>
+                    <th>Vendedor</th>
+                    <th>Atendimentos hoje</th>
+                    <th>Atendimentos este mês</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let vendedor of vendedores">
+
+                    <td>
+                        {{ vendedor.nome }}
+                    </td>
+
+                    <td>
+                        {{ cardsAtendimento.atendimentos_hoje }}
+                    </td>
+
+                    <td>
+                        {{ cardsAtendimento.atendimentos_mes }}
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
 </div>
+```
+
+</div>
+
+<!-- CARDS ORÇAMENTOS -->
 
 <div class="Cards-info">
     <div class="card-content orcamento-card title-orcamento">
         <div class="card-header">
-            <span>Orçamentos Realizados </span>
+            <span>Orçamentos Realizados</span>
             <i class="fa-solid fa-user-tag"></i>
         </div>
+
         <div class="dashboard-subtitle">
             <div class="title-orcamento">
-            Quantidade
+                Quantidade
             </div>
+
             <div class="title-orcamento">
-            Valor
-            </div>
-        </div>
-        <div class="orcamento-row title-orcamento">
-            <div class="atendimento-title"> 
-            <span class="periodo">
-                Hoje
-            </span>
-            </div>
-            <div class="orcamento-content">
-            <strong>
-                {{ cardsAtendimento.orcamentos_hoje }}
-            </strong>
-            <strong>
-                {{ formatarValor(valoresOrcamentos.hoje) }}
-            </strong>
-            <i class="fa-solid fa-calendar-check"></i>
+                Valor
             </div>
         </div>
 
         <div class="orcamento-row title-orcamento">
-            <div class="atendimento-title"> 
-            <span class="periodo">
-                Mês
-            </span>
+
+            <div class="atendimento-title">
+                <span class="periodo">Hoje</span>
             </div>
+
             <div class="orcamento-content">
-            <strong>
-                {{ cardsAtendimento.orcamentos_mes }}
-            </strong>
-            <strong>
-                {{ formatarValor(valoresOrcamentos.mes) }}
-            </strong>
-            <i class="fa-solid fa-calendar-days"></i>
-            </div>
-        </div>
-        
-        <div class="orcamento-row title-orcamento">
-            <div class="atendimento-title"> 
-            <span class="periodo">
+
                 <strong>
-                Total
+                    {{ cardsAtendimento.orcamentos_hoje }}
                 </strong>
-            </span>
-            </div>
-            <div class="orcamento-content">
-            <strong>
-                {{ cardsAtendimento.orcamentos }}
-            </strong>
-            <strong>
-                {{ formatarValor(valoresOrcamentos.total) }}
-            </strong>
-            <i class="fa-solid fa-crown"></i>
+
+                <strong>
+                    {{ formatarValor(valoresOrcamentos.hoje) }}
+                </strong>
+
+                <i class="fa-solid fa-calendar-check"></i>
+
             </div>
         </div>
 
+
+        <div class="orcamento-row title-orcamento">
+
+            <div class="atendimento-title">
+                <span class="periodo">Mês</span>
+            </div>
+
+            <div class="orcamento-content">
+
+                <strong>
+                    {{ cardsAtendimento.orcamentos_mes }}
+                </strong>
+
+                <strong>
+                    {{ formatarValor(valoresOrcamentos.mes) }}
+                </strong>
+
+                <i class="fa-solid fa-calendar-days"></i>
+
+            </div>
+        </div>
+
+
+        <div class="orcamento-row title-orcamento">
+
+            <div class="atendimento-title">
+                <span class="periodo">
+                    <strong>Total</strong>
+                </span>
+            </div>
+
+            <div class="orcamento-content">
+
+                <strong>
+                    {{ cardsAtendimento.orcamentos }}
+                </strong>
+
+                <strong>
+                    {{ formatarValor(valoresOrcamentos.total) }}
+                </strong>
+
+                <i class="fa-solid fa-crown"></i>
+
+            </div>
+        </div>
+
+
+        <!-- ÍNDICE DE ORÇAMENTOS POR VENDEDOR -->
         <div class="indice-table indice-orcamento">
             <table>
+
                 <thead>
                     <tr>
-
                         <th>Vendedor</th>
-
-                        <th>Valores de Orçamentos(hoje)</th>
-
+                        <th>Valores de Orçamentos (hoje)</th>
                         <th>Orçamentos mês</th>
-
-                        <th>Valores de orçamento(mês)</th>
-
+                        <th>Valores de orçamento (mês)</th>
                     </tr>
                 </thead>
+
                 <tbody>
+
                     <tr *ngFor="let vendedor of vendedores">
 
                         <td>
                             {{ vendedor.nome }}
                         </td>
 
+                        <!-- TEMPORÁRIO -->
                         <td>
-                            {{ formatarValor(vendedor.atrasados) }}
+                            R$ 2.500,00
                         </td>
 
+                        <!-- TEMPORÁRIO -->
                         <td>
-                            {{ vendedor.hoje }}
+                            {{ cardsAtendimento.orcamentos_mes }}
                         </td>
 
+                        <!-- TEMPORÁRIO -->
                         <td>
-                            {{ formatarValor(vendedor.valor_mes) }}
+                            R$ 18.750,00
                         </td>
+
                     </tr>
+
                 </tbody>
+
             </table>
         </div>
     </div>
 </div>
 
-<!-- CARDS ATENDIMENTO X ORÇAMENTOS -->
+<!-- TAXA DE CONVERSÃO -->
+
 <div class="Cards-info">
     <div class="card-content conversao-content conversao-card conversao-realizados">
-
         <div class="card-header">
-            <span>Taxa de conversão </span>
+            <span>Taxa de conversão</span>
             <i class="fa-solid fa-calculator"></i>
         </div>
-        <div class="conversao-row conversao-realizados">
-            <div class="conversao-title"> 
-            <span class="periodo">
-                Atendimento x orçamento
-            </span>
-            </div>
-            <div>
-            <strong>
-                {{ cardsAtendimento.percentual }}
-            </strong>
-            <i class="fa-solid fa-percent"></i>
-            </div>
-        </div>
+
 
         <div class="conversao-row conversao-realizados">
-            <div class="conversao-title"> 
-            <span class="periodo">
-                Orçamento x Venda
-            </span>
+
+            <div class="conversao-title">
+                <span class="periodo">
+                    Atendimento x orçamento
+                </span>
             </div>
+
             <div>
-            <strong>
-                {{ cardsAtendimento.orcamentos }}
-            </strong>
-            <i class="fa-solid fa-calendar-days"></i>
+
+                <strong>
+                    {{ cardsAtendimento.percentual }}
+                </strong>
+
+                <i class="fa-solid fa-percent"></i>
+
             </div>
+
         </div>
 
+
         <div class="conversao-row conversao-realizados">
-            <div class="conversao-title"> 
-            <span class="periodo">
-                Venda ato
-            </span>
+
+            <div class="conversao-title">
+                <span class="periodo">
+                    Orçamento x Venda
+                </span>
             </div>
+
             <div>
-            <strong>
-                {{ cardsAtendimento.venda_ato }}
-            </strong>
-            <i class="fa-solid fa-handshake"></i>
+
+                <!-- TEMPORÁRIO -->
+                <strong>
+                    38
+                </strong>
+
+                <i class="fa-solid fa-calendar-days"></i>
+
             </div>
+
         </div>
+
+
+        <div class="conversao-row conversao-realizados">
+
+            <div class="conversao-title">
+                <span class="periodo">
+                    Venda ato
+                </span>
+            </div>
+
+            <div>
+
+                <strong>
+                    {{ cardsAtendimento.venda_ato }}
+                </strong>
+
+                <i class="fa-solid fa-handshake"></i>
+
+            </div>
+
+        </div>
+
+
+        <!-- ÍNDICE DE CONVERSÃO POR VENDEDOR -->
         <div class="indice-table indice-conversao">
+
             <table>
+
                 <thead>
                     <tr>
-
                         <th>Vendedor</th>
-
                         <th>Atendimento x orçamento</th>
-
                         <th>Orçamento x venda</th>
-
                         <th>Venda ato</th>
-
                     </tr>
                 </thead>
+
                 <tbody>
+
                     <tr *ngFor="let vendedor of vendedores">
 
                         <td>
                             {{ vendedor.nome }}
                         </td>
 
+                        <!-- TEMPORÁRIO -->
                         <td>
-                            {{ vendedor.atrasados }}
+                            {{ cardsAtendimento.percentual }}
                         </td>
 
+                        <!-- TEMPORÁRIO -->
                         <td>
-                            {{ vendedor.hoje }}
+                            35%
                         </td>
 
+                        <!-- TEMPORÁRIO -->
                         <td>
-                            {{ formatarValor(vendedor.valor_mes) }}
+                            {{ cardsAtendimento.venda_ato }}
                         </td>
+
                     </tr>
                 </tbody>
             </table>

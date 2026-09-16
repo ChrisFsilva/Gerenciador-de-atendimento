@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { DashboardService } from '../../../services/dashboard/dashboard.service';
 import { ChangeDetectorRef } from '@angular/core';
-
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-dashboard-gerencial',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './dashboard-gerencial.html',
   styleUrl: './dashboard-gerencial.css',
 })
@@ -75,15 +75,6 @@ export class DashboardGerencial implements OnInit {
 
     ngOnInit(): void {
       // -----------------------------------
-      // OBTER DO BACK A QTD DE ORÇAMENTOS 
-      //------------------------------------
-      this.dashboardService
-        .obterCardsAtendimentos()
-        .subscribe(res => {
-          this.cardsAtendimento = res;
-      });
-
-      // -----------------------------------
       // OBTER DO BACK O VALOR DE ORÇAMENTOS 
       //------------------------------------
       this.dashboardService
@@ -102,17 +93,21 @@ export class DashboardGerencial implements OnInit {
       // OBTER QUANTIDADE DE FOLLOWS 
       //------------------------------------
       this.dashboardService
-        .obterFollows()
+        .obterCardsAtendimentos()
         .subscribe(res => {
 
-          this.follow = {
-            hoje: Number(res.follows_hoje),
-            mes: Number(res.follows_mes),
-            naoRealizado: Number(res.naoRealizado),
-            desistencia: Number(res.desistencia),
-            vendido: Number(res.vendido),
-            concorrente: Number(res.concorrente),
+          this.cardsAtendimento = {
 
+            atendimentos: Number(res.atendimentos),
+            atendimentos_hoje: Number(res.atendimentos_hoje),
+            atendimentos_mes: Number(res.atendimentos_mes),
+
+            orcamentos: Number(res.orcamentos),
+            orcamentos_hoje: Number(res.orcamentos_hoje),
+            orcamentos_mes: Number(res.orcamentos_mes),
+
+            percentual: Number(res.percentual),
+            venda_ato: Number(res.venda_ato)
           };
 
           this.vendedores = res.vendedores;

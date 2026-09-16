@@ -721,8 +721,6 @@ def dashboard_atendimentos(
                 "atendimentos_mes": 0,
                 "orcamentos_hoje": 0,
                 "orcamentos_mes": 0,
-                "valor_orcamentos_hoje": 0,
-                "valor_orcamentos_mes": 0
             }
 
         if registro.created_at:
@@ -746,11 +744,6 @@ def dashboard_atendimentos(
                 orcamentos_hoje += 1
                 metricaVendas[registro.vendedor_id]["orcamentos_hoje"] += 1
 
-                if registro.orcamento:
-                    metricaVendas[registro.vendedor_id]["valor_orcamentos_hoje"] += float(
-                        registro.orcamento
-                    )
-
             if (
                 registro.created_at
                 and registro.created_at.month == hoje.month
@@ -759,10 +752,6 @@ def dashboard_atendimentos(
                 orcamentos_mes += 1
                 metricaVendas[registro.vendedor_id]["orcamentos_mes"] += 1
 
-                if registro.orcamento:
-                    metricaVendas[registro.vendedor_id]["valor_orcamentos_mes"] += float(
-                        registro.orcamento
-                    )
 
     percentual = 0
 
@@ -949,16 +938,45 @@ def dashboard_valores_orcamentos(
     hoje = datetime.now().date()
 
     pedidos = (
-        db.query(AddOrder)
-        .filter(AddOrder.Vendor_ID == usuario_logado["id"])
-        .all()
+        db.query(
+            AddOrder,
+            Usuario
+        )
+        .join(
+            Usuario,
+            AddOrder.Vendor_ID == Usuario.id
+        )
     )
+    
+    pedidos = filtro_permissao(
+        pedidos,
+        usuario_logado,
+        Usuario.loja,
+        AddOrder.Vendor_ID
+    )
+
+    metricaOrcamentos = {}
 
     valor_hoje = 0
     valor_mes = 0
     valor_total = 0
 
-    for pedido in pedidos:
+    for pedido, vendedor in pedidos:
+        # ------------------------------------------
+        # CRIAR LISTA DE RESULTADOS INDIVIDUAIS
+        # ------------------------------------------
+
+        if vendedor.id not in metricaOrcamentos:
+            metricaOrcamentos[vendedor.id] = {
+                "id": vendedor.id,
+                "nome": vendedor.nome,
+                "orcamentos_hoje": 0,
+                "valor_orcamentos_hoje": 0,
+                "orcamentos_mes": 0,
+                "valor_orcamentos_mes": 0,
+                "orcamentos_total": 0,
+                "valor_orcamentos_total": 0
+            }
 
         if not pedido.Valor:
             continue
@@ -993,7 +1011,8 @@ def dashboard_valores_orcamentos(
     return {
         "hoje": round(valor_hoje, 2),
         "mes": round(valor_mes, 2),
-        "total": round(valor_total, 2)
+        "total": round(valor_total, 2),
+        "metricaOrcamentos": metricaOrcamentos
     }
 
 # ------------------------------------------

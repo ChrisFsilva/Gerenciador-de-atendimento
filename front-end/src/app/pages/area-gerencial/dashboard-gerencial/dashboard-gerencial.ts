@@ -20,6 +20,7 @@ export class DashboardGerencial implements OnInit {
       ultimos15dias: 0,
       mes: 0
     };
+    
 
     // -----------------------------------------------
     // LISTA DE VÁRIAVEIS PARA O GRAFICO DE RENDIMENTO
@@ -44,6 +45,12 @@ export class DashboardGerencial implements OnInit {
       mes: 0,
       total: 0
     };
+
+    vendedoresOrcamentos: any[] = [];
+
+    // -----------------------------------------------
+    // LISTA DE VÁRIAVEIS COM FOLLOWS CONTABILIZADOS POR STATUS
+    // -----------------------------------------------
 
     follow = {
         hoje: 0,
@@ -87,7 +94,7 @@ export class DashboardGerencial implements OnInit {
             total: Number(res.total),
           };
 
-          this.vendedores = res.vendedores;
+          this.vendedoresOrcamentos = res.metricaOrcamentos;
           this.cdr.detectChanges();
         });
 

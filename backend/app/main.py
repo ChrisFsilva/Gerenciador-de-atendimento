@@ -1008,11 +1008,14 @@ def dashboard_valores_orcamentos(
             ):
                 valor_mes += valor
 
+                metricaOrcamentos[vendedor.id]["orcamentos_mes"] += 1
+                metricaOrcamentos[vendedor.id]["valor_orcamentos_mes"] += valor
+
     return {
         "hoje": round(valor_hoje, 2),
         "mes": round(valor_mes, 2),
         "total": round(valor_total, 2),
-        "metricaOrcamentos": metricaOrcamentos
+        "metricaOrcamentos": list(metricaOrcamentos.values())
     }
 
 # ------------------------------------------

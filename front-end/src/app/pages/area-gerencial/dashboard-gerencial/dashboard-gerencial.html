@@ -196,17 +196,17 @@
 
                         <!-- TEMPORÁRIO -->
                         <td>
-                            R$ 2.500,00
+                            {{ formatarValor(vendedor.valor_orcamentos_hoje) }}
                         </td>
 
                         <!-- TEMPORÁRIO -->
                         <td>
-                            {{ cardsAtendimento.orcamentos_mes }}
+                            {{ vendedor.orcamentos_mes }}
                         </td>
 
                         <!-- TEMPORÁRIO -->
                         <td>
-                            R$ 18.750,00
+                            {{ formatarValor(vendedor.valor_orcamentos_mes) }}
                         </td>
 
                     </tr>
